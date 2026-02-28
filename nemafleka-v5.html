@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nema Fleka – profesionalno dubinsko čišćenje tepiha, kauča, madraca i automobila u Vrbovcu i Zagrebu. Brzo, ekološki, garantirano bez fleka.">
+  <title>Nema Fleka – Dubinsko Čišćenje | Vrbovec & Zagreb</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900;1000&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="nemafleka-v5.css">
+</head>
+<body>
+
+  <!-- ═══════════════════ SKIP LINK + SCROLL PROGRESS ═══════════════════ -->
+  <a href="#main-content" class="skip-link">Preskoči na sadržaj</a>
+  <div id="scroll-progress" role="progressbar" aria-label="Napredak čitanja stranice" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav class="main-nav" role="navigation" aria-label="Glavna navigacija">
+    <a href="#" class="nav-logo" aria-label="Nema Fleka – povratak na početak">
+      <img src="images/Original on transparent.png" alt="Nema Fleka logo" style="height:54px;width:auto;display:block">
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#usluge">Usluge</a></li>
+      <li><a href="#kako">Kako radimo</a></li>
+      <li><a href="#zona">Zona pokrivenosti</a></li>
+      <li><a href="#zasto">Zašto mi</a></li>
+      <li><a href="#recenzije">Recenzije</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <a href="#kontakt" class="btn-nav-cta" aria-label="Rezerviraj termin">Rezerviraj termin</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Otvori meni" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-overlay" aria-hidden="true"></div>
+
+  <!-- Mobile menu — side panel -->
+  <div id="mobile-menu" role="dialog" aria-label="Mobilna navigacija" aria-modal="true" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <div class="mobile-menu-header">
+        <span class="mobile-menu-label">Izbornik</span>
+      </div>
+      <ul class="mobile-links" role="list">
+        <li><a href="#usluge">Usluge</a></li>
+        <li><a href="#kako">Kako radimo</a></li>
+        <li><a href="#zona">Zona pokrivenosti</a></li>
+        <li><a href="#zasto">Zašto mi</a></li>
+        <li><a href="#recenzije">Recenzije</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <div class="mobile-menu-footer">
+        <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20%C4%8Di%C5%A1%C4%87enje!" class="m-cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Piši nam na WhatsApp
+        </a>
+        <p class="mobile-menu-hours">Pon–Pet 08–20 · Sub 09–18</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <main id="main-content">
+    <section class="hero" aria-label="Uvod – Nema Fleka dubinsko čišćenje">
+      <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow" aria-label="Lokacija usluge">
+            <span class="eyebrow-dot" aria-hidden="true"></span>Vrbovec &amp; Zagreb · Dubinsko čišćenje
+          </div>
+
+          <h1 class="hero-headline">
+            Tvoj kauč je<br>
+            <span class="strikethrough" aria-label="katastrofa (precrtano)">katastrofa.</span><br>
+            <span class="lime">Mi ga spašavamo.</span>
+          </h1>
+
+          <p class="hero-value-prop">
+            Tepisi, kauči, madraci, auti — <strong>čistoća profesionalne razine</strong> bez napuštanja doma. Ekološki, brzo, bez fleka. <strong>Garantirano.</strong>
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#kontakt" class="btn-primary" aria-label="Zatraži besplatnu procjenu čišćenja">Besplatna procjena →</a>
+            <a href="#usluge" class="btn-ghost-hero" aria-label="Pogledaj sve usluge">Pogledaj usluge</a>
+          </div>
+
+          <p class="hero-micro-trust" aria-label="Brza rezervacija i povrat novca">
+            ⚡ Potvrda za <span>60 sekundi</span> · 💯 Povrat novca ako nisi zadovoljan
+          </p>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-carousel">
+            <div class="hc-track" id="hc-track">
+              <div class="hc-slide active">
+                <img src="images/Beige Minimalist House Before After Instagram Post (4).png" alt="Dubinsko čišćenje auta — prije i nakon">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">PRIJE / NAKON</span>
+                  <span class="hc-caption-text">Auto transformacija</span>
+                </div>
+              </div>
+              <div class="hc-slide">
+                <img src="images/Beige Minimalist House Before After Instagram Post (5).png" alt="Dubinsko čišćenje kauča — prije i nakon">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">KAUČ</span>
+                  <span class="hc-caption-text">Kao nov nakon tretmana</span>
+                </div>
+              </div>
+              <div class="hc-slide">
+                <img src="images/madrac.png" alt="Čišćenje madraca — prije i nakon">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">MADRAC</span>
+                  <span class="hc-caption-text">Bez grinja i bakterija</span>
+                </div>
+              </div>
+              <div class="hc-slide">
+                <img src="images/Beige Minimalist House Before After Instagram Post.png" alt="Čišćenje fotelja — prije i nakon">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">FOTELJA</span>
+                  <span class="hc-caption-text">Opet kao nova</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hc-counter" id="hc-counter" aria-live="polite">1 / 4</div>
+
+            <div class="hc-progress">
+              <div class="hc-progress-fill" id="hc-progress-fill"></div>
+            </div>
+
+            <button class="hc-btn prev" id="hc-prev" aria-label="Prethodna slika">&#8249;</button>
+            <button class="hc-btn next" id="hc-next" aria-label="Sljedeća slika">&#8250;</button>
+
+            <div class="hc-dots" aria-label="Navigacija po slikama">
+              <button class="hc-dot active" aria-label="Slika 1" aria-selected="true"></button>
+              <button class="hc-dot" aria-label="Slika 2" aria-selected="false"></button>
+              <button class="hc-dot" aria-label="Slika 3" aria-selected="false"></button>
+              <button class="hc-dot" aria-label="Slika 4" aria-selected="false"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ TRUST BAR ═══════════════════ -->
+    <div class="trust-bar" role="complementary" aria-label="Razlozi povjerenja">
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">⭐</span>
+        <div class="trust-text">
+          <strong><span class="counter" data-target="1274">0</span>+ recenzija</strong>
+          <small>Prosječna ocjena 5.0 ★</small>
+        </div>
+      </div>
+      <span class="trust-divider" aria-hidden="true"></span>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">🛡️</span>
+        <div class="trust-text">
+          <strong>100% garancija</strong>
+          <small>Povrat novca ako nisi zadovoljan</small>
+        </div>
+      </div>
+      <span class="trust-divider" aria-hidden="true"></span>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">🌿</span>
+        <div class="trust-text">
+          <strong>Ekološka sredstva</strong>
+          <small>Sigurno za djecu i ljubimce</small>
+        </div>
+      </div>
+      <span class="trust-divider" aria-hidden="true"></span>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">👥</span>
+        <div class="trust-text">
+          <strong><span class="counter" data-target="500">0</span>+ klijenata</strong>
+          <small>Brzi dolazak u roku 24h</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ MARQUEE ═══════════════════ -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-inner">
+        <span class="marquee-item">KAUČI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">MADRACI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AUTOMOBILI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">NEMA FLEKA GARANTIRANO</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">VRBOVEC &amp; ZAGREB</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">TEPISI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">KAUČI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">MADRACI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AUTOMOBILI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">NEMA FLEKA GARANTIRANO</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">VRBOVEC &amp; ZAGREB</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">TEPISI</span><span class="marquee-sep">◆</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ SERVICES ═══════════════════ -->
+    <section class="services-section" id="usluge" aria-label="Naše usluge dubinskog čišćenja">
+      <div class="container">
+        <div class="chip-light">Naše usluge</div>
+        <h2 class="section-title">Što sve čistimo?</h2>
+        <p class="section-sub">Nema toga što je previše prljavo za nas. Ozbiljno — vidjeli smo svašta.</p>
+
+        <div class="services-grid">
+          <div class="service-card reveal reveal-d1">
+            <div class="service-num">01/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🛋️</div>
+            <div class="badge-popular">Najpopularnije</div>
+            <h3 class="service-name">Kauči &amp; namještaj</h3>
+            <p class="service-desc">Dubinsko pranje tapeciranog namještaja. Fleke od kave, blata, djece, mačaka — sve odlazi. Idealno za stanove, apartmane i urede.</p>
+            <span class="service-tag">Najtraženija usluga</span>
+          </div>
+
+          <div class="service-card reveal reveal-d2">
+            <div class="service-num">02/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🧹</div>
+            <h3 class="service-name">Tepisi &amp; podovi</h3>
+            <p class="service-desc">Ekstrakcijsko čišćenje koje izvlači prljavštinu iz dubine. Suho za 2–4 sata. Grinje? Bye bye. Dlake kućnih ljubimaca? Gone.</p>
+            <span class="service-tag">Suho za 2–4h</span>
+          </div>
+
+          <div class="service-card reveal reveal-d3">
+            <div class="service-num">03/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🚗</div>
+            <h3 class="service-name">Automobili</h3>
+            <p class="service-desc">Interijer izgledao kao da je vuk živio unutra? Dubinsko čišćenje sjedala, tepiha i gepeka + ručno pranje karoserije. Auto kao iz salona.</p>
+            <span class="service-tag">Interijer + eksterijer</span>
+          </div>
+
+          <div class="service-card reveal reveal-d4">
+            <div class="service-num">04/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🛏️</div>
+            <h3 class="service-name">Madraci</h3>
+            <p class="service-desc">Grinje na madracu su STVARNE. UV + ekstrakcija uklanja grinje, bakterije i alergene. Sigurno za djecu i kućne ljubimce. Spavaj čisto.</p>
+            <span class="service-tag">Sigurno za djecu</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ BEFORE / AFTER SLIDER ═══════════════════ -->
+    <section class="ba-section" id="rezultati" aria-label="Rezultati dubinskog čišćenja – before and after">
+      <div class="ba-inner">
+        <div class="ba-copy reveal">
+          <div class="chip-dark">Vizualni dokaz</div>
+          <h2 class="section-title">
+            Razlika koja<br>
+            <span class="title-highlight">govori sama</span><br>
+            za sebe.
+          </h2>
+          <p class="section-sub">Nije reklama — ovo su pravi rezultati. Povuci klizač i vidi transformaciju vlastitim očima.</p>
+        </div>
+
+        <div class="ba-tabs" role="tablist" aria-label="Odaberi kategoriju čišćenja">
+          <button class="ba-tab active" role="tab" aria-selected="true" data-slide="couch">Kauč</button>
+          <button class="ba-tab" role="tab" aria-selected="false" data-slide="mattress">Madrac</button>
+        </div>
+
+        <div class="ba-widget-wrap reveal reveal-d2">
+          <div class="ba-widget" id="ba-widget" role="img" aria-label="Usporedba kauča prije i nakon čišćenja">
+            <div class="ba-img ba-before">
+              <img src="images/IMG_0396.jpg" alt="Kauč prije čišćenja – prljav, istrošen">
+            </div>
+            <div class="ba-img ba-after" id="ba-after">
+              <img src="images/IMG_0388 (1).jpg" alt="Kauč nakon čišćenja – čist i svjež">
+            </div>
+            <span class="ba-label ba-label-before" aria-hidden="true">Prije</span>
+            <span class="ba-label ba-label-after" aria-hidden="true">Poslije</span>
+            <div class="ba-divider" id="ba-divider" aria-hidden="true">
+              <div class="ba-handle" id="ba-handle" role="slider" aria-label="Klizač za usporedbu" aria-valuemin="5" aria-valuemax="95" aria-valuenow="50" tabindex="0">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <polyline points="7,4 2,10 7,16" stroke="#fff" stroke-width="2" fill="none"/>
+                  <polyline points="13,4 18,10 13,16" stroke="#fff" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+            <p class="ba-hint" aria-hidden="true">Povuci klizač za usporedbu</p>
+          </div>
+        </div>
+
+        <div class="ba-stats">
+          <div class="ba-stat reveal reveal-d1">
+            <strong>98%</strong>
+            <span>Zadovoljnih klijenata</span>
+          </div>
+          <div class="ba-stat reveal reveal-d2">
+            <strong>2h</strong>
+            <span>Prosječno trajanje</span>
+          </div>
+          <div class="ba-stat reveal reveal-d3">
+            <strong>0</strong>
+            <span>Kemikalija na djeci</span>
+          </div>
+          <div class="ba-stat reveal reveal-d4">
+            <strong>100%</strong>
+            <span>Garancija povrata</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+    <section class="how-section" id="kako" aria-label="Kako funkcionira naš proces čišćenja">
+      <div class="container">
+        <div class="chip-dark">Kako radimo</div>
+        <h2 class="section-title">Jednostavno kao 1–2–3–4</h2>
+        <p class="section-sub">Nema kompliciranih procedura. Nazvati ćemo te, doći ćemo, očistiti i gotovo.</p>
+
+        <div class="timeline" id="timeline">
+          <div class="timeline-line" id="timeline-line"></div>
+
+          <div class="timeline-step reveal reveal-d1">
+            <div class="tl-num-wrap"><span class="tl-num">01</span></div>
+            <div class="tl-icon" aria-hidden="true">📞</div>
+            <h3 class="tl-title">Nazovi ili piši</h3>
+            <p class="tl-desc">Reci nam što trebaš počistiti. Damo ti besplatnu procjenu u roku od 30 minuta.</p>
+          </div>
+
+          <div class="timeline-step reveal reveal-d2">
+            <div class="tl-num-wrap"><span class="tl-num">02</span></div>
+            <div class="tl-icon" aria-hidden="true">📅</div>
+            <h3 class="tl-title">Dogovorimo termin</h3>
+            <p class="tl-desc">Fleksibilni smo. Jutro, popodne, vikendom — radimo kada tebi odgovara.</p>
+          </div>
+
+          <div class="timeline-step reveal reveal-d3">
+            <div class="tl-num-wrap"><span class="tl-num">03</span></div>
+            <div class="tl-icon" aria-hidden="true">🧹</div>
+            <h3 class="tl-title">Mi dolazimo &amp; čistimo</h3>
+            <p class="tl-desc">Profesionalna oprema, eco-friendly sredstva, tim koji zna što radi. Ti se samo odmori.</p>
+          </div>
+
+          <div class="timeline-step reveal reveal-d4">
+            <div class="tl-num-wrap"><span class="tl-num">04</span></div>
+            <div class="tl-icon" aria-hidden="true">✨</div>
+            <h3 class="tl-title">Uživaš u čistoći</h3>
+            <p class="tl-desc">Nema fleka. Nema mirisa. Nema bakterija. Samo čisto. Pa onda nam daš 5 zvjezdica.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ WHY US + PRICE CARD ═══════════════════ -->
+    <section class="why-section" id="zasto" aria-label="Zašto odabrati Nema Fleka">
+      <div class="container">
+        <div class="chip-light">Zašto mi</div>
+        <h2 class="section-title">Zašto baš Nema Fleka?</h2>
+        <p class="section-sub">Jer smo lokalni, brzi, pošteni — i zaista dobri u ovome što radimo.</p>
+
+        <div class="why-grid">
+          <div class="feature-list">
+            <div class="feature-item reveal reveal-d1">
+              <div class="feature-icon-box" aria-hidden="true">⚡</div>
+              <div>
+                <h3 class="feature-ttl">Brz dolazak, bez čekanja</h3>
+                <p class="feature-dsc">Pokrivamo Vrbovec, Zagreb i okolicu. Dogovaramo termin u roku 24h, bez višetjednog čekanja.</p>
+              </div>
+            </div>
+
+            <div class="feature-item reveal reveal-d2">
+              <div class="feature-icon-box" aria-hidden="true">🔧</div>
+              <div>
+                <h3 class="feature-ttl">Profesionalna oprema</h3>
+                <p class="feature-dsc">Industrijski ekstraktor i UV dezinfekcija. To ne možeš postići kućnim usisavačem, koliko god ga vrtio.</p>
+              </div>
+            </div>
+
+            <div class="feature-item reveal reveal-d3">
+              <div class="feature-icon-box" aria-hidden="true">🌿</div>
+              <div>
+                <h3 class="feature-ttl">Eco, sigurno za obitelj</h3>
+                <p class="feature-dsc">Ekološka sredstva koja su sigurna za djecu, ljubimce i alergičare. Bez opasnih kemikalija.</p>
+              </div>
+            </div>
+
+            <div class="feature-item reveal reveal-d4">
+              <div class="feature-icon-box" aria-hidden="true">💰</div>
+              <div>
+                <h3 class="feature-ttl">Cijena unaprijed, bez iznenađenja</h3>
+                <p class="feature-dsc">Kažemo ti cijenu prije dolaska. Nikad ne dodajemo skrivene troškove. Vjera na riječ.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-card reveal">
+            <div class="chip-light">Orijentacijski cjenik</div>
+            <h3 class="price-card-title">Transparentne cijene</h3>
+            <p class="price-card-sub">Finalna cijena nakon besplatne procjene. Nikad više od ovoga.</p>
+
+            <div class="price-table">
+              <div class="price-row">
+                <span class="p-name">Kauč (2-sjed)</span>
+                <span class="p-val">od 45€</span>
+              </div>
+              <div class="price-row">
+                <span class="p-name">Fotelja</span>
+                <span class="p-val">od 25€</span>
+              </div>
+              <div class="price-row">
+                <span class="p-name">Tepih (do 10m²)</span>
+                <span class="p-val">od 70€</span>
+              </div>
+              <div class="price-row">
+                <span class="p-name">Madrac (140×200)</span>
+                <span class="p-val">od 40€</span>
+              </div>
+              <div class="price-row">
+                <span class="p-name">Auto – interijer</span>
+                <span class="p-val">od 95€</span>
+              </div>
+              <div class="price-row best">
+                <span class="p-name">2+ usluge = popust do 20%</span>
+                <span class="p-val">-10–20%</span>
+              </div>
+            </div>
+
+            <div class="badge-strip">
+              <span class="badge">100% zadovoljstvo</span>
+              <span class="badge">Ekološki</span>
+              <span class="badge">Osigurani</span>
+            </div>
+
+            <a href="#kontakt" class="price-cta">Zatraži besplatnu procjenu →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+    <section class="testimonials-section" id="recenzije" aria-label="Recenzije zadovoljnih klijenata">
+      <div class="container">
+        <div class="chip-light">Recenzije</div>
+        <h2 class="section-title">Klijenti govore</h2>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal">
+            <div class="stars-svg" aria-label="5 od 5 zvjezdica">
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testimonial-text">Kauč mi je izgledao beznadežno — dječje fleke, pas, 5 godina starosti. Ostala sam bez teksta. Kao NOV! Profesionalni momci, preporučujem svima.</p>
+            <div class="testimonial-author-row">
+              <div class="avatar">A</div>
+              <div class="testimonial-meta">
+                <strong class="testimonial-name">Ana K.</strong>
+                <span class="testimonial-loc">Zagreb</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal">
+            <div class="stars-svg" aria-label="5 od 5 zvjezdica">
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testimonial-text">Auto mi je bio katastrofa iznutra — blato, djeca, kaos. Sada izgleda kao da sam ga upravo kupio iz salona. Vrijednost za novac je odlična.</p>
+            <div class="testimonial-author-row">
+              <div class="avatar">M</div>
+              <div class="testimonial-meta">
+                <strong class="testimonial-name">Marko P.</strong>
+                <span class="testimonial-loc">Vrbovec</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal">
+            <div class="stars-svg" aria-label="5 od 5 zvjezdica">
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testimonial-text">Imamo Airbnb apartman i ovi momci su nam spasili sezonu. Gosti oduševljeni, 5 zvjezdica u recenzijama. Stalni smo klijenti, dolaze svaki tjedan.</p>
+            <div class="testimonial-author-row">
+              <div class="avatar">I</div>
+              <div class="testimonial-meta">
+                <strong class="testimonial-name">Ivana &amp; Tomislav</strong>
+                <span class="testimonial-loc">Zagreb — Airbnb domaćini</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="reviews-link reveal">
+          <a href="https://g.co/kgs/placeholder" target="_blank" rel="noopener">Pročitaj svih 1,274 recenzija na Google-u →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ COVERAGE MAP ═══════════════════ -->
+    <section class="map-section" id="zona" aria-label="Zona pokrivenosti – Vrbovec i okolica">
+      <div class="map-inner">
+        <div class="map-copy">
+          <div class="chip-dark">Zona pokrivenosti</div>
+          <h2 class="section-title">
+            Dolazimo<br>do <span class="title-highlight">tebe.</span>
+          </h2>
+          <p class="section-sub">Pokrivamo Vrbovec, Zagreb i sve gradove i mjesta unutar 40 km. Besplatna procjena na licu mjesta.</p>
+
+          <div class="map-bullets">
+            <div class="map-bullet"><span class="map-bullet-dot"></span>Vrbovec i sva okolna mjesta</div>
+            <div class="map-bullet"><span class="map-bullet-dot"></span>Zagreb, Sesvete, Dugo Selo, Križ</div>
+            <div class="map-bullet"><span class="map-bullet-dot"></span>Bjelovar, Koprivnica, Sisak (na upit)</div>
+            <div class="map-bullet"><span class="map-bullet-dot"></span>Dostupni 7 dana u tjednu, 8–20h</div>
+          </div>
+
+          <a href="#kalkulator" class="btn-primary" aria-label="Provjeri dostupnost u tvom gradu">Provjeri svoju lokaciju</a>
+        </div>
+
+        <div id="coverage-map" aria-label="Interaktivna karta zone pokrivenosti"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ PRICE CALCULATOR ═══════════════════ -->
+    <section class="calc-section" id="kalkulator" aria-label="Kalkulator cijena dubinskog čišćenja">
+      <div class="container">
+        <div class="chip-dark">Kalkulator cijena</div>
+        <h2 class="section-title">Izračunaj svoju <span class="title-highlight">cijenu</span></h2>
+        <p class="section-sub">Odaberi usluge, unesi lokaciju — dobij procjenu u sekundi. Više stavki = veći popust!</p>
+
+        <div class="calc-card">
+          <!-- Step 1 — Address -->
+          <div class="calc-step" id="calc-step-1">
+            <div class="calc-step-header">
+              <div class="calc-step-num">1</div>
+              <div class="calc-step-title">Unesi adresu ili grad</div>
+            </div>
+            <div class="calc-address-row">
+              <input type="text" class="calc-address-input" id="calc-address" placeholder="npr. Ilica 50, Zagreb" aria-label="Unesi adresu za izračun udaljenosti">
+              <button class="calc-search-btn" id="calc-search" aria-label="Pretraži adresu">Pretraži</button>
+            </div>
+            <div class="calc-distance-result" id="calc-distance" aria-live="polite"></div>
+          </div>
+
+          <!-- Step 2 — Services (multi-select) -->
+          <div class="calc-step" id="calc-step-2">
+            <div class="calc-step-header">
+              <div class="calc-step-num">2</div>
+              <div class="calc-step-title">Odaberi usluge</div>
+            </div>
+            <p class="calc-hint">Odaberi jednu ili više stavki za čišćenje</p>
+            <div class="calc-service-grid" role="group" aria-label="Odaberi vrste usluga">
+              <div class="calc-service-card" data-service="couch" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">🛋️</span>
+                <div class="calc-service-name">Kauč</div>
+                <div class="calc-service-price">od 45€</div>
+              </div>
+              <div class="calc-service-card" data-service="armchair" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">💺</span>
+                <div class="calc-service-name">Fotelja</div>
+                <div class="calc-service-price">od 25€</div>
+              </div>
+              <div class="calc-service-card" data-service="chair" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">🪑</span>
+                <div class="calc-service-name">Stolica</div>
+                <div class="calc-service-price">od 8€</div>
+              </div>
+              <div class="calc-service-card" data-service="ottoman" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">🟫</span>
+                <div class="calc-service-name">Tabure</div>
+                <div class="calc-service-price">od 15€</div>
+              </div>
+              <div class="calc-service-card" data-service="carpet" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">🧹</span>
+                <div class="calc-service-name">Tepih</div>
+                <div class="calc-service-price">od 70€</div>
+              </div>
+              <div class="calc-service-card" data-service="mattress" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">🛏️</span>
+                <div class="calc-service-name">Madrac</div>
+                <div class="calc-service-price">od 30€</div>
+              </div>
+              <div class="calc-service-card" data-service="car" role="checkbox" aria-checked="false" tabindex="0">
+                <span class="calc-service-icon">🚗</span>
+                <div class="calc-service-name">Auto</div>
+                <div class="calc-service-price">od 95€</div>
+              </div>
+            </div>
+            <div class="calc-discount-tiers" aria-label="Popusti za više usluga">
+              <span class="calc-tier">2 usluge: <strong>-10%</strong></span>
+              <span class="calc-tier">3 usluge: <strong>-15%</strong></span>
+              <span class="calc-tier">5+ usluga: <strong>-20%</strong></span>
+            </div>
+          </div>
+
+          <!-- Step 3 — Sizes / Details -->
+          <div class="calc-step" id="calc-step-3">
+            <div class="calc-step-header">
+              <div class="calc-step-num">3</div>
+              <div class="calc-step-title">Odaberi detalje</div>
+            </div>
+            <div class="calc-size-options" id="calc-sizes">
+              <div class="calc-size-group" id="size-couch" data-service="couch">
+                <div class="calc-size-label">Kauč — tip</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="45">2-sjed</button>
+                  <button class="calc-size-btn" data-price="55">3-sjed</button>
+                  <button class="calc-size-btn" data-price="65">L garnitura</button>
+                  <button class="calc-size-btn" data-price="95">U garnitura</button>
+                </div>
+              </div>
+              <div class="calc-size-group" id="size-armchair" data-service="armchair">
+                <div class="calc-size-label">Fotelja — količina</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="25">1 kom</button>
+                  <button class="calc-size-btn" data-price="50">2 kom</button>
+                  <button class="calc-size-btn" data-price="75">3 kom</button>
+                </div>
+              </div>
+              <div class="calc-size-group" id="size-chair" data-service="chair">
+                <div class="calc-size-label">Stolica — količina</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="8">1 kom</button>
+                  <button class="calc-size-btn" data-price="16">2 kom</button>
+                  <button class="calc-size-btn" data-price="30">4 kom</button>
+                  <button class="calc-size-btn" data-price="42">6 kom</button>
+                </div>
+              </div>
+              <div class="calc-size-group" id="size-ottoman" data-service="ottoman">
+                <div class="calc-size-label">Tabure — količina</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="15">1 kom</button>
+                  <button class="calc-size-btn" data-price="28">2 kom</button>
+                  <button class="calc-size-btn" data-price="40">3+ kom</button>
+                </div>
+              </div>
+              <div class="calc-size-group" id="size-carpet" data-service="carpet">
+                <div class="calc-size-label">Tepih — površina</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="70">do 10 m²</button>
+                  <button class="calc-size-btn" data-price="105">10–20 m²</button>
+                  <button class="calc-size-btn" data-price="150">20+ m²</button>
+                </div>
+              </div>
+              <div class="calc-size-group" id="size-mattress" data-service="mattress">
+                <div class="calc-size-label">Madrac — veličina</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="30">90×200</button>
+                  <button class="calc-size-btn" data-price="40">140×200</button>
+                  <button class="calc-size-btn" data-price="50">160×200</button>
+                  <button class="calc-size-btn" data-price="50">180×200</button>
+                </div>
+              </div>
+              <div class="calc-size-group" id="size-car" data-service="car">
+                <div class="calc-size-label">Auto — tip</div>
+                <div class="calc-size-btns">
+                  <button class="calc-size-btn" data-price="95">Mali auto</button>
+                  <button class="calc-size-btn" data-price="110">Srednji</button>
+                  <button class="calc-size-btn" data-price="130">SUV / Kombi</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result panel -->
+          <div class="calc-result" id="calc-result">
+            <div class="calc-result-items" id="calc-items"></div>
+            <div class="calc-result-discount" id="calc-discount"></div>
+            <div class="calc-result-label">Procijenjena cijena</div>
+            <div class="calc-result-price" id="calc-total">—</div>
+            <div class="calc-result-savings" id="calc-savings"></div>
+            <div class="calc-result-breakdown" id="calc-breakdown"></div>
+            <a href="https://wa.me/385953765343" class="calc-result-cta" id="calc-wa-link" target="_blank" rel="noopener" aria-label="Zatraži točnu ponudu na WhatsApp">
+              Zatraži točnu ponudu na WhatsApp →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ FAQ ═══════════════════ -->
+    <section class="faq-section" id="faq" aria-label="Često postavljana pitanja">
+      <div class="container">
+        <div class="faq-grid">
+          <div class="faq-sticky">
+            <div class="faq-badge">Često pitanja</div>
+            <h3 class="faq-side-title">Imaš pitanja? Mi imamo odgovore.</h3>
+            <p class="faq-side-desc">Nismo pronašli pitanje na koje nismo odgovorili — ako ga ti imaš, javi se. Odgovaramo brzo.</p>
+            <a href="https://wa.me/385953765343" class="faq-cta-link">Pitaj nas direktno →</a>
+          </div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
+                <span>Koliko traje dubinsko čišćenje?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer" id="faq-1">
+                <div class="faq-answer-inner">Ovisi o veličini i stupnju prljavštine. Kauč traje 45–90 minuta, tepih oko 30–60 minuta po m², a auto 60–120 minuta. Madraci su gotovi za 45–75 minuta. Dajemo točnu procjenu pri dogovoru — bez iznenađenja.</div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
+                <span>Dolazite li na kućnu adresu?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer" id="faq-2">
+                <div class="faq-answer-inner">Da, dolazimo k tebi — ne trebaš nikamo voziti ni nositi. Pokrivamo Vrbovec, Zagreb i okolicu. Sve što trebaš jest slobodan termin i pristup prostoriji.</div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
+                <span>Jesu li sredstva sigurna za djecu i kućne ljubimce?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer" id="faq-3">
+                <div class="faq-answer-inner">Apsolutno. Koristimo isključivo ekološki certificirana sredstva koja su sigurna za djecu, kućne ljubimce i alergičare. Bez agresivnih kemikalija, bez jakih mirisa.</div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
+                <span>Kad mogu koristiti kauč/tepih/auto nakon čišćenja?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer" id="faq-4">
+                <div class="faq-answer-inner">Sušenje traje 2–6 sati ovisno o ventilaciji i veličini. Preporučamo prozračivanje prostorije. Auto je suši brže — obično je gotov za 1–3 sata. Ljeti sve ide brže.</div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-5">
+                <span>Što ako fleka ne izađe u potpunosti?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer" id="faq-5">
+                <div class="faq-answer-inner">Nudimo garanciju zadovoljstva — ako nisi zadovoljan rezultatom, dolazimo besplatno ponovo ili vraćamo novac. Stojimo iza naše kvalitete, i to bez sitnih slova u uvjetima.</div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-6">
+                <span>Kako mogu rezervirati termin?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer" id="faq-6">
+                <div class="faq-answer-inner">Najbrže je pisati nam na WhatsApp — odgovaramo u roku 30 minuta. Možeš nas kontaktirati i direktno na broj. Potvrda za 60 sekundi.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CTA / CONTACT ═══════════════════ -->
+    <section class="cta-section" id="kontakt" aria-label="Kontaktirajte nas za besplatnu procjenu">
+      <div class="cta-rings" aria-hidden="true">
+        <div class="cta-ring"></div>
+        <div class="cta-ring"></div>
+      </div>
+
+      <div class="container">
+        <div class="chip-dark">WhatsApp</div>
+        <h2 class="section-title">Jedna poruka — mi se javimo!</h2>
+        <p class="section-sub">Piši nam na WhatsApp i dogovaramo besplatnu procjenu za tvoj prostor.</p>
+
+        <div class="cta-live-badge">
+          <span class="cta-live-dot"></span>Dostupni odmah · Odgovor za 30 min
+        </div>
+
+        <div class="cta-trust-row">
+          <span class="chip-dark">4.9 / 5</span>
+          <span class="chip-dark">Garancija</span>
+          <span class="chip-dark">500+ klijenata</span>
+        </div>
+
+        <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20čišćenje.%20Možete%20li%20mi%20dati%20besplatnu%20procjenu?" class="cta-wa-btn" target="_blank" rel="noopener" aria-label="Kontaktiraj nas na WhatsApp za besplatnu procjenu">
+          <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Piši nam na WhatsApp
+        </a>
+
+        <p class="cta-micro">Odgovaramo za 30 sekundi · Bez obveza</p>
+
+        <div class="cta-contacts">
+          <a href="tel:+385953765343">Karlo: 095 376 5343</a>
+          <a href="tel:+385916184796">Ivan: 091 618 4796</a>
+          <a href="mailto:nemafleka@gmail.com">nemafleka@gmail.com</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer>
+    <!-- Footer CTA banner -->
+    <div class="footer-cta-banner">
+      <div class="footer-cta-inner">
+        <div class="footer-cta-content">
+          <span class="footer-cta-chip">-10% na prvu uslugu</span>
+          <h3 class="footer-cta-headline">Spreman za čistoću?</h3>
+          <p class="footer-cta-sub">Javi se i dogovaramo termin u roku 60 sekundi.</p>
+        </div>
+        <div class="footer-cta-actions">
+          <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20%C4%8Di%C5%A1%C4%87enje%20%E2%80%94%2010%25%20popusta%20na%20prvu%20uslugu!" class="footer-cta-btn" target="_blank" rel="noopener" aria-label="Kontaktiraj nas na WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Piši nam na WhatsApp
+          </a>
+          <a href="tel:+385953765343" class="footer-cta-phone" aria-label="Nazovi Karla">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            095 376 5343
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer main content -->
+    <div class="footer-main">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <a href="#" class="footer-logo" aria-label="Nema Fleka – povratak na vrh">
+            <img src="images/Original on transparent.png" alt="Nema Fleka logo" style="height:44px;width:auto;display:block">
+          </a>
+          <p class="footer-tagline">Profesionalno dubinsko čišćenje koje vraća sjaj vašem domu.</p>
+          <div class="footer-proof">
+            <div class="footer-proof-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--lime)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>4.9 / 5</span>
+            </div>
+            <span class="footer-proof-clients">500+ zadovoljnih klijenata</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">Navigacija</h4>
+          <ul class="footer-nav">
+            <li><a href="#usluge">Usluge</a></li>
+            <li><a href="#kako">Kako funkcionira</a></li>
+            <li><a href="#zona">Zona pokrivenosti</a></li>
+            <li><a href="#faq">Česta pitanja</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">Kontakt</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </span>
+              <a href="tel:+385953765343">Karlo: 095 376 5343</a>
+            </li>
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </span>
+              <a href="tel:+385916184796">Ivan: 091 618 4796</a>
+            </li>
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </span>
+              <a href="mailto:nemafleka@gmail.com">nemafleka@gmail.com</a>
+            </li>
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </span>
+              <a href="https://wa.me/385953765343">WhatsApp poruka</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">Radno vrijeme</h4>
+          <div class="footer-hours">
+            <div class="footer-hours-row">
+              <span>Pon – Pet</span>
+              <span>08:00 – 20:00</span>
+            </div>
+            <div class="footer-hours-row alt">
+              <span>Subota</span>
+              <span>09:00 – 18:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Nedjelja</span>
+              <span>Po dogovoru</span>
+            </div>
+          </div>
+          <div class="footer-area">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Vrbovec + 35 km
+            <small>Zagreb i okolica</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer bottom -->
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy;2026 nemafleka.com — Sva prava pridržana</span>
+      <a href="#" class="footer-top-link" aria-label="Povratak na vrh stranice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+        Na vrh
+      </a>
+      <span class="footer-made">Izrađeno s &#10084;&#65039; u Hrvatskoj</span>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════ FLOATING ELEMENTS ═══════════════════ -->
+  <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20čišćenje%20—%2010%%20popusta%20na%20prvu%20uslugu!" class="wa-float" target="_blank" rel="noopener" aria-label="Kontaktiraj nas na WhatsApp – 10% popusta na prvu uslugu">
+    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span>WhatsApp</span>
+    <span class="wa-discount">-10% na prvu uslugu</span>
+  </a>
+
+  <button id="back-top" aria-label="Povratak na vrh stranice" title="Na vrh">&#8593;</button>
+
+  <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="nemafleka-v5.js"></script>
+</body>
+</html>
