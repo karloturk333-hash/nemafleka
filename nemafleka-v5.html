@@ -214,153 +214,191 @@
       <div class="container">
         <div class="chip-dark">Kalkulator cijena</div>
         <h2 class="section-title">Izračunaj svoju <span class="title-highlight">cijenu</span></h2>
-        <p class="section-sub">Odaberi usluge, unesi lokaciju — dobij procjenu u sekundi. Više stavki = veći popust!</p>
+        <p class="section-sub">Odaberi usluge, unesi lokaciju — dobij procjenu u sekundi.</p>
 
         <div class="calc-card">
-          <!-- Step 1 — Address -->
-          <div class="calc-step" id="calc-step-1">
-            <div class="calc-step-header">
-              <div class="calc-step-num">1</div>
-              <div class="calc-step-title">Unesi adresu ili grad</div>
+          <!-- Progress bar -->
+          <div class="wizard-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" aria-label="Korak 1 od 3">
+            <div class="wizard-progress-segment active" data-step="1">
+              <div class="wizard-progress-bar"></div>
+              <span class="wizard-progress-label">Usluge</span>
             </div>
-            <div class="calc-address-row">
-              <input type="text" class="calc-address-input" id="calc-address" placeholder="npr. Ilica 50, Zagreb" aria-label="Unesi adresu za izračun udaljenosti">
-              <button class="calc-search-btn" id="calc-search" aria-label="Pretraži adresu">Pretraži</button>
+            <div class="wizard-progress-segment" data-step="2">
+              <div class="wizard-progress-bar"></div>
+              <span class="wizard-progress-label">Lokacija</span>
             </div>
-            <div class="calc-distance-result" id="calc-distance" aria-live="polite"></div>
-          </div>
-
-          <!-- Step 2 — Services (multi-select) -->
-          <div class="calc-step" id="calc-step-2">
-            <div class="calc-step-header">
-              <div class="calc-step-num">2</div>
-              <div class="calc-step-title">Odaberi usluge</div>
-            </div>
-            <p class="calc-hint">Odaberi jednu ili više stavki za čišćenje</p>
-            <div class="calc-service-grid" role="group" aria-label="Odaberi vrste usluga">
-              <div class="calc-service-card" data-service="couch" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">🛋️</span>
-                <div class="calc-service-name">Kauč</div>
-                <div class="calc-service-price">od 45€</div>
-              </div>
-              <div class="calc-service-card" data-service="armchair" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">💺</span>
-                <div class="calc-service-name">Fotelja</div>
-                <div class="calc-service-price">od 25€</div>
-              </div>
-              <div class="calc-service-card" data-service="chair" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">🪑</span>
-                <div class="calc-service-name">Stolica</div>
-                <div class="calc-service-price">od 8€</div>
-              </div>
-              <div class="calc-service-card" data-service="ottoman" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">🟫</span>
-                <div class="calc-service-name">Tabure</div>
-                <div class="calc-service-price">od 15€</div>
-              </div>
-              <div class="calc-service-card" data-service="carpet" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">🧹</span>
-                <div class="calc-service-name">Tepih</div>
-                <div class="calc-service-price">od 70€</div>
-              </div>
-              <div class="calc-service-card" data-service="mattress" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">🛏️</span>
-                <div class="calc-service-name">Madrac</div>
-                <div class="calc-service-price">od 30€</div>
-              </div>
-              <div class="calc-service-card" data-service="car" role="checkbox" aria-checked="false" tabindex="0">
-                <span class="calc-service-icon">🚗</span>
-                <div class="calc-service-name">Auto</div>
-                <div class="calc-service-price">od 95€</div>
-              </div>
-            </div>
-            <div class="calc-discount-tiers" aria-label="Popusti za više usluga">
-              <span class="calc-tier">2 usluge: <strong>-10%</strong></span>
-              <span class="calc-tier">3 usluge: <strong>-15%</strong></span>
-              <span class="calc-tier">5+ usluga: <strong>-20%</strong></span>
+            <div class="wizard-progress-segment" data-step="3">
+              <div class="wizard-progress-bar"></div>
+              <span class="wizard-progress-label">Ponuda</span>
             </div>
           </div>
 
-          <!-- Step 3 — Sizes / Details -->
-          <div class="calc-step" id="calc-step-3">
-            <div class="calc-step-header">
-              <div class="calc-step-num">3</div>
-              <div class="calc-step-title">Odaberi detalje</div>
+          <!-- Wizard steps container -->
+          <div class="wizard-steps" aria-live="polite">
+
+            <!-- Step 1: Services + Sizes -->
+            <div class="wizard-step active" data-step="1">
+              <div class="calc-step-header">
+                <div class="calc-step-num">1</div>
+                <div class="calc-step-title">Što čistimo?</div>
+              </div>
+              <p class="calc-hint">Odaberi jednu ili više stavki, zatim odaberi detalje</p>
+
+              <div class="calc-service-grid" role="group" aria-label="Odaberi vrste usluga">
+                <div class="calc-service-card" data-service="couch" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">🛋️</span>
+                  <div class="calc-service-name">Kauč</div>
+                  <div class="calc-service-price">od 45€</div>
+                </div>
+                <div class="calc-service-card" data-service="armchair" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">💺</span>
+                  <div class="calc-service-name">Fotelja</div>
+                  <div class="calc-service-price">od 25€</div>
+                </div>
+                <div class="calc-service-card" data-service="chair" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">🪑</span>
+                  <div class="calc-service-name">Stolica</div>
+                  <div class="calc-service-price">od 8€</div>
+                </div>
+                <div class="calc-service-card" data-service="ottoman" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">🟫</span>
+                  <div class="calc-service-name">Tabure</div>
+                  <div class="calc-service-price">od 15€</div>
+                </div>
+                <div class="calc-service-card" data-service="carpet" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">🧹</span>
+                  <div class="calc-service-name">Tepih</div>
+                  <div class="calc-service-price">od 70€</div>
+                </div>
+                <div class="calc-service-card" data-service="mattress" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">🛏️</span>
+                  <div class="calc-service-name">Madrac</div>
+                  <div class="calc-service-price">od 30€</div>
+                </div>
+                <div class="calc-service-card" data-service="car" role="checkbox" aria-checked="false" tabindex="0">
+                  <span class="calc-service-check" aria-hidden="true"></span>
+                  <span class="calc-service-icon">🚗</span>
+                  <div class="calc-service-name">Auto</div>
+                  <div class="calc-service-price">od 95€</div>
+                </div>
+              </div>
+
+              <!-- Size groups (expand inline below cards when service selected) -->
+              <div class="calc-size-options" id="calc-sizes">
+                <div class="calc-size-group" id="size-couch" data-service="couch">
+                  <div class="calc-size-label">Kauč — tip</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi tip kauča">
+                    <button class="calc-size-btn" data-price="45" role="radio" aria-checked="false">2-sjed</button>
+                    <button class="calc-size-btn" data-price="55" role="radio" aria-checked="false">3-sjed</button>
+                    <button class="calc-size-btn" data-price="65" role="radio" aria-checked="false">L garnitura</button>
+                    <button class="calc-size-btn" data-price="95" role="radio" aria-checked="false">U garnitura</button>
+                  </div>
+                </div>
+                <div class="calc-size-group" id="size-armchair" data-service="armchair">
+                  <div class="calc-size-label">Fotelja — količina</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi količinu fotelja">
+                    <button class="calc-size-btn" data-price="25" role="radio" aria-checked="false">1 kom</button>
+                    <button class="calc-size-btn" data-price="50" role="radio" aria-checked="false">2 kom</button>
+                    <button class="calc-size-btn" data-price="75" role="radio" aria-checked="false">3 kom</button>
+                  </div>
+                </div>
+                <div class="calc-size-group" id="size-chair" data-service="chair">
+                  <div class="calc-size-label">Stolica — količina</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi količinu stolica">
+                    <button class="calc-size-btn" data-price="8" role="radio" aria-checked="false">1 kom</button>
+                    <button class="calc-size-btn" data-price="16" role="radio" aria-checked="false">2 kom</button>
+                    <button class="calc-size-btn" data-price="30" role="radio" aria-checked="false">4 kom</button>
+                    <button class="calc-size-btn" data-price="42" role="radio" aria-checked="false">6 kom</button>
+                  </div>
+                </div>
+                <div class="calc-size-group" id="size-ottoman" data-service="ottoman">
+                  <div class="calc-size-label">Tabure — količina</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi količinu tabura">
+                    <button class="calc-size-btn" data-price="15" role="radio" aria-checked="false">1 kom</button>
+                    <button class="calc-size-btn" data-price="28" role="radio" aria-checked="false">2 kom</button>
+                    <button class="calc-size-btn" data-price="40" role="radio" aria-checked="false">3+ kom</button>
+                  </div>
+                </div>
+                <div class="calc-size-group" id="size-carpet" data-service="carpet">
+                  <div class="calc-size-label">Tepih — površina</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi površinu tepiha">
+                    <button class="calc-size-btn" data-price="70" role="radio" aria-checked="false">do 10 m²</button>
+                    <button class="calc-size-btn" data-price="105" role="radio" aria-checked="false">10–20 m²</button>
+                    <button class="calc-size-btn" data-price="150" role="radio" aria-checked="false">20+ m²</button>
+                  </div>
+                </div>
+                <div class="calc-size-group" id="size-mattress" data-service="mattress">
+                  <div class="calc-size-label">Madrac — veličina</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi veličinu madraca">
+                    <button class="calc-size-btn" data-price="30" role="radio" aria-checked="false">90×200</button>
+                    <button class="calc-size-btn" data-price="40" role="radio" aria-checked="false">140×200</button>
+                    <button class="calc-size-btn" data-price="50" role="radio" aria-checked="false">160×200</button>
+                    <button class="calc-size-btn" data-price="50" role="radio" aria-checked="false">180×200</button>
+                  </div>
+                </div>
+                <div class="calc-size-group" id="size-car" data-service="car">
+                  <div class="calc-size-label">Auto — tip</div>
+                  <div class="calc-size-btns" role="radiogroup" aria-label="Odaberi tip automobila">
+                    <button class="calc-size-btn" data-price="95" role="radio" aria-checked="false">Mali auto</button>
+                    <button class="calc-size-btn" data-price="110" role="radio" aria-checked="false">Srednji</button>
+                    <button class="calc-size-btn" data-price="130" role="radio" aria-checked="false">SUV / Kombi</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="calc-discount-tiers" aria-label="Popusti za više usluga">
+                <span class="calc-tier">2 usluge: <strong>-10%</strong></span>
+                <span class="calc-tier">3 usluge: <strong>-15%</strong></span>
+                <span class="calc-tier">5+ usluga: <strong>-20%</strong></span>
+              </div>
             </div>
-            <div class="calc-size-options" id="calc-sizes">
-              <div class="calc-size-group" id="size-couch" data-service="couch">
-                <div class="calc-size-label">Kauč — tip</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="45">2-sjed</button>
-                  <button class="calc-size-btn" data-price="55">3-sjed</button>
-                  <button class="calc-size-btn" data-price="65">L garnitura</button>
-                  <button class="calc-size-btn" data-price="95">U garnitura</button>
-                </div>
+
+            <!-- Step 2: Location -->
+            <div class="wizard-step" data-step="2">
+              <div class="calc-step-header">
+                <div class="calc-step-num">2</div>
+                <div class="calc-step-title">Gdje se nalaziš?</div>
               </div>
-              <div class="calc-size-group" id="size-armchair" data-service="armchair">
-                <div class="calc-size-label">Fotelja — količina</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="25">1 kom</button>
-                  <button class="calc-size-btn" data-price="50">2 kom</button>
-                  <button class="calc-size-btn" data-price="75">3 kom</button>
-                </div>
+              <p class="calc-hint">Opcionalno — za izračun troškova dolaska</p>
+              <div class="calc-address-row">
+                <input type="text" class="calc-address-input" id="calc-address" placeholder="npr. Ilica 50, Zagreb" aria-label="Unesi adresu za izračun udaljenosti">
+                <button class="calc-search-btn" id="calc-search" aria-label="Pretraži adresu">Pretraži</button>
               </div>
-              <div class="calc-size-group" id="size-chair" data-service="chair">
-                <div class="calc-size-label">Stolica — količina</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="8">1 kom</button>
-                  <button class="calc-size-btn" data-price="16">2 kom</button>
-                  <button class="calc-size-btn" data-price="30">4 kom</button>
-                  <button class="calc-size-btn" data-price="42">6 kom</button>
-                </div>
+              <div class="calc-distance-result" id="calc-distance" aria-live="polite"></div>
+            </div>
+
+            <!-- Step 3: Quote -->
+            <div class="wizard-step" data-step="3">
+              <div class="calc-step-header">
+                <div class="calc-step-num">3</div>
+                <div class="calc-step-title">Tvoja ponuda</div>
               </div>
-              <div class="calc-size-group" id="size-ottoman" data-service="ottoman">
-                <div class="calc-size-label">Tabure — količina</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="15">1 kom</button>
-                  <button class="calc-size-btn" data-price="28">2 kom</button>
-                  <button class="calc-size-btn" data-price="40">3+ kom</button>
-                </div>
-              </div>
-              <div class="calc-size-group" id="size-carpet" data-service="carpet">
-                <div class="calc-size-label">Tepih — površina</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="70">do 10 m²</button>
-                  <button class="calc-size-btn" data-price="105">10–20 m²</button>
-                  <button class="calc-size-btn" data-price="150">20+ m²</button>
-                </div>
-              </div>
-              <div class="calc-size-group" id="size-mattress" data-service="mattress">
-                <div class="calc-size-label">Madrac — veličina</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="30">90×200</button>
-                  <button class="calc-size-btn" data-price="40">140×200</button>
-                  <button class="calc-size-btn" data-price="50">160×200</button>
-                  <button class="calc-size-btn" data-price="50">180×200</button>
-                </div>
-              </div>
-              <div class="calc-size-group" id="size-car" data-service="car">
-                <div class="calc-size-label">Auto — tip</div>
-                <div class="calc-size-btns">
-                  <button class="calc-size-btn" data-price="95">Mali auto</button>
-                  <button class="calc-size-btn" data-price="110">Srednji</button>
-                  <button class="calc-size-btn" data-price="130">SUV / Kombi</button>
-                </div>
+              <div class="calc-result visible" id="calc-result">
+                <div class="calc-result-items" id="calc-items"></div>
+                <div class="calc-result-discount" id="calc-discount"></div>
+                <div class="calc-result-label">Procijenjena cijena</div>
+                <div class="calc-result-price" id="calc-total">—</div>
+                <div class="calc-result-savings" id="calc-savings"></div>
+                <div class="calc-result-breakdown" id="calc-breakdown"></div>
+                <a href="https://wa.me/385953765343" class="calc-result-cta" id="calc-wa-link" target="_blank" rel="noopener" aria-label="Zatraži točnu ponudu na WhatsApp">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  Zatraži točnu ponudu na WhatsApp
+                </a>
               </div>
             </div>
+
           </div>
 
-          <!-- Result panel -->
-          <div class="calc-result" id="calc-result">
-            <div class="calc-result-items" id="calc-items"></div>
-            <div class="calc-result-discount" id="calc-discount"></div>
-            <div class="calc-result-label">Procijenjena cijena</div>
-            <div class="calc-result-price" id="calc-total">—</div>
-            <div class="calc-result-savings" id="calc-savings"></div>
-            <div class="calc-result-breakdown" id="calc-breakdown"></div>
-            <a href="https://wa.me/385953765343" class="calc-result-cta" id="calc-wa-link" target="_blank" rel="noopener" aria-label="Zatraži točnu ponudu na WhatsApp">
-              Zatraži točnu ponudu na WhatsApp →
-            </a>
+          <!-- Wizard navigation -->
+          <div class="wizard-nav">
+            <button class="wizard-back" id="wizard-back" aria-label="Natrag na prethodni korak" style="visibility:hidden">← Natrag</button>
+            <button class="wizard-next btn-primary" id="wizard-next" aria-label="Idi na korak 2: Lokacija" disabled>Dalje →</button>
           </div>
         </div>
       </div>
