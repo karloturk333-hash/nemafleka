@@ -1002,6 +1002,7 @@ window.addEventListener('resize', _debounce(function () {
     if (keys.length === 0) {
       totalEl.textContent = '—';
       itemsEl.innerHTML = '';
+      if (resultEl) resultEl.classList.remove('visible');
       discountEl.innerHTML = '';
       savingsEl.textContent = '';
       breakdownEl.textContent = '';
@@ -1090,6 +1091,9 @@ window.addEventListener('resize', _debounce(function () {
     if (waLink) {
       waLink.href = 'https://wa.me/385953765343?text=' + encodeURIComponent(msg);
     }
+
+    /* Show result panel with animation */
+    if (resultEl) resultEl.classList.add('visible');
   }
 
   /* ---- Animated price counter ---- */
@@ -1259,4 +1263,64 @@ window.addEventListener('resize', _debounce(function () {
 
   /* ---- Init ---- */
   updateValidation();
+}());
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. PROMO POPUP — Scroll-triggered, once per session
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  var overlay = document.getElementById('promo-overlay');
+  var popup   = document.getElementById('promo-popup');
+  var closeBtn = document.getElementById('promo-close');
+
+  if (!overlay || !popup || !closeBtn) return;
+
+  /* Skip if already dismissed this session */
+  try {
+    if (sessionStorage.getItem('nf-promo-dismissed')) return;
+  } catch (e) { /* storage unavailable — show anyway */ }
+
+  var shown = false;
+
+  function showPopup() {
+    if (shown) return;
+    shown = true;
+    overlay.classList.add('visible');
+    popup.classList.add('visible');
+    overlay.setAttribute('aria-hidden', 'false');
+    popup.setAttribute('aria-hidden', 'false');
+    closeBtn.focus();
+  }
+
+  function hidePopup() {
+    overlay.classList.remove('visible');
+    popup.classList.remove('visible');
+    overlay.setAttribute('aria-hidden', 'true');
+    popup.setAttribute('aria-hidden', 'true');
+    try { sessionStorage.setItem('nf-promo-dismissed', '1'); } catch (e) {}
+  }
+
+  /* Trigger: user scrolls past 55% of the page */
+  function onScroll() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    if (maxScroll > 0 && (scrollY / maxScroll) > 0.55) {
+      window.removeEventListener('scroll', onScroll);
+      /* Small delay so it doesn't feel instant */
+      setTimeout(showPopup, 800);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* Close handlers */
+  closeBtn.addEventListener('click', hidePopup);
+  overlay.addEventListener('click', hidePopup);
+
+  /* Escape key */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && popup.classList.contains('visible')) {
+      hidePopup();
+    }
+  });
 }());
