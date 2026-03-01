@@ -2337,6 +2337,16 @@ section { padding: 96px 48px; }
 }
 
 
+/* Contact strip (simplified) */
+.contact-strip {
+  background: var(--navy-dark);
+  padding: 48px;
+  text-align: center;
+}
+.contact-strip .cta-wa-btn {
+  margin-bottom: 20px;
+}
+
 /* ═══════════════════════════════════════════════════
    16. CTA SECTION
 ═══════════════════════════════════════════════════ */
@@ -3086,6 +3096,7 @@ footer {
 
   .calc-service-grid { grid-template-columns: repeat(3, 1fr); }
   .calc-card { padding: 32px; }
+  .wizard-nav { gap: 12px; }
 }
 
 /* --- Mobile (768px) --- */
@@ -3157,6 +3168,11 @@ footer {
     right: 24px;
   }
   .footer-main { padding: 48px 24px 28px; }
+
+  .calc-service-grid { grid-template-columns: repeat(2, 1fr); }
+  .calc-card { padding: 24px 16px; border-radius: var(--radius-lg); }
+  .calc-result-cta { width: 100%; justify-content: center; }
+  .wizard-progress-label { font-size: 0.62rem; }
 }
 
 /* --- Small mobile (480px) --- */
@@ -3172,9 +3188,13 @@ footer {
 
   #back-top { bottom: 100px; }
 
-  .calc-service-grid { grid-template-columns: repeat(2, 1fr); }
-  .calc-card { padding: 24px 16px; }
   .calc-discount-tiers { flex-direction: column; align-items: center; gap: 8px; }
+  .calc-service-card { padding: 16px 12px; }
+  .calc-service-icon { font-size: 1.6rem; }
+  .calc-result-price { font-size: 2.2rem; }
+  .wizard-nav { flex-direction: column; gap: 12px; }
+  .wizard-next { width: 100%; }
+  .wizard-back { order: 1; }
 
   .footer-main { padding: 36px 20px 24px; }
   .footer-cta-inner { padding: 32px 20px 28px; }
