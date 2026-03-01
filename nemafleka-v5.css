@@ -87,6 +87,8 @@ body {
   z-index: 9999;
   transition: width 0.1s linear;
   border-radius: 0 2px 2px 0;
+  will-change: width;
+  contain: layout style;
 }
 
 
@@ -646,6 +648,7 @@ nav.scrolled .nav-logo img {
   display: flex;
   transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
   height: 100%;
+  will-change: transform;
 }
 
 .hc-slide {
@@ -946,7 +949,11 @@ section { padding: 96px 48px; }
 /* ═══════════════════════════════════════════════════
    8. SERVICES
 ═══════════════════════════════════════════════════ */
-.services-section { background: var(--off-white); }
+.services-section {
+  background: var(--off-white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
 
 .services-grid {
   display: grid;
@@ -1052,6 +1059,8 @@ section { padding: 96px 48px; }
   background: var(--navy-dark);
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 .ba-section::before {
   content: '';
@@ -1252,7 +1261,11 @@ section { padding: 96px 48px; }
 /* ═══════════════════════════════════════════════════
    10. HOW IT WORKS — ANIMATED TIMELINE
 ═══════════════════════════════════════════════════ */
-.how-section { background: var(--navy-dark); }
+.how-section {
+  background: var(--navy-dark);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
 .how-section .section-title { color: var(--white); }
 .how-section .section-sub { color: rgba(255,255,255,0.55); }
 
@@ -1325,7 +1338,11 @@ section { padding: 96px 48px; }
 /* ═══════════════════════════════════════════════════
    11. WHY US + PRICE CARD
 ═══════════════════════════════════════════════════ */
-.why-section { background: var(--off-white); }
+.why-section {
+  background: var(--off-white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
 
 .why-grid {
   display: grid;
@@ -1487,7 +1504,11 @@ section { padding: 96px 48px; }
 /* ═══════════════════════════════════════════════════
    12. TESTIMONIALS
 ═══════════════════════════════════════════════════ */
-.testimonials-section { background: var(--white); }
+.testimonials-section {
+  background: var(--white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
 
 .testimonials-grid {
   display: grid;
@@ -1578,7 +1599,11 @@ section { padding: 96px 48px; }
 /* ═══════════════════════════════════════════════════
    13. COVERAGE MAP
 ═══════════════════════════════════════════════════ */
-.map-section { background: var(--navy-dark); }
+.map-section {
+  background: var(--navy-dark);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
 
 .map-inner {
   display: grid;
@@ -1670,6 +1695,8 @@ section { padding: 96px 48px; }
 .calc-section {
   background: var(--navy-dark);
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
 }
 .calc-section .section-title { color: var(--white); }
 .calc-section .section-sub { color: rgba(255,255,255,0.55); }
@@ -1681,6 +1708,153 @@ section { padding: 96px 48px; }
   box-shadow: var(--shadow-lg);
   max-width: 900px;
   margin: 0 auto;
+}
+
+/* Lime accent on card top */
+.calc-card {
+  border-top: 3px solid var(--lime);
+}
+
+/* Wizard progress bar */
+.wizard-progress {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.wizard-progress-segment {
+  flex: 1;
+  text-align: center;
+}
+.wizard-progress-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background var(--transition);
+}
+.wizard-progress-segment.active .wizard-progress-bar,
+.wizard-progress-segment.completed .wizard-progress-bar {
+  background: var(--lime);
+}
+.wizard-progress-segment.active .wizard-progress-bar {
+  box-shadow: 0 0 12px rgba(200,255,62,0.4);
+}
+.wizard-progress-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color var(--transition);
+}
+.wizard-progress-segment.active .wizard-progress-label,
+.wizard-progress-segment.completed .wizard-progress-label {
+  color: var(--lime);
+}
+
+/* Wizard steps container */
+.wizard-steps {
+  position: relative;
+  overflow: hidden;
+}
+.wizard-step {
+  display: none;
+}
+.wizard-step.active {
+  display: block;
+  animation: wizardFadeIn 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes wizardFadeIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes wizardFadeInReverse {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.wizard-step.active.reverse {
+  animation-name: wizardFadeInReverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizard-step.active {
+    animation: none;
+  }
+}
+
+/* Wizard navigation */
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1.5px solid var(--border);
+}
+.wizard-back {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color var(--transition);
+  font-family: 'Nunito', system-ui, sans-serif;
+}
+.wizard-back:hover {
+  color: var(--text-main);
+}
+.wizard-next {
+  margin-left: auto;
+}
+.wizard-next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Service card checkmark */
+.calc-service-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--lime);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.calc-service-check::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: 2px solid var(--navy-dark);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.calc-service-card.active .calc-service-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Selection pulse animation */
+@keyframes selectPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+.calc-service-card.just-selected {
+  animation: selectPulse 0.2s cubic-bezier(0.4,0,0.2,1);
 }
 
 .calc-step { margin-bottom: 36px; }
@@ -1778,6 +1952,7 @@ section { padding: 96px 48px; }
   gap: 14px;
 }
 .calc-service-card {
+  position: relative;
   background: var(--off-white);
   border: 2px solid transparent;
   border-radius: var(--radius);
@@ -1885,6 +2060,10 @@ section { padding: 96px 48px; }
   transition: all var(--transition);
   font-family: 'Nunito', system-ui, sans-serif;
   color: var(--text-body);
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .calc-size-btn:hover { border-color: var(--navy-mid); }
 .calc-size-btn.active {
@@ -2001,7 +2180,11 @@ section { padding: 96px 48px; }
 /* ═══════════════════════════════════════════════════
    15. FAQ SECTION
 ═══════════════════════════════════════════════════ */
-.faq-section { background: var(--off-white); }
+.faq-section {
+  background: var(--off-white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
 
 .faq-grid {
   display: grid;
