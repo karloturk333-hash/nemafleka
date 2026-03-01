@@ -5,15 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Nema Fleka – profesionalno dubinsko čišćenje tepiha, kauča, madraca i automobila u Vrbovcu i Zagrebu. Brzo, ekološki, garantirano bez fleka.">
   <title>Nema Fleka – Dubinsko Čišćenje | Vrbovec & Zagreb</title>
+
+  <!-- Canonical + Open Graph -->
+  <link rel="canonical" href="https://nemafleka.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="hr_HR">
+  <meta property="og:url" content="https://nemafleka.com/">
+  <meta property="og:title" content="Nema Fleka – Dubinsko Čišćenje | Vrbovec & Zagreb">
+  <meta property="og:description" content="Profesionalno dubinsko čišćenje tepiha, kauča, madraca i automobila. Vrbovec + Zagreb (35 km). Ekološki, brzo, garantirano.">
+  <meta property="og:image" content="https://nemafleka.com/images/hero-slide-1.webp">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="800">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nema Fleka – Dubinsko Čišćenje">
+  <meta name="twitter:description" content="Profesionalno dubinsko čišćenje tepiha, kauča, madraca i automobila u Vrbovcu i Zagrebu.">
+  <meta name="twitter:image" content="https://nemafleka.com/images/hero-slide-1.webp">
+
+  <!-- Preconnect & DNS prefetch -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="https://basemaps.cartocdn.com">
+
+  <!-- Stylesheets -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900;1000&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"></noscript>
   <link rel="stylesheet" href="nemafleka-v5.css">
+
   <!-- Preload LCP image — first hero carousel slide -->
-  <link rel="preload" as="image" href="images/Beige Minimalist House Before After Instagram Post (4).png" fetchpriority="high">
+  <link rel="preload" as="image" href="images/hero-slide-1.webp" type="image/webp" fetchpriority="high">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Nema Fleka",
+    "description": "Profesionalno dubinsko čišćenje tepiha, kauča, madraca i automobila u Vrbovcu i Zagrebu.",
+    "url": "https://nemafleka.com",
+    "telephone": ["+385953765343", "+385916184796"],
+    "email": "nemafleka.info@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Vrbovec",
+      "addressCountry": "HR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 45.8833,
+      "longitude": 16.4167
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.8833,
+        "longitude": 16.4167
+      },
+      "geoRadius": "35000"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "500",
+      "bestRating": "5"
+    },
+    "priceRange": "€€",
+    "image": "https://nemafleka.com/images/logo.webp",
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
 
@@ -24,7 +100,7 @@
   <!-- ═══════════════════ NAVBAR ═══════════════════ -->
   <nav class="main-nav" role="navigation" aria-label="Glavna navigacija">
     <a href="#" class="nav-logo" aria-label="Nema Fleka – povratak na početak">
-      <img src="images/Original on transparent.png" alt="Nema Fleka logo" style="height:54px;width:auto;display:block">
+      <img src="images/logo.webp" alt="Nema Fleka logo" width="400" height="259" style="height:54px;width:auto;display:block">
     </a>
 
     <ul class="nav-links" role="list">
@@ -108,28 +184,28 @@
           <div class="hero-carousel">
             <div class="hc-track" id="hc-track">
               <div class="hc-slide active">
-                <img src="images/Beige Minimalist House Before After Instagram Post (4).png" alt="Dubinsko čišćenje auta — prije i nakon" fetchpriority="high" decoding="async">
+                <img src="images/hero-slide-1.webp" alt="Dubinsko čišćenje auta — prije i nakon" width="800" height="800" fetchpriority="high" decoding="async">
                 <div class="hc-caption">
                   <span class="hc-caption-label">PRIJE / NAKON</span>
                   <span class="hc-caption-text">Auto transformacija</span>
                 </div>
               </div>
               <div class="hc-slide">
-                <img src="images/Beige Minimalist House Before After Instagram Post (5).png" alt="Dubinsko čišćenje kauča — prije i nakon" loading="lazy" decoding="async">
+                <img src="images/hero-slide-2.webp" alt="Dubinsko čišćenje kauča — prije i nakon" width="800" height="800" loading="lazy" decoding="async">
                 <div class="hc-caption">
                   <span class="hc-caption-label">KAUČ</span>
                   <span class="hc-caption-text">Kao nov nakon tretmana</span>
                 </div>
               </div>
               <div class="hc-slide">
-                <img src="images/madrac.png" alt="Čišćenje madraca — prije i nakon" loading="lazy" decoding="async">
+                <img src="images/hero-slide-3.webp" alt="Čišćenje madraca — prije i nakon" width="800" height="800" loading="lazy" decoding="async">
                 <div class="hc-caption">
                   <span class="hc-caption-label">MADRAC</span>
                   <span class="hc-caption-text">Bez grinja i bakterija</span>
                 </div>
               </div>
               <div class="hc-slide">
-                <img src="images/Beige Minimalist House Before After Instagram Post.png" alt="Čišćenje fotelja — prije i nakon" loading="lazy" decoding="async">
+                <img src="images/hero-slide-4.webp" alt="Čišćenje fotelja — prije i nakon" width="800" height="800" loading="lazy" decoding="async">
                 <div class="hc-caption">
                   <span class="hc-caption-label">FOTELJA</span>
                   <span class="hc-caption-text">Opet kao nova</span>
@@ -470,10 +546,10 @@
         <div class="ba-widget-wrap reveal reveal-d2">
           <div class="ba-widget" id="ba-widget" role="img" aria-label="Usporedba kauča prije i nakon čišćenja">
             <div class="ba-img ba-before">
-              <img src="images/IMG_0396.jpg" alt="Kauč prije čišćenja – prljav, istrošen" loading="lazy" decoding="async">
+              <img src="images/ba-couch-before.webp" alt="Kauč prije čišćenja – prljav, istrošen" width="1200" height="1600" loading="lazy" decoding="async">
             </div>
             <div class="ba-img ba-after" id="ba-after">
-              <img src="images/IMG_0388 (1).jpg" alt="Kauč nakon čišćenja – čist i svjež" loading="lazy" decoding="async">
+              <img src="images/ba-couch-after.webp" alt="Kauč nakon čišćenja – čist i svjež" width="1200" height="1600" loading="lazy" decoding="async">
             </div>
             <span class="ba-label ba-label-before" aria-hidden="true">Prije</span>
             <span class="ba-label ba-label-after" aria-hidden="true">Poslije</span>
@@ -875,7 +951,7 @@
       <div class="footer-grid">
         <div class="footer-col footer-brand">
           <a href="#" class="footer-logo" aria-label="Nema Fleka – povratak na vrh">
-            <img src="images/Original on transparent.png" alt="Nema Fleka logo" style="height:44px;width:auto;display:block">
+            <img src="images/logo.webp" alt="Nema Fleka logo" width="400" height="259" style="height:44px;width:auto;display:block">
           </a>
           <p class="footer-tagline">Profesionalno dubinsko čišćenje koje vraća sjaj vašem domu.</p>
           <div class="footer-proof">

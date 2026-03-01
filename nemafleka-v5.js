@@ -61,8 +61,8 @@ window.addEventListener('resize', _debounce(function () {
   var rect     = null; /* lazily computed */
 
   var slides = {
-    couch:    { before: 'images/IMG_0388 (1).jpg', after: 'images/IMG_0396.jpg' },
-    mattress: { before: 'images/IMG_0028.jpg',     after: 'images/IMG_0017.jpg' }
+    couch:    { before: 'images/ba-couch-before.webp', after: 'images/ba-couch-after.webp' },
+    mattress: { before: 'images/ba-mattress-before.webp', after: 'images/ba-mattress-after.webp' }
   };
 
   function clamp(v, min, max) {
