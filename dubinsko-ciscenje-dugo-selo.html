@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Profesionalno dubinsko čišćenje kauča, tepiha, madraca i automobila u Dugom Selu. Lokalni tim iz Vrbovca (25 km), besplatan dolazak, transparentne cijene i garancija zadovoljstva.">
+  <title>Dubinsko Čišćenje Dugo Selo | Nema Fleka — Kauči, Tepisi, Madraci</title>
+
+  <link rel="canonical" href="https://nemafleka.com/dubinsko-ciscenje-dugo-selo">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="hr_HR">
+  <meta property="og:url" content="https://nemafleka.com/dubinsko-ciscenje-dugo-selo">
+  <meta property="og:title" content="Dubinsko Čišćenje Dugo Selo | Nema Fleka">
+  <meta property="og:description" content="Profesionalno dubinsko čišćenje kauča, tepiha, madraca i automobila u Dugom Selu. Besplatan dolazak, transparentne cijene.">
+  <meta property="og:image" content="https://nemafleka.com/images/hero-slide-1.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dubinsko Čišćenje Dugo Selo | Nema Fleka">
+  <meta name="twitter:description" content="Profesionalno dubinsko čišćenje u Dugom Selu. Lokalni tim, besplatan dolazak.">
+  <meta name="twitter:image" content="https://nemafleka.com/images/hero-slide-1.webp">
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900;1000&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"></noscript>
+  <link rel="stylesheet" href="nemafleka-v5.css">
+
+  <link rel="preload" as="image" href="images/hero-slide-1.webp" type="image/webp" fetchpriority="high">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Nema Fleka",
+    "description": "Profesionalno dubinsko čišćenje kauča, tepiha, madraca i automobila u Dugom Selu i okolici.",
+    "url": "https://nemafleka.com/dubinsko-ciscenje-dugo-selo",
+    "telephone": ["+385953765343", "+385916184796"],
+    "email": "nemafleka.info@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Vrbovec",
+      "addressCountry": "HR"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Dugo Selo"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "500",
+      "bestRating": "5"
+    },
+    "priceRange": "€€"
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Preskoči na sadržaj</a>
+  <div id="scroll-progress" role="progressbar" aria-label="Napredak čitanja stranice" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav class="main-nav" role="navigation" aria-label="Glavna navigacija">
+    <a href="/" class="nav-logo" aria-label="Nema Fleka – povratak na početak">
+      <img src="images/logo.webp" alt="Nema Fleka logo" width="400" height="259" style="height:54px;width:auto;display:block">
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#usluge">Usluge</a></li>
+      <li><a href="#zasto">Zašto mi</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <a href="#kontakt" class="btn-nav-cta" aria-label="Zatraži besplatnu procjenu">Besplatna procjena</a>
+    <button class="hamburger" id="hamburger" aria-label="Otvori meni" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div id="mobile-overlay" aria-hidden="true"></div>
+  <div id="mobile-menu" role="dialog" aria-label="Mobilna navigacija" aria-modal="true" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <div class="mobile-menu-header">
+        <span class="mobile-menu-label">Izbornik</span>
+      </div>
+      <ul class="mobile-links" role="list">
+        <li><a href="#usluge">Usluge</a></li>
+        <li><a href="#zasto">Zašto mi</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <div class="mobile-menu-footer">
+        <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20%C4%8Di%C5%A1%C4%87enje%20u%20Dugom%20Selu.%20Mo%C5%BEete%20li%20mi%20dati%20besplatnu%20procjenu%3F" class="m-cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Piši nam na WhatsApp
+        </a>
+        <p class="mobile-menu-hours">Pon–Pet 08–20 · Sub 09–18</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <main id="main-content">
+    <section class="hero" aria-label="Dubinsko čišćenje Dugo Selo – Nema Fleka">
+      <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow" aria-label="Lokacija usluge">
+            <span class="eyebrow-dot" aria-hidden="true"></span>Dugo Selo · ~25 km od Vrbovca · Besplatan dolazak
+          </div>
+
+          <h1 class="hero-headline">
+            Tvoj kauč u<br>
+            Dugom Selu<br>
+            <span class="lime">zaslužuje čisto.</span>
+          </h1>
+
+          <p class="hero-value-prop">
+            Kauči, tepisi, madraci i automobili — čistimo ih profesionalno u Dugom Selu. Besplatan dolazak, transparentne cijene, <strong>garancija zadovoljstva.</strong>
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#kontakt" class="btn-primary" aria-label="Zatraži besplatnu procjenu čišćenja u Dugom Selu">Besplatna procjena →</a>
+            <a href="#usluge" class="btn-ghost-hero" aria-label="Pogledaj sve usluge">Pogledaj usluge</a>
+          </div>
+
+          <p class="hero-micro-trust" aria-label="Brza rezervacija i povrat novca">
+            ⚡ Potvrda za <span>60 sekundi</span> · 💯 Povrat novca ako nisi zadovoljan
+          </p>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-carousel">
+            <div class="hc-track" id="hc-track">
+              <div class="hc-slide active">
+                <img src="images/hero-slide-1.webp" alt="Dubinsko čišćenje auta — prije i nakon" width="800" height="800" fetchpriority="high" decoding="async">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">PRIJE / NAKON</span>
+                  <span class="hc-caption-text">Auto transformacija</span>
+                </div>
+              </div>
+              <div class="hc-slide">
+                <img src="images/hero-slide-2.webp" alt="Dubinsko čišćenje kauča — prije i nakon" width="800" height="800" loading="lazy" decoding="async">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">KAUČ</span>
+                  <span class="hc-caption-text">Kao nov nakon tretmana</span>
+                </div>
+              </div>
+              <div class="hc-slide">
+                <img src="images/hero-slide-3.webp" alt="Čišćenje madraca — prije i nakon" width="800" height="800" loading="lazy" decoding="async">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">MADRAC</span>
+                  <span class="hc-caption-text">Bez grinja i bakterija</span>
+                </div>
+              </div>
+              <div class="hc-slide">
+                <img src="images/hero-slide-4.webp" alt="Čišćenje fotelja — prije i nakon" width="800" height="800" loading="lazy" decoding="async">
+                <div class="hc-caption">
+                  <span class="hc-caption-label">FOTELJA</span>
+                  <span class="hc-caption-text">Opet kao nova</span>
+                </div>
+              </div>
+            </div>
+            <div class="hc-counter" id="hc-counter" aria-live="polite">1 / 4</div>
+            <div class="hc-progress">
+              <div class="hc-progress-fill" id="hc-progress-fill"></div>
+            </div>
+            <button class="hc-btn prev" id="hc-prev" aria-label="Prethodna slika">&#8249;</button>
+            <button class="hc-btn next" id="hc-next" aria-label="Sljedeća slika">&#8250;</button>
+            <div class="hc-dots" aria-label="Navigacija po slikama">
+              <button class="hc-dot active" aria-label="Slika 1" aria-selected="true"></button>
+              <button class="hc-dot" aria-label="Slika 2" aria-selected="false"></button>
+              <button class="hc-dot" aria-label="Slika 3" aria-selected="false"></button>
+              <button class="hc-dot" aria-label="Slika 4" aria-selected="false"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ TRUST BAR ═══════════════════ -->
+    <div class="trust-bar" role="complementary" aria-label="Razlozi povjerenja">
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">📍</span>
+        <div class="trust-text">
+          <strong>100% garancija — Povrat novca ako nisi zadovoljan</strong>
+        </div>
+      </div>
+      <span class="trust-divider" aria-hidden="true"></span>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">🛡️</span>
+        <div class="trust-text">
+          <strong>100% garancija</strong>
+          <small>Povrat novca ako nisi zadovoljan</small>
+        </div>
+      </div>
+      <span class="trust-divider" aria-hidden="true"></span>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">🌿</span>
+        <div class="trust-text">
+          <strong>Ekološka sredstva</strong>
+          <small>Sigurno za djecu i ljubimce</small>
+        </div>
+      </div>
+      <span class="trust-divider" aria-hidden="true"></span>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">👥</span>
+        <div class="trust-text">
+          <strong>Lokalni tim</strong>
+          <small>Vrbovec i okolica, dolazimo brzo</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ MARQUEE ═══════════════════ -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-inner">
+        <span class="marquee-item">KAUČI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">MADRACI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AUTOMOBILI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">NEMA FLEKA GARANTIRANO</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">DUGO SELO</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">TEPISI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">KAUČI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">MADRACI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AUTOMOBILI</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">NEMA FLEKA GARANTIRANO</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">DUGO SELO</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">TEPISI</span><span class="marquee-sep">◆</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ SERVICES ═══════════════════ -->
+    <section class="services-section" id="usluge" aria-label="Naše usluge dubinskog čišćenja u Dugom Selu">
+      <div class="container">
+        <div class="chip-light">Naše usluge</div>
+        <h2 class="section-title">Što sve čistimo u Dugom Selu?</h2>
+        <p class="section-sub">Nema toga što je previše prljavo za nas. Ozbiljno, vidjeli smo svašta.</p>
+
+        <div class="services-grid">
+          <div class="service-card reveal reveal-d1">
+            <div class="service-num">01/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🛋️</div>
+            <div class="badge-popular">Najpopularnije</div>
+            <h3 class="service-name">Kauči &amp; namještaj</h3>
+            <p class="service-desc">Dubinsko pranje tapeciranog namještaja. Fleke od kave, blata, djece, mačaka — sve odlazi. Idealno za stanove, apartmane i urede.</p>
+            <span class="service-tag">Najtraženija usluga</span>
+          </div>
+
+          <div class="service-card reveal reveal-d2">
+            <div class="service-num">02/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🧹</div>
+            <h3 class="service-name">Tepisi &amp; podovi</h3>
+            <p class="service-desc">Ekstrakcijsko čišćenje koje izvlači prljavštinu iz dubine. Suho za 2–4 sata. Grinje? Bye bye. Dlake kućnih ljubimaca? Gone.</p>
+            <span class="service-tag">Suho za 2–4h</span>
+          </div>
+
+          <div class="service-card reveal reveal-d3">
+            <div class="service-num">03/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🚗</div>
+            <h3 class="service-name">Automobili</h3>
+            <p class="service-desc">Interijer izgledao kao da je vuk živio unutra? Dubinsko čišćenje sjedala, tepiha i gepeka + ručno pranje karoserije. Auto kao iz salona.</p>
+            <span class="service-tag">Interijer + eksterijer</span>
+          </div>
+
+          <div class="service-card reveal reveal-d4">
+            <div class="service-num">04/04</div>
+            <div class="service-icon-wrap" aria-hidden="true">🛏️</div>
+            <h3 class="service-name">Madraci</h3>
+            <p class="service-desc">Grinje na madracu su STVARNE. UV + ekstrakcija uklanja grinje, bakterije i alergene. Sigurno za djecu i kućne ljubimce. Spavaj čisto.</p>
+            <span class="service-tag">Sigurno za djecu</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ WHY US ═══════════════════ -->
+    <section class="why-section" id="zasto" aria-label="Zašto odabrati Nema Fleka u Dugom Selu">
+      <div class="container">
+        <div class="chip-light">Zašto mi</div>
+        <h2 class="section-title">Zašto baš Nema Fleka?</h2>
+        <p class="section-sub">Lokalni smo tim iz Vrbovca — do Dugog Sela stižemo bez gradske gužve, brzo.</p>
+
+        <div class="why-grid">
+          <div class="feature-list">
+            <div class="feature-item reveal reveal-d1">
+              <div class="feature-icon-box" aria-hidden="true">⚡</div>
+              <div>
+                <h3 class="feature-ttl">Brz dolazak, bez čekanja</h3>
+                <p class="feature-dsc">Dugo Selo je 25 km od naše baze u Vrbovcu. Dolazimo bez putnih troškova i dogovaramo termin u roku 24h — bez višetjednog čekanja.</p>
+              </div>
+            </div>
+
+            <div class="feature-item reveal reveal-d2">
+              <div class="feature-icon-box" aria-hidden="true">🔧</div>
+              <div>
+                <h3 class="feature-ttl">Profesionalna oprema</h3>
+                <p class="feature-dsc">Industrijski ekstraktor i UV dezinfekcija. To ne možeš postići kućnim usisavačem, koliko god ga vrtio.</p>
+              </div>
+            </div>
+
+            <div class="feature-item reveal reveal-d3">
+              <div class="feature-icon-box" aria-hidden="true">🌿</div>
+              <div>
+                <h3 class="feature-ttl">Eco, sigurno za obitelj</h3>
+                <p class="feature-dsc">Ekološka sredstva koja su sigurna za djecu, ljubimce i alergičare. Bez opasnih kemikalija.</p>
+              </div>
+            </div>
+
+            <div class="feature-item reveal reveal-d4">
+              <div class="feature-icon-box" aria-hidden="true">💰</div>
+              <div>
+                <h3 class="feature-ttl">Cijena unaprijed, bez iznenađenja</h3>
+                <p class="feature-dsc">Cijene su na webu — vidiš ih prije nego nas kontaktiraš. Bez skrivenih troškova. Poštena cijena za pošten posao.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-card reveal">
+            <div class="chip-light">Orijentacijski cjenik</div>
+            <h3 class="price-card-title">Transparentne cijene</h3>
+            <p class="price-card-sub">Finalna cijena nakon besplatne procjene. Nikad više od ovoga.</p>
+            <div class="price-table">
+              <div class="price-row">
+                <span class="price-item">Kauč (2-sjed)</span>
+                <span class="price-val">od 40 €</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Kauč (3-sjed)</span>
+                <span class="price-val">od 55 €</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Tepih (do 9 m²)</span>
+                <span class="price-val">od 25 €</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Madrac (bračni)</span>
+                <span class="price-val">od 35 €</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Auto (interijer)</span>
+                <span class="price-val">od 60 €</span>
+              </div>
+            </div>
+            <a href="#kontakt" class="btn-primary" style="width:100%;text-align:center;margin-top:var(--space-6)">Zatraži procjenu →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CTA / CONTACT ═══════════════════ -->
+    <section class="cta-section" id="kontakt" aria-label="Kontaktirajte nas za dubinsko čišćenje u Dugom Selu">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="cta-rings" aria-hidden="true">
+        <div class="cta-ring"></div>
+        <div class="cta-ring"></div>
+        <div class="cta-ring"></div>
+      </div>
+
+      <div class="container">
+        <div class="chip-dark reveal">Dugo Selo</div>
+        <h2 class="section-title reveal reveal-d1">Besplatna procjena u Dugom Selu</h2>
+        <p class="section-sub reveal reveal-d1">Piši nam na WhatsApp — odgovaramo za 30 minuta.</p>
+
+        <div class="cta-live-badge reveal reveal-d2">
+          <span class="cta-live-dot"></span>
+          Dostupni odmah · Odgovor za 30 min
+        </div>
+
+        <div class="cta-trust-row reveal reveal-d2">
+          <span class="cta-trust-chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.9 / 5
+          </span>
+          <span class="cta-trust-chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Garancija
+          </span>
+          <span class="cta-trust-chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Besplatan dolazak — Dugo Selo
+          </span>
+        </div>
+
+        <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20%C4%8Di%C5%A1%C4%87enje%20u%20Dugom%20Selu.%20Mo%C5%BEete%20li%20mi%20dati%20besplatnu%20procjenu%3F" class="cta-wa-btn reveal reveal-d3" target="_blank" rel="noopener" aria-label="Kontaktiraj nas na WhatsApp za dubinsko čišćenje u Dugom Selu">
+          <svg viewBox="0 0 24 24" fill="white" width="22" height="22" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Piši nam na WhatsApp
+        </a>
+
+        <p class="cta-micro reveal reveal-d4">Odgovaramo za 30 sekundi · Bez obveza</p>
+
+        <div class="cta-contacts reveal reveal-d4">
+          <a href="tel:+385953765343" class="cta-contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <span class="cta-contact-label">Karlo</span>
+            <span class="cta-contact-value">095 376 5343</span>
+          </a>
+          <a href="tel:+385916184796" class="cta-contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <span class="cta-contact-label">Ivan</span>
+            <span class="cta-contact-value">091 618 4796</span>
+          </a>
+          <a href="mailto:nemafleka@gmail.com" class="cta-contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span class="cta-contact-label">Email</span>
+            <span class="cta-contact-value">nemafleka@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <a href="/" class="footer-logo" aria-label="Nema Fleka – povratak na vrh stranice">
+            <img src="images/logo.webp" alt="Nema Fleka logo" width="400" height="259" style="height:44px;width:auto;display:block">
+          </a>
+          <p class="footer-tagline">Profesionalno dubinsko čišćenje koje vraća sjaj vašem domu.</p>
+          <div class="footer-proof">
+            <div class="footer-proof-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--lime)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>4.9 / 5</span>
+            </div>
+            <span class="footer-proof-clients">500+ zadovoljnih klijenata</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">Navigacija</h4>
+          <ul class="footer-nav">
+            <li><a href="/">Početna</a></li>
+            <li><a href="#usluge">Usluge</a></li>
+            <li><a href="#zasto">Zašto mi</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">Kontakt</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+              <a href="tel:+385953765343">Karlo: 095 376 5343</a>
+            </li>
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+              <a href="tel:+385916184796">Ivan: 091 618 4796</a>
+            </li>
+            <li>
+              <span class="footer-contact-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+              <a href="mailto:nemafleka@gmail.com">nemafleka@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">Radno vrijeme</h4>
+          <div class="footer-hours">
+            <div class="footer-hours-row"><span>Pon – Pet</span><span>08:00 – 20:00</span></div>
+            <div class="footer-hours-row alt"><span>Subota</span><span>09:00 – 18:00</span></div>
+            <div class="footer-hours-row"><span>Nedjelja</span><span>Po dogovoru</span></div>
+          </div>
+          <div class="footer-area">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Vrbovec + 35 km
+            <small>Dugo Selo i okolica</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy;2026 nemafleka.com — Sva prava pridržana</span>
+      <a href="#" class="footer-top-link" aria-label="Povratak na vrh stranice">↑ Na vrh</a>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/385953765343?text=Bok!%20Zanima%20me%20dubinsko%20%C4%8Di%C5%A1%C4%87enje%20u%20Dugom%20Selu.%20Mo%C5%BEete%20li%20mi%20dati%20besplatnu%20procjenu%3F" class="wa-float" target="_blank" rel="noopener" aria-label="Kontaktiraj nas na WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="wa-float-badge">-10%</span>
+  </a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="nemafleka-v5.js" defer></script>
+</body>
+</html>

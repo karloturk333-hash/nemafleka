@@ -2,6 +2,11 @@
   "rewrites": [
     { "source": "/robots.txt", "destination": "/robots.txt" },
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/dubinsko-ciscenje-dugo-selo", "destination": "/dubinsko-ciscenje-dugo-selo.html" },
+    { "source": "/dubinsko-ciscenje-krizevci", "destination": "/dubinsko-ciscenje-krizevci.html" },
+    { "source": "/dubinsko-ciscenje-bjelovar", "destination": "/dubinsko-ciscenje-bjelovar.html" },
+    { "source": "/dubinsko-ciscenje-koprivnica", "destination": "/dubinsko-ciscenje-koprivnica.html" },
+    { "source": "/dubinsko-ciscenje-ivanic-grad", "destination": "/dubinsko-ciscenje-ivanic-grad.html" },
     { "source": "/(.*)", "destination": "/nemafleka-v5.html" }
   ],
   "headers": [
