@@ -20,7 +20,9 @@
 
   /* ---- Neutrals ---- */
   --white:   #FFFFFF;
-  --paper:   #F6F7F2;   /* warm off-white page bg */
+  --paper:   #F6F7F2;   /* cool off-white page bg */
+  --cream:   #F3EEE2;   /* warm cream — used for the nav header bar */
+  --cream-line: rgba(96,76,38,0.16); /* warm hairline under the cream nav */
   --surface: #ECEEF8;   /* light card / section tint */
   --line:    rgba(13,14,69,0.12);
   --line-strong: rgba(13,14,69,0.20);

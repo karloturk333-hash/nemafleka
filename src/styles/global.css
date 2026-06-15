@@ -29,7 +29,7 @@ a{color:var(--link);text-decoration:none}
 .btn-wa:hover{background:#3ddc78}
 
 /* ---- NAV ---- */
-.nav{position:sticky;top:0;z-index:var(--z-nav);background:rgba(246,247,242,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:var(--z-nav);background:var(--cream);border-bottom:1px solid var(--cream-line)}
 .nav-inner{max-width:var(--container);margin-inline:auto;padding:.9rem var(--gutter);display:flex;align-items:center;gap:var(--space-6)}
 .nav-logo{font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--text);letter-spacing:-.02em}
 .nav-logo .dot{color:var(--lime-600)}
@@ -58,7 +58,7 @@ a{color:var(--link);text-decoration:none}
 .proof-frame{background:#fff;padding:.6rem;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);transform:rotate(1.4deg)}
 .proof-split{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/3}
 .proof-split.big{aspect-ratio:3/4}
-.proof-split img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.proof-split img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none;pointer-events:none}
 .proof-before-wrap{position:absolute;inset:0;overflow:hidden;z-index:2;border-right:3px solid var(--lime)}
 .proof-divider{position:absolute;top:0;bottom:0;left:46%;width:3px;background:var(--lime);z-index:3;box-shadow:0 0 0 4px rgba(200,255,62,.25)}
 .proof-split.big .proof-divider{left:50%}
@@ -67,9 +67,10 @@ a{color:var(--link);text-decoration:none}
 .proof-tag-after{right:.7rem;background:var(--lime);color:var(--ink-800)}
 .proof-cap{margin-top:.5rem;text-align:center;font-size:var(--text-sm);color:var(--text-muted)}
 .proof-cap .mono{color:var(--ink-700);font-weight:700}
-.proof-badge{position:absolute;left:-1.2rem;bottom:1.5rem;z-index:5;background:var(--lime);color:var(--ink-800);border-radius:var(--r-lg);padding:.8rem 1rem;box-shadow:var(--shadow-md);display:flex;flex-direction:column;align-items:center;line-height:1.05;transform:rotate(-4deg)}
-.proof-badge strong{font-family:var(--font-display);font-size:1.6rem}
-.proof-badge span{font-size:.62rem;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.04em}
+/* Small pill, top-right of the frame — deliberately tiny so the bottom-left PRIJE tag stays visible. */
+.proof-badge{position:absolute;top:.9rem;right:-.4rem;z-index:6;background:var(--lime);color:var(--ink-800);border-radius:var(--r-pill);padding:.3rem .7rem;box-shadow:var(--shadow-sm);display:inline-flex;align-items:baseline;gap:.4em;line-height:1;transform:rotate(-3deg)}
+.proof-badge strong{font-family:var(--font-display);font-size:.85rem}
+.proof-badge span{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 
 /* ---- TRUST STRIP ---- */
 .trust{background:var(--ink-900)}
@@ -100,9 +101,12 @@ a{color:var(--link);text-decoration:none}
 
 /* before/after section */
 .ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
-.ba-stats{display:flex;gap:var(--space-6);margin-top:var(--space-6)}
-.ba-stats strong{display:block;font-family:var(--font-display);font-size:2rem;color:var(--lime)}
-.ba-stats span{font-size:var(--text-sm);color:#C9CCEC}
+.ba-points{list-style:none;display:grid;gap:var(--space-3);margin-top:var(--space-5)}
+.ba-points li{display:flex;align-items:flex-start;gap:.7em;color:#D7D9F0;font-size:var(--text-base);line-height:1.45}
+.ba-points strong{color:#fff;font-weight:700}
+.ba-check{flex:none;width:1.4em;height:1.4em;margin-top:.05em;border-radius:50%;background:var(--lime);position:relative}
+.ba-check::after{content:"";position:absolute;left:34%;top:16%;width:24%;height:52%;border:solid var(--ink-800);border-width:0 .14em .14em 0;transform:rotate(45deg)}
+.ba-cta{margin-top:var(--space-6)}
 .ba-widget{max-width:420px;margin-inline:auto;background:#fff;padding:.6rem;border-radius:var(--r-xl);box-shadow:var(--shadow-lg)}
 
 /* calculator */

@@ -1,5 +1,6 @@
 ---
 import SectionHeader from '../primitives/SectionHeader.astro';
+import Button from '../primitives/Button.astro';
 const pairs = {
   couch: { before: '/images/ba-couch-before.webp', after: '/images/ba-couch-after.webp', label: 'kauča' },
   mattress: { before: '/images/ba-mattress-before.webp', after: '/images/ba-mattress-after.webp', label: 'madraca' },
@@ -19,11 +20,12 @@ const pairs = {
         <button class="ba-tab active" role="tab" aria-selected="true" data-pair="couch">Kauč</button>
         <button class="ba-tab" role="tab" aria-selected="false" data-pair="mattress">Madrac</button>
       </div>
-      <div class="ba-stats">
-        <div><strong>Eko</strong><span>sredstva za obitelj</span></div>
-        <div><strong>2-4 h</strong><span>suši se brzo</span></div>
-        <div><strong>Garancija</strong><span>povrat novca</span></div>
-      </div>
+      <ul class="ba-points" role="list">
+        <li><span class="ba-check" aria-hidden="true"></span><span><strong>Eko sredstva</strong> — sigurno za djecu i ljubimce</span></li>
+        <li><span class="ba-check" aria-hidden="true"></span><span><strong>Suši se za 2–4 h</strong> — isti dan u funkciji</span></li>
+        <li><span class="ba-check" aria-hidden="true"></span><span><strong>Garancija povrata novca</strong> ako niste zadovoljni</span></li>
+      </ul>
+      <Button href="#kalkulator" variant="cta" class="ba-cta">Izračunaj cijenu →</Button>
     </div>
 
     <figure class="ba-widget">
@@ -80,10 +82,24 @@ const pairs = {
     setValue(((clientX - r.left) / r.width) * 100);
   }
 
+  // Pointer capture keeps every move/up routed to the slider even when the cursor
+  // races past the edge — fixes the "stops if you drag too fast" jank. touch-action:none
+  // (CSS) + preventDefault stop the page scrolling / native image-drag from stealing the gesture.
   let dragging = false;
-  split.addEventListener('pointerdown', (e) => { dragging = true; handle.focus(); fromClientX(e.clientX); });
-  window.addEventListener('pointermove', (e) => { if (dragging) fromClientX(e.clientX); });
-  window.addEventListener('pointerup', () => { dragging = false; });
+  split.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    try { split.setPointerCapture(e.pointerId); } catch {}
+    handle.focus({ preventScroll: true });
+    fromClientX(e.clientX);
+    e.preventDefault();
+  });
+  split.addEventListener('pointermove', (e) => { if (dragging) fromClientX(e.clientX); });
+  const stop = (e: PointerEvent) => {
+    dragging = false;
+    try { split.releasePointerCapture(e.pointerId); } catch {}
+  };
+  split.addEventListener('pointerup', stop);
+  split.addEventListener('pointercancel', stop);
 
   handle.addEventListener('keydown', (e) => {
     const step = e.shiftKey ? 10 : 2;

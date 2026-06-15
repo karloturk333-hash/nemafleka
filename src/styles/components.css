@@ -154,7 +154,7 @@
 .ba-handle::before { left: 9px; border-right: 7px solid var(--lime); transform: translateY(-50%); }
 .ba-handle::after { right: 9px; border-left: 7px solid var(--lime); transform: translateY(-50%); }
 .ba-handle:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-#ba-split { cursor: ew-resize; }
+#ba-split { cursor: ew-resize; touch-action: none; user-select: none; -webkit-user-select: none; }
 
 /* ---- FAQ (centered single column, breaks the consecutive-split rhythm) ---- */
 .faq-centered { max-width: 820px; margin-inline: auto; }
@@ -265,13 +265,25 @@
 .wa-float:hover { transform: translateY(-2px); background: #3ddc78; }
 .wa-float svg { flex: none; }
 
+/* Desktop: a deliberate floating action button that clearly overlays the page
+   (more breathing room from the corner, stronger lift) instead of reading like a
+   strip stuck to the bottom edge. */
+@media (min-width: 901px) {
+  .wa-float {
+    right: var(--space-6); bottom: var(--space-6);
+    padding: .9em 1.5em; font-size: var(--text-base);
+    box-shadow: 0 14px 34px rgba(8,9,46,.34), 0 3px 10px rgba(18,140,67,.45);
+  }
+  .wa-float:hover { transform: translateY(-3px) scale(1.02); }
+}
+
 /* No bottom bar anymore -> drop the space it used to reserve. */
 @media (max-width: 900px) { body { padding-bottom: 0; } }
 
 /* The nav had backdrop-filter, which makes it a containing block for position:fixed
    children -> the mobile menu panel was sized to the 67px nav bar instead of the viewport.
    Drop the blur (opaque bar) so the fixed panel/overlay are relative to the viewport. */
-.nav { backdrop-filter: none; background: var(--paper); }
+.nav { backdrop-filter: none; background: var(--cream); border-bottom: 1px solid var(--cream-line); }
 
 /* Real brand logo (lime graffiti on navy blob, transparent bg). */
 .nav-logo img { height: 44px; width: auto; display: block; }
