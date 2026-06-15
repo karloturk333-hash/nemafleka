@@ -14,8 +14,8 @@
     "typecheck": "astro check"
   },
   "dependencies": {
-    "astro": "^5.7.0",
-    "@astrojs/sitemap": "^3.3.0"
+    "@astrojs/sitemap": "^3.3.0",
+    "astro": "^5.7.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",

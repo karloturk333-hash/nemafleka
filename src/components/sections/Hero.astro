@@ -1,7 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '../primitives/Button.astro';
 import Icon from '../primitives/Icon.astro';
 import { waLink } from '../../lib/links';
+import couchAfter from '../../assets/ba-couch-after.webp';
+import couchBefore from '../../assets/ba-couch-before.webp';
+
+const proofWidths = [420, 760, 1100];
+const proofSizes = '(max-width: 900px) 92vw, 560px';
 ---
 <section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
@@ -26,9 +32,9 @@ import { waLink } from '../../lib/links';
     <div class="hero-proof">
       <figure class="proof-frame">
         <div class="proof-split">
-          <img src="/images/ba-couch-after.webp" alt="Kauč nakon dubinskog čišćenja — čist i svjež" width="1200" height="900" class="proof-after" fetchpriority="high" decoding="async" />
+          <Image src={couchAfter} alt="Kauč nakon dubinskog čišćenja — čist i svjež" class="proof-after" widths={proofWidths} sizes={proofSizes} loading="eager" fetchpriority="high" />
           <div class="proof-before-wrap" style="width:46%">
-            <img src="/images/ba-couch-before.webp" alt="Kauč prije čišćenja — prljav i istrošen" width="1200" height="900" class="proof-before" decoding="async" />
+            <Image src={couchBefore} alt="Kauč prije čišćenja — prljav i istrošen" class="proof-before" widths={proofWidths} sizes={proofSizes} loading="eager" />
           </div>
           <span class="proof-divider" aria-hidden="true"></span>
           <span class="proof-tag proof-tag-before">PRIJE</span>

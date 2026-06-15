@@ -31,7 +31,7 @@
   background: var(--surface); border-bottom: 0; border-radius: var(--r-md);
   padding-inline: var(--space-4); margin-top: var(--space-2);
 }
-.price-row.best .p-val { color: var(--lime-700); }
+.price-row.best .p-val { color: var(--lime-text); }
 .badge-strip { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-5); }
 .badge {
   font-size: var(--text-xs); font-weight: 700; background: var(--surface);
@@ -103,7 +103,7 @@
 .csize-pill:has(input:checked) b { color: var(--lime); }
 
 .calc-tiers { display: flex; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-6); font-size: var(--text-sm); color: var(--text-muted); }
-.calc-tiers strong { color: var(--lime-700); }
+.calc-tiers strong { color: var(--lime-text); }
 
 .calc-address-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
 .calc-address-input {
@@ -121,7 +121,7 @@
 .calc-result { text-align: center; }
 .cr-items { display: grid; gap: 2px; max-width: 440px; margin: 0 auto var(--space-5); text-align: left; }
 .cr-row { display: flex; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--line); color: var(--text-body); }
-.cr-row.cr-disc { color: var(--lime-700); font-weight: 700; }
+.cr-row.cr-disc { color: var(--lime-text); font-weight: 700; }
 .cr-total-label { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-muted); }
 .cr-total { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 3.5rem); font-weight: 700; color: var(--ink-800); line-height: 1.1; }
 .cr-note { color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-5); }
@@ -159,6 +159,10 @@
 /* ---- FAQ extra ---- */
 .faq-side-desc { color: var(--text-muted); margin: var(--space-3) 0 var(--space-5); }
 
+/* AA fixes: lime-on-light text inherited from global.css (was --lime-700 @ ~2.5:1) */
+.step-n { color: var(--lime-text); }
+.faq-list summary::after { color: var(--lime-text); }
+
 /* ---- Coverage extra ---- */
 .zona-cta-row { display: flex; gap: var(--space-5); align-items: center; flex-wrap: wrap; margin-top: var(--space-6); }
 .zona-link { color: var(--lime); font-weight: 700; }
@@ -178,7 +182,7 @@
 .town-card h3 { font-size: var(--text-lg); margin-bottom: .2em; }
 .town-dist { color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-3); }
 .town-tag { font-size: var(--text-xs); font-weight: 700; padding: .35em .8em; border-radius: var(--r-pill); }
-.town-free { background: rgba(168,217,32,.18); color: var(--lime-700); }
+.town-free { background: rgba(168,217,32,.18); color: var(--lime-text); }
 .town-sur { background: var(--surface); color: var(--ink-600); }
 .town-note { margin-top: var(--space-5); font-size: var(--text-sm); }
 

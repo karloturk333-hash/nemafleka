@@ -7,5 +7,5 @@ export default defineConfig({
   site: 'https://nemafleka.com',
   output: 'static',
   integrations: [sitemap()],
-  build: { inlineStylesheets: 'auto' },
+  build: { inlineStylesheets: 'always' },
 });
