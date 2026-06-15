@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.3.0",
-    "astro": "^5.7.0"
+    "astro": "^5.7.0",
+    "whatamesh": "^0.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",

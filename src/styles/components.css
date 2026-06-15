@@ -283,7 +283,7 @@
 /* The nav had backdrop-filter, which makes it a containing block for position:fixed
    children -> the mobile menu panel was sized to the 67px nav bar instead of the viewport.
    Drop the blur (opaque bar) so the fixed panel/overlay are relative to the viewport. */
-.nav { backdrop-filter: none; background: linear-gradient(180deg, var(--ink-900), var(--ink-800)); border-bottom: 1px solid rgba(255,255,255,.08); }
+.nav { backdrop-filter: none; background: linear-gradient(120deg, var(--ink-900), var(--ink-800) 60%, var(--ink-700)); border-bottom: 1px solid rgba(255,255,255,.08); }
 
 /* Real brand logo (lime graffiti on navy blob, transparent bg). */
 .nav-logo img { height: 44px; width: auto; display: block; }

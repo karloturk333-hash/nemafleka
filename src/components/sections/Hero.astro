@@ -11,6 +11,8 @@ const proofSizes = '(max-width: 900px) 92vw, 560px';
 ---
 <section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
+  <canvas id="gradient-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Vrbovec · Dugo Selo · Križevci · Bjelovar · Koprivnica</span>
@@ -39,3 +41,14 @@ const proofSizes = '(max-width: 900px) 92vw, 560px';
     </div>
   </div>
 </section>
+
+<script>
+  // Stripe-style WebGL mesh ("shader") gradient. Vanilla, ~tiny, and it auto-pauses
+  // on scroll / when off-screen. Skipped under prefers-reduced-motion → the static
+  // .hero-bg gradient shows through the (untouched) transparent canvas.
+  import { Gradient } from 'whatamesh';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && document.getElementById('gradient-canvas')) {
+    new Gradient().initGradient('#gradient-canvas');
+  }
+</script>
