@@ -1,0 +1,102 @@
+/* ═══════════════════════════════════════════════════════════════════
+   NEMA FLEKA — Design tokens v2 ("Deep clean")
+   Accessibility-first. Lime is energy-on-dark / CTA-fill-with-ink only.
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  /* ---- Ink (primary brand / dark surfaces) ---- */
+  --ink-900: #08092E;   /* deepest bg */
+  --ink-800: #0D0E45;   /* primary navy (kept) */
+  --ink-700: #181A6E;   /* brand navy (kept) */
+  --ink-600: #232599;
+  --ink-500: #3033CC;
+  --ink-400: #5A5DD6;   /* muted text ON dark (>=4.5:1 on ink-800) */
+
+  /* ---- Lime (accent — ENERGY ON DARK / CTA FILL ONLY) ---- */
+  --lime-400: #D8FF6E;
+  --lime:     #C8FF3E;  /* kept */
+  --lime-600: #A8D920;
+  --lime-700: #88B016;
+
+  /* ---- Neutrals ---- */
+  --white:   #FFFFFF;
+  --paper:   #F6F7F2;   /* warm off-white page bg */
+  --surface: #ECEEF8;   /* light card / section tint */
+  --line:    rgba(13,14,69,0.12);
+  --line-strong: rgba(13,14,69,0.20);
+
+  /* ---- Text (all AA on paper/white) ---- */
+  --text:        #0D0E45;  /* headings  ~16:1 */
+  --text-body:   #2C2E52;  /* body      ~10:1 */
+  --text-muted:  #565A86;  /* muted     ~6.2:1  (was #7A7FA8 @3.3:1 — FAILED) */
+  --text-on-ink: #FFFFFF;
+  --text-muted-on-ink: var(--ink-400);
+
+  /* ---- Semantic ---- */
+  --success: #1B9E54;   /* AA on white for text+icon */
+  --warning: #B6791F;
+  --error:   #C0392B;
+  --star:    #E8990C;   /* amber, AA on white */
+  --wa-green: #25D366;  /* icon fills only */
+  --wa-green-700: #128C43; /* WhatsApp text/AA */
+
+  /* ---- Semantic usage tokens (encode the lime rules) ---- */
+  --cta-bg:        var(--lime);     /* primary button fill */
+  --cta-bg-hover:  var(--lime-400);
+  --cta-text:      var(--ink-800);  /* ink on lime ≈ 12.8:1 */
+  --accent-on-dark: var(--lime);    /* lime text/detail only on ink */
+  --link:          var(--ink-600);  /* AA link on white */
+  --link-hover:    var(--ink-800);
+
+  /* ---- Typography ---- */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Manrope', system-ui, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, monospace;
+
+  --text-xs:    0.75rem;
+  --text-sm:    0.875rem;
+  --text-base:  1rem;
+  --text-lg:    1.125rem;
+  --text-xl:    1.375rem;
+  --text-2xl:   clamp(1.5rem, 2.5vw, 2rem);
+  --text-3xl:   clamp(2rem, 4vw, 3rem);
+  --text-hero:  clamp(2.6rem, 6vw, 5rem);
+
+  --leading-tight: 1.05;
+  --leading-snug:  1.25;
+  --leading-body:  1.6;
+  --tracking-label: 0.14em;  /* mono eyebrows */
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.5rem;  --space-6: 2rem;    --space-8: 3rem;    --space-10: 4rem;
+  --space-12: 6rem;   --space-16: 8rem;
+
+  /* ---- Radius (slightly tightened from v1 for a premium feel) ---- */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-xl: 28px; --r-pill: 999px;
+
+  /* ---- Elevation (softer, layered) ---- */
+  --shadow-sm: 0 1px 2px rgba(8,9,46,.06), 0 2px 8px rgba(8,9,46,.06);
+  --shadow-md: 0 6px 24px rgba(8,9,46,.10);
+  --shadow-lg: 0 24px 60px rgba(8,9,46,.18);
+  --shadow-lime: 0 10px 30px rgba(168,217,32,.35);
+
+  /* ---- Motion ---- */
+  --t-fast:  .15s cubic-bezier(.4,0,.2,1);
+  --t-base:  .28s cubic-bezier(.4,0,.2,1);
+  --t-slow:  .5s cubic-bezier(.16,1,.3,1);
+
+  /* ---- Layout ---- */
+  --container: 1200px;
+  --container-narrow: 820px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+
+  /* ---- Z-index ---- */
+  --z-base: 1; --z-float: 100; --z-nav: 1000; --z-modal: 1200;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+}

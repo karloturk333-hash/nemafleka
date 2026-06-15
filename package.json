@@ -1,0 +1,29 @@
+{
+  "name": "nemafleka",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Nema Fleka — dubinsko čišćenje (Astro redesign)",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.7.0",
+    "@astrojs/sitemap": "^3.3.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@fontsource/manrope": "^5.1.1",
+    "@fontsource/space-grotesk": "^5.1.1",
+    "@fontsource/space-mono": "^5.1.1",
+    "@playwright/test": "^1.50.1",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.9"
+  }
+}
