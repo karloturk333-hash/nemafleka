@@ -1,0 +1,21 @@
+---
+import Button from '../primitives/Button.astro';
+import MobileNav from '../islands/MobileNav.astro';
+const links = [
+  { href: '/#usluge', label: 'Usluge' },
+  { href: '/#dokaz', label: 'Rezultati' },
+  { href: '/#kako', label: 'Kako radimo' },
+  { href: '/#zona', label: 'Zona' },
+  { href: '/#faq', label: 'FAQ' },
+];
+---
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Nema Fleka — početna">Nema&nbsp;Fleka<span class="dot">.</span></a>
+    <nav class="nav-links" aria-label="Glavna navigacija">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+    <Button href="/#kalkulator" variant="cta" class="nav-cta">Besplatna procjena</Button>
+    <MobileNav links={links} />
+  </div>
+</header>

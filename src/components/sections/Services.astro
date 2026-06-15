@@ -1,0 +1,18 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+import ServiceCard from './ServiceCard.astro';
+import { SERVICES } from '../../data/services';
+const featured = SERVICES.filter((s) => ['couch', 'carpet', 'mattress', 'car'].includes(s.id));
+---
+<section class="section" id="usluge">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Naše usluge"
+      title="Što sve čistimo?"
+      sub="Od kauča do auta — temeljito, bez agresivnih kemikalija. Vidjeli smo svašta i vraćamo stvari u život."
+    />
+    <div class="svc-grid">
+      {featured.map((s) => <ServiceCard service={s} />)}
+    </div>
+  </div>
+</section>

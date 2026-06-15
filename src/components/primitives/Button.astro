@@ -1,0 +1,17 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'cta' | 'ghost' | 'wa';
+  size?: 'md' | 'lg';
+  external?: boolean;
+  class?: string;
+  'aria-label'?: string;
+}
+const { href, variant = 'cta', size = 'md', external, class: cls, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+const classList = ['btn', `btn-${variant}`, size === 'lg' && 'btn-lg', cls];
+const extra = href
+  ? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) }
+  : { type: 'button' };
+---
+<Tag class:list={classList} {...extra} {...rest}><slot /></Tag>

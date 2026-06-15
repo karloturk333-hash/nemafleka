@@ -1,0 +1,42 @@
+---
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+import { waLink } from '../../lib/links';
+---
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Vrbovec · Dugo Selo · Križevci · Bjelovar · Koprivnica</span>
+      <h1 class="hero-h1">Fleke<br /><span class="accent">nemaju šanse.</span></h1>
+      <p class="hero-sub">
+        Dubinsko čišćenje kauča, tepiha, madraca i automobila — kod vas doma, brzo i temeljito.
+        Lokalni tim iz Vrbovca. <strong>Cijenu znate unaprijed.</strong>
+      </p>
+      <div class="hero-cta-row">
+        <Button href="#kalkulator" variant="cta" size="lg">Izračunaj cijenu →</Button>
+        <Button href={waLink()} variant="ghost" size="lg" external><Icon name="whatsapp" size={18} /> Pišite nam</Button>
+      </div>
+      <ul class="hero-trust" role="list">
+        <li><span class="ht-ic" aria-hidden="true">✓</span> Garancija zadovoljstva</li>
+        <li><span class="ht-ic" aria-hidden="true">✓</span> Cijenu znate unaprijed</li>
+        <li><span class="ht-ic" aria-hidden="true">✓</span> Odgovor u 30 min</li>
+      </ul>
+    </div>
+    <div class="hero-proof">
+      <figure class="proof-frame">
+        <div class="proof-split">
+          <img src="/images/ba-couch-after.webp" alt="Kauč nakon dubinskog čišćenja — čist i svjež" width="1200" height="900" class="proof-after" fetchpriority="high" decoding="async" />
+          <div class="proof-before-wrap" style="width:46%">
+            <img src="/images/ba-couch-before.webp" alt="Kauč prije čišćenja — prljav i istrošen" width="1200" height="900" class="proof-before" decoding="async" />
+          </div>
+          <span class="proof-divider" aria-hidden="true"></span>
+          <span class="proof-tag proof-tag-before">PRIJE</span>
+          <span class="proof-tag proof-tag-after">NAKON</span>
+        </div>
+        <figcaption class="proof-cap"><span class="mono">PRAVI REZULTAT</span> · naš rad</figcaption>
+      </figure>
+      <div class="proof-badge"><strong>100%</strong><span>povrat ako niste zadovoljni</span></div>
+    </div>
+  </div>
+</section>

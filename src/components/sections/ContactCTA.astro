@@ -1,0 +1,26 @@
+---
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+import { BUSINESS } from '../../data/business';
+import { waLink } from '../../lib/links';
+---
+<section class="cta-final" id="kontakt">
+  <div class="container cta-inner">
+    <span class="eyebrow">WhatsApp</span>
+    <h2 class="cta-h2">Jedna poruka — i javimo se.</h2>
+    <p class="cta-sub">Pišite nam na WhatsApp i dogovaramo besplatnu procjenu za vaš prostor.</p>
+    <div class="cta-chips">
+      <span class="cta-chip"><Icon name="shield" size={14} /> Garancija zadovoljstva</span>
+      <span class="cta-chip"><Icon name="leaf" size={14} /> Ekološka sredstva</span>
+      <span class="cta-chip"><Icon name="pin" size={14} /> Lokalni tim — Vrbovec i okolica</span>
+    </div>
+    <Button href={waLink()} variant="wa" size="lg" external><Icon name="whatsapp" size={22} /> Pišite nam na WhatsApp</Button>
+    <p class="cta-micro">Odgovaramo brzo · Bez obveze</p>
+    <div class="cta-contacts">
+      {BUSINESS.phones.map((p) => (
+        <a href={`tel:${p.tel}`}><Icon name="phone" size={18} /> {p.name} · {p.display}</a>
+      ))}
+      <a href={`mailto:${BUSINESS.email}`}><Icon name="mail" size={18} /> {BUSINESS.email}</a>
+    </div>
+  </div>
+</section>

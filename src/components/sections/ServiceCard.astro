@@ -1,0 +1,15 @@
+---
+import { type Service, fromOf, SERVICE_EMOJI } from '../../data/services';
+import { fromEur } from '../../lib/format';
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+---
+<article class="svc-card">
+  <span class="svc-ic" aria-hidden="true">{SERVICE_EMOJI[service.id]}</span>
+  {service.tag && <span class="svc-badge">{service.tag}</span>}
+  <h3>{service.name}</h3>
+  <p>{service.blurb}</p>
+  <span class="svc-price mono">{fromEur(fromOf(service))}</span>
+</article>

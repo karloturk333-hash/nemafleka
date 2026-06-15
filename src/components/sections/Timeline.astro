@@ -1,0 +1,27 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+const steps = [
+  { n: '01', t: 'Javite se', d: 'Recite što treba očistiti i gdje ste. Besplatna procjena, odgovor u 30 min.' },
+  { n: '02', t: 'Dogovorimo termin', d: 'Fleksibilni smo: jutro, popodne, vikend — kad vama odgovara.' },
+  { n: '03', t: 'Dolazimo i čistimo', d: 'Profesionalna oprema, ekološka sredstva, tim koji zna posao. Vi se odmorite.' },
+  { n: '04', t: 'Uživate u čistoći', d: 'Nema fleka, nema mirisa, nema bakterija. Samo čisto.' },
+];
+---
+<section class="section section-tint" id="kako">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Kako radimo"
+      title="Jednostavno: 1–2–3–4"
+      sub="Bez kompliciranih procedura. Javite se, dođemo, očistimo — gotovo."
+    />
+    <ol class="steps" role="list">
+      {steps.map((s) => (
+        <li>
+          <span class="step-n mono">{s.n}</span>
+          <h3>{s.t}</h3>
+          <p>{s.d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

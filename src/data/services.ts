@@ -107,3 +107,9 @@ export const fromOf = (s: Service): number => Math.min(...s.sizes.map((o) => o.p
 
 export const getService = (id: ServiceId): Service =>
   SERVICES.find((s) => s.id === id)!;
+
+// Decorative emoji (aria-hidden in UI; the heading carries the meaning).
+export const SERVICE_EMOJI: Record<ServiceId, string> = {
+  couch: '🛋️', armchair: '💺', chair: '🪑', ottoman: '🟫',
+  carpet: '🧹', mattress: '🛏️', car: '🚗',
+};

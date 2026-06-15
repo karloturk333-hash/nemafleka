@@ -1,0 +1,57 @@
+---
+import Icon from '../primitives/Icon.astro';
+import { BUSINESS } from '../../data/business';
+import { waLink } from '../../lib/links';
+const { phones, email, hours, legal } = BUSINESS;
+---
+<footer class="footer" id="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="/" class="nav-logo footer-logo">Nema&nbsp;Fleka<span class="dot">.</span></a>
+      <p class="footer-tag">{BUSINESS.tagline}</p>
+      <p class="footer-proof">Lokalni tim iz Vrbovca · Garancija zadovoljstva</p>
+    </div>
+
+    <div>
+      <h4>Navigacija</h4>
+      <ul role="list">
+        <li><a href="/#usluge">Usluge</a></li>
+        <li><a href="/#kako">Kako radimo</a></li>
+        <li><a href="/podrucje-pokrivenosti">Zona pokrivenosti</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Kontakt</h4>
+      <ul role="list" class="footer-contact">
+        {phones.map((p) => (
+          <li><Icon name="phone" size={15} /> <a href={`tel:${p.tel}`}>{p.name}: {p.display}</a></li>
+        ))}
+        <li><Icon name="mail" size={15} /> <a href={`mailto:${email}`}>{email}</a></li>
+        <li><Icon name="whatsapp" size={15} /> <a href={waLink()} target="_blank" rel="noopener">WhatsApp poruka</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Radno vrijeme</h4>
+      <ul role="list" class="footer-hours">
+        {hours.map((h) => <li><span>{h.days}</span><span>{h.time}</span></li>)}
+      </ul>
+      <p class="footer-area"><Icon name="pin" size={15} /> Vrbovec + {BUSINESS.geoRadiusKm} km</p>
+    </div>
+  </div>
+
+  <div class="container footer-impressum">
+    <strong>Impressum:</strong>
+    {legal.registered
+      ? <span>{legal.legalName} · OIB: {legal.oib} · Sjedište: {BUSINESS.baseTown}</span>
+      : <span>{legal.disclaimer} · {BUSINESS.baseTown}, Hrvatska · {email}</span>}
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© 2026 nemafleka.com — Sva prava pridržana</span>
+    <span class="footer-made">Izrađeno s ♥ u Hrvatskoj</span>
+  </div>
+</footer>

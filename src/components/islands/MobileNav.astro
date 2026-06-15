@@ -1,0 +1,81 @@
+---
+import Icon from '../primitives/Icon.astro';
+import { waLink } from '../../lib/links';
+interface Props {
+  links: { href: string; label: string }[];
+}
+const { links } = Astro.props;
+---
+<button class="hamburger" id="nf-hamburger" aria-label="Otvori izbornik" aria-expanded="false" aria-controls="nf-mpanel">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="m-overlay" id="nf-moverlay" hidden></div>
+
+<div class="m-panel" id="nf-mpanel" role="dialog" aria-modal="true" aria-label="Izbornik" hidden>
+  <div class="m-panel-head">
+    <span class="m-panel-label">Izbornik</span>
+    <button class="m-close" id="nf-mclose" aria-label="Zatvori izbornik"><Icon name="close" size={22} /></button>
+  </div>
+  <nav aria-label="Mobilna navigacija">
+    <ul class="m-links" role="list">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a href="/#kalkulator">Kalkulator</a></li>
+      <li><a href="/podrucje-pokrivenosti">Područje pokrivenosti</a></li>
+    </ul>
+  </nav>
+  <a class="m-wa" href={waLink()} target="_blank" rel="noopener">
+    <Icon name="whatsapp" size={18} /> Pišite nam na WhatsApp
+  </a>
+</div>
+
+<script>
+  const btn = document.getElementById('nf-hamburger')!;
+  const panel = document.getElementById('nf-mpanel')!;
+  const overlay = document.getElementById('nf-moverlay')!;
+  const closeBtn = document.getElementById('nf-mclose')!;
+  const main = document.getElementById('main-content');
+  const footer = document.querySelector('footer');
+  let lastFocus: HTMLElement | null = null;
+
+  const focusable = () =>
+    Array.from(
+      panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+    ).filter((el) => el.offsetParent !== null);
+
+  function open() {
+    lastFocus = document.activeElement as HTMLElement;
+    panel.hidden = false;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    btn.setAttribute('aria-expanded', 'true');
+    main?.setAttribute('inert', '');
+    footer?.setAttribute('inert', '');
+    requestAnimationFrame(() => focusable()[0]?.focus());
+  }
+  function close() {
+    panel.hidden = true;
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    btn.setAttribute('aria-expanded', 'false');
+    main?.removeAttribute('inert');
+    footer?.removeAttribute('inert');
+    lastFocus?.focus();
+  }
+
+  btn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', close);
+  panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (panel.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'Tab') {
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+</script>

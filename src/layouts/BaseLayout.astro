@@ -1,0 +1,82 @@
+---
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/manrope/400.css';
+import '@fontsource/manrope/500.css';
+import '@fontsource/manrope/600.css';
+import '@fontsource/manrope/700.css';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/components.css';
+
+import Nav from '../components/sections/Nav.astro';
+import Footer from '../components/sections/Footer.astro';
+import StickyMobileCTA from '../components/sections/StickyMobileCTA.astro';
+import { BUSINESS } from '../data/business';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string; // canonical path, e.g. '/' or '/podrucje-pokrivenosti'
+  ogImage?: string;
+  preloadHero?: string;
+  jsonLd?: unknown[];
+}
+const {
+  title,
+  description,
+  path = '/',
+  ogImage = BUSINESS.ogImage,
+  preloadHero,
+  jsonLd = [],
+} = Astro.props;
+
+const canonical = new URL(path, BUSINESS.url).href;
+const ogImageUrl = new URL(ogImage, BUSINESS.url).href;
+---
+<!doctype html>
+<html lang="hr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="hr_HR" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    {preloadHero && (
+      <link rel="preload" as="image" href={preloadHero} type="image/webp" fetchpriority="high" />
+    )}
+
+    {jsonLd.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Preskoči na sadržaj</a>
+    <Nav />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <StickyMobileCTA />
+  </body>
+</html>
