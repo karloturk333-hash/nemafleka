@@ -1,5 +1,6 @@
 ---
 import Button from '../primitives/Button.astro';
+import ShaderBg from '../islands/ShaderBg.astro';
 const features = [
   { t: 'Brz dolazak', d: 'Baza u Vrbovcu, pokrivamo okolicu. Bez dugih vožnji, bez čekanja tjednima.' },
   { t: 'Profesionalna oprema', d: 'Industrijski ekstraktor i UV dezinfekcija. Kućni usisavač to ne može.' },
@@ -22,6 +23,7 @@ const features = [
       <Button href="#kalkulator" variant="cta">Zatražite besplatnu procjenu →</Button>
     </div>
     <aside class="founder-card">
+      <ShaderBg id="founder-shader" amp={160} seed={3} freqX={0.0001} freqY={0.00026} />
       <p class="founder-novi">Novi smo, lokalni i želimo dobar glas, zato se trudimo duplo.</p>
       <p class="founder-quote">„Ulažemo u profesionalnu opremu i u svaki posao kao da je naš dom.”</p>
       <p class="founder-by"><strong>Karlo &amp; Ivan</strong> · osnivači, Vrbovec</p>

@@ -1,12 +1,14 @@
 ---
 import SectionHeader from '../primitives/SectionHeader.astro';
 import Button from '../primitives/Button.astro';
+import ShaderBg from './ShaderBg.astro';
 const pairs = {
   couch: { before: '/images/ba-couch-before.webp', after: '/images/ba-couch-after.webp', label: 'kauča' },
   mattress: { before: '/images/ba-mattress-before.webp', after: '/images/ba-mattress-after.webp', label: 'madraca' },
 };
 ---
 <section class="section section-dark" id="dokaz">
+  <ShaderBg id="dokaz-shader" amp={220} seed={11} freqX={0.0002} freqY={0.00018} />
   <div class="container ba-wrap">
     <div class="ba-copy">
       <SectionHeader

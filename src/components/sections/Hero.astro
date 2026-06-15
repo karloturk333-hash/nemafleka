@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Button from '../primitives/Button.astro';
 import Icon from '../primitives/Icon.astro';
+import ShaderBg from '../islands/ShaderBg.astro';
 import { waLink } from '../../lib/links';
 import couchAfter from '../../assets/ba-couch-after.webp';
 import couchBefore from '../../assets/ba-couch-before.webp';
@@ -11,7 +12,7 @@ const proofSizes = '(max-width: 900px) 92vw, 560px';
 ---
 <section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
-  <canvas id="gradient-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+  <ShaderBg id="hero-shader" class="hero-canvas" colors={['#181A6E', '#2A2EA0', '#3D40C2', '#5A5DD6']} />
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-grid">
     <div class="hero-copy">
@@ -41,14 +42,3 @@ const proofSizes = '(max-width: 900px) 92vw, 560px';
     </div>
   </div>
 </section>
-
-<script>
-  // Stripe-style WebGL mesh ("shader") gradient. Vanilla, ~tiny, and it auto-pauses
-  // on scroll / when off-screen. Skipped under prefers-reduced-motion → the static
-  // .hero-bg gradient shows through the (untouched) transparent canvas.
-  import { Gradient } from 'whatamesh';
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce && document.getElementById('gradient-canvas')) {
-    new Gradient().initGradient('#gradient-canvas');
-  }
-</script>
