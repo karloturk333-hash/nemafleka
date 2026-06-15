@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Button from '../primitives/Button.astro';
 import Icon from '../primitives/Icon.astro';
+import ShaderBg from '../islands/ShaderBg.astro';
 import { waLink } from '../../lib/links';
 import couchAfter from '../../assets/ba-couch-after.webp';
 import couchBefore from '../../assets/ba-couch-before.webp';
@@ -11,6 +12,8 @@ const proofSizes = '(max-width: 900px) 92vw, 560px';
 ---
 <section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
+  <ShaderBg id="hero-shader" class="hero-canvas" colors={['#181A6E', '#2A2EA0', '#3D40C2', '#5A5DD6']} />
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Vrbovec · Dugo Selo · Križevci · Bjelovar · Koprivnica</span>
@@ -28,9 +31,7 @@ const proofSizes = '(max-width: 900px) 92vw, 560px';
       <figure class="proof-frame">
         <div class="proof-split">
           <Image src={couchAfter} alt="Kauč nakon dubinskog čišćenja, čist i svjež" class="proof-after" widths={proofWidths} sizes={proofSizes} loading="eager" fetchpriority="high" />
-          <div class="proof-before-wrap" style="width:46%">
-            <Image src={couchBefore} alt="Kauč prije čišćenja, prljav i istrošen" class="proof-before" widths={proofWidths} sizes={proofSizes} loading="eager" />
-          </div>
+          <Image src={couchBefore} alt="Kauč prije čišćenja, prljav i istrošen" class="proof-before" widths={proofWidths} sizes={proofSizes} loading="eager" />
           <span class="proof-divider" aria-hidden="true"></span>
           <span class="proof-tag proof-tag-before">PRIJE</span>
           <span class="proof-tag proof-tag-after">NAKON</span>

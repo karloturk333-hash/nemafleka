@@ -1,0 +1,51 @@
+---
+// Vanilla WebGL "shader" mesh background (whatamesh). One shared script inits every
+// .shader-canvas on the page; per-instance shape/animation comes from data-* attrs
+// (amp/seed/freqX/freqY) so each navy section gets the SAME colours but a different
+// flow. Auto-pauses off-screen; skipped entirely under prefers-reduced-motion (the
+// element's own solid/gradient background then shows through the transparent canvas).
+interface Props {
+  id: string;
+  colors?: [string, string, string, string];
+  amp?: number;
+  seed?: number;
+  freqX?: number;
+  freqY?: number;
+  class?: string;
+}
+// Default navy field — matches --ink-900..--ink-600, kept dark so white copy stays AA.
+const NAVY: [string, string, string, string] = ['#0F1138', '#181A6E', '#232599', '#2E31AE'];
+const { id, colors = NAVY, amp, seed, freqX, freqY, class: cls } = Astro.props;
+const style = [
+  `--gradient-color-1:${colors[0]}`,
+  `--gradient-color-2:${colors[1]}`,
+  `--gradient-color-3:${colors[2]}`,
+  `--gradient-color-4:${colors[3]}`,
+].join(';');
+---
+<canvas
+  class:list={['shader-canvas', cls]}
+  id={id}
+  aria-hidden="true"
+  data-amp={amp}
+  data-seed={seed}
+  data-freqx={freqX}
+  data-freqy={freqY}
+  style={style}
+></canvas>
+
+<script>
+  import { Gradient } from 'whatamesh';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    document.querySelectorAll<HTMLCanvasElement>('canvas.shader-canvas').forEach((c) => {
+      const g = new Gradient() as any;
+      const d = c.dataset;
+      if (d.amp) g.amp = Number(d.amp);
+      if (d.seed) g.seed = Number(d.seed);
+      if (d.freqx) g.freqX = Number(d.freqx);
+      if (d.freqy) g.freqY = Number(d.freqy);
+      g.initGradient('#' + c.id);
+    });
+  }
+</script>

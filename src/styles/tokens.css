@@ -20,7 +20,7 @@
 
   /* ---- Neutrals ---- */
   --white:   #FFFFFF;
-  --paper:   #F6F7F2;   /* warm off-white page bg */
+  --paper:   #F6F7F2;   /* cool off-white page bg */
   --surface: #ECEEF8;   /* light card / section tint */
   --line:    rgba(13,14,69,0.12);
   --line-strong: rgba(13,14,69,0.20);
