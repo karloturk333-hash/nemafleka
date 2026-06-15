@@ -4,13 +4,19 @@ test('calculator computes a quote and builds a WhatsApp link', async ({ page }) 
   await page.goto('/');
   await page.locator('#kalkulator').scrollIntoViewIfNeeded();
 
-  await page.locator('.csvc[data-service=couch] .csvc-card').click();
-  await page.locator('.csvc[data-service=couch] .csize-pill').first().click(); // 2-sjed 45
-  await page.locator('.csvc[data-service=carpet] .csvc-card').click();
-  await page.locator('.csvc[data-service=carpet] .csize-pill').first().click(); // do 10 m² 70
+  // Service 1: Kauč → Dvosjed (40)
+  await page.locator('.svc-pick[data-service=couch]').click();
+  await page.locator('#size-opts .csize-pill').first().click();
+  await page.locator('#size-add').click(); // → cart
 
-  await page.locator('#wiz-next').click(); // → Lokacija
-  await page.locator('#wiz-next').click(); // → Ponuda
+  // Service 2: Tepih → do 10 m² (55)
+  await page.locator('#add-more').click(); // → service list
+  await page.locator('.svc-pick[data-service=carpet]').click();
+  await page.locator('#size-opts .csize-pill').first().click();
+  await page.locator('#size-add').click(); // → cart
+
+  await page.locator('#to-location').click(); // → Lokacija
+  await page.locator('#to-result').click(); // → Ponuda
 
   // Dvosjed (40) + tepih do 10 m² (55) = 95, -10% (2 usluge) = 86, no location -> no travel fee.
   await expect(page.locator('#cr-total')).toHaveText('86 €');

@@ -7,40 +7,26 @@ import { fromEur } from '../../lib/format';
   <div class="container">
     <SectionHeader
       title="Izračunajte svoju cijenu"
-      sub="Odaberite usluge, unesite lokaciju, procjena u sekundi. Bez obveze."
+      sub="Korak po korak: odaberite uslugu, veličinu i lokaciju. Procjena u sekundi, bez obveze."
     />
 
     <div class="calc-card">
       <div class="wizard-progress" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="Korak 1 od 3">
-        <span class="wp-seg active" data-step="1"><b>1</b> Usluge</span>
-        <span class="wp-seg" data-step="2"><b>2</b> Lokacija</span>
-        <span class="wp-seg" data-step="3"><b>3</b> Ponuda</span>
+        <span class="wp-seg active" data-phase="1"><b>1</b> Usluge</span>
+        <span class="wp-seg" data-phase="2"><b>2</b> Lokacija</span>
+        <span class="wp-seg" data-phase="3"><b>3</b> Ponuda</span>
       </div>
 
-      <!-- STEP 1 -->
-      <div class="wizard-step active" data-step="1">
-        <p class="calc-hint">Odaberite jednu ili više stavki, zatim odaberite detalje.</p>
-        <div class="calc-grid">
+      <!-- SCREEN: pick a service -->
+      <div class="calc-screen" data-screen="service">
+        <p class="calc-q">Što želite očistiti?</p>
+        <div class="calc-services" id="calc-services">
           {SERVICES.map((s) => (
-            <div class="csvc" data-service={s.id}>
-              <label class="csvc-card">
-                <input type="checkbox" class="csvc-check" value={s.id} />
-                <span class="csvc-emoji" aria-hidden="true">{SERVICE_EMOJI[s.id]}</span>
-                <span class="csvc-name">{s.name}</span>
-                <span class="csvc-from mono">{fromEur(fromOf(s))}</span>
-              </label>
-              <fieldset class="csize" hidden>
-                <legend class="csize-label">{s.sizeLabel}</legend>
-                <div class="csize-opts">
-                  {s.sizes.map((o) => (
-                    <label class="csize-pill">
-                      <input type="radio" name={`size-${s.id}`} value={o.id} data-price={o.price} data-label={o.label} />
-                      <span>{o.label}</span><b class="mono">{o.price} €</b>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
+            <button type="button" class="svc-pick" data-service={s.id}>
+              <span class="svc-pick-emoji" aria-hidden="true">{SERVICE_EMOJI[s.id]}</span>
+              <span class="svc-pick-name">{s.name}</span>
+              <span class="svc-pick-from mono">{fromEur(fromOf(s))}</span>
+            </button>
           ))}
         </div>
         <div class="calc-tiers" aria-label="Popusti za više usluga">
@@ -48,20 +34,49 @@ import { fromEur } from '../../lib/format';
           <span>3 usluge <strong>-15%</strong></span>
           <span>5+ usluga <strong>-20%</strong></span>
         </div>
+        <div class="calc-actions">
+          <button type="button" class="wizard-back" data-act="to-cart" hidden>← Natrag na popis</button>
+        </div>
       </div>
 
-      <!-- STEP 2 -->
-      <div class="wizard-step" data-step="2" hidden>
-        <p class="calc-hint">Unesite mjesto i odmah vidite dolazak. <span class="muted">(Opcionalno)</span></p>
+      <!-- SCREEN: size of the chosen service -->
+      <div class="calc-screen" data-screen="size" hidden>
+        <p class="calc-q" id="size-q">Veličina</p>
+        <div class="csize-opts" id="size-opts"></div>
+        <div class="calc-actions">
+          <button type="button" class="wizard-back" data-act="size-back">← Natrag</button>
+          <button type="button" class="btn btn-cta wizard-next" id="size-add" disabled>Dodaj uslugu →</button>
+        </div>
+      </div>
+
+      <!-- SCREEN: cart / review -->
+      <div class="calc-screen" data-screen="cart" hidden>
+        <p class="calc-q">Vaše usluge</p>
+        <div class="calc-cart" id="calc-cart"></div>
+        <p class="calc-cart-disc mono" id="cart-disc" hidden></p>
+        <div class="calc-actions">
+          <button type="button" class="calc-add-more" id="add-more">+ Dodaj još uslugu</button>
+          <button type="button" class="btn btn-cta wizard-next" id="to-location">Nastavi → Lokacija</button>
+        </div>
+      </div>
+
+      <!-- SCREEN: location (optional) -->
+      <div class="calc-screen" data-screen="location" hidden>
+        <p class="calc-q">📍 Lokacija <span class="muted">(neobavezno)</span></p>
+        <p class="calc-hint">Unesite mjesto i odmah vidite dolazak.</p>
         <div class="calc-address-row">
           <input type="text" id="calc-address" class="calc-address-input" placeholder="npr. Bjelovar" aria-label="Mjesto ili adresa za izračun dolaska" autocomplete="off" />
           <button type="button" id="calc-search" class="calc-search-btn">Provjeri</button>
         </div>
         <p class="calc-distance" id="calc-distance" aria-live="polite"></p>
+        <div class="calc-actions">
+          <button type="button" class="wizard-back" data-act="loc-back">← Natrag</button>
+          <button type="button" class="btn btn-cta wizard-next" id="to-result">Vidi ponudu →</button>
+        </div>
       </div>
 
-      <!-- STEP 3 -->
-      <div class="wizard-step" data-step="3" hidden>
+      <!-- SCREEN: result -->
+      <div class="calc-screen" data-screen="result" hidden>
         <div class="calc-result">
           <div class="cr-items" id="cr-items"></div>
           <div class="cr-total-label">Procijenjena cijena</div>
@@ -69,12 +84,10 @@ import { fromEur } from '../../lib/format';
           <p class="cr-note" id="cr-note"></p>
           <a class="btn btn-wa cr-cta" id="cr-wa" href="#" target="_blank" rel="noopener" aria-label="Zatražite točnu ponudu na WhatsApp">Zatražite točnu ponudu na WhatsApp →</a>
           <p class="cr-disclaim mono">Procjena je orijentacijska. Točnu cijenu potvrđujemo pri dogovoru.</p>
+          <div class="calc-actions calc-actions--center">
+            <button type="button" class="wizard-back" data-act="res-back">← Promijeni usluge</button>
+          </div>
         </div>
-      </div>
-
-      <div class="wizard-nav">
-        <button type="button" class="wizard-back" id="wiz-back" hidden>← Natrag</button>
-        <button type="button" class="btn btn-cta wizard-next" id="wiz-next" disabled>Dalje →</button>
       </div>
     </div>
   </div>
@@ -83,63 +96,127 @@ import { fromEur } from '../../lib/format';
 <script>
   import { computeQuote, buildWhatsAppPayload, distanceFromBase } from '../../lib/calculator';
   import type { QuoteItem } from '../../lib/calculator';
-  import { SERVICES } from '../../data/services';
+  import { SERVICES, SERVICE_EMOJI } from '../../data/services';
   import { FREE_KM } from '../../data/pricing';
 
   const root = document.querySelector('.calc-card');
   if (root) {
-    const nameOf = (id: string) => SERVICES.find((s) => s.id === id)?.name ?? id;
-    let step = 1;
+    type Screen = 'service' | 'size' | 'cart' | 'location' | 'result';
+    const PHASE: Record<Screen, number> = { service: 1, size: 1, cart: 1, location: 2, result: 3 };
+
+    const cart: QuoteItem[] = [];
+    let pending: { id: string; name: string; sizeLabel: string; price: number } | null = null;
     let distanceKm: number | null = null;
     let locationLabel = '';
 
     const segs = root.querySelectorAll<HTMLElement>('.wp-seg');
-    const steps = root.querySelectorAll<HTMLElement>('.wizard-step');
     const progress = root.querySelector('.wizard-progress')!;
-    const back = root.querySelector('#wiz-back') as HTMLButtonElement;
-    const next = root.querySelector('#wiz-next') as HTMLButtonElement;
+    const screens = root.querySelectorAll<HTMLElement>('.calc-screen');
+    const scr = (s: Screen) => root.querySelector<HTMLElement>(`.calc-screen[data-screen="${s}"]`)!;
 
-    function selectedItems(): QuoteItem[] {
-      const items: QuoteItem[] = [];
-      root!.querySelectorAll<HTMLInputElement>('.csvc-check:checked').forEach((chk) => {
-        const card = chk.closest('.csvc')!;
-        const size = card.querySelector<HTMLInputElement>('input[type=radio]:checked');
-        if (size) {
-          items.push({
-            id: chk.value,
-            name: nameOf(chk.value),
-            sizeLabel: size.dataset.label || '',
-            price: Number(size.dataset.price),
-          });
-        }
+    function show(s: Screen) {
+      screens.forEach((el) => { el.hidden = el.dataset.screen !== s; });
+      const ph = PHASE[s];
+      segs.forEach((seg) => seg.classList.toggle('active', Number(seg.dataset.phase) <= ph));
+      progress.setAttribute('aria-valuenow', String(ph));
+      progress.setAttribute('aria-label', `Korak ${ph} od 3`);
+      if (s === 'service') markServices();
+      if (s === 'cart') renderCart();
+      if (s === 'result') renderResult();
+      scrollToCard();
+    }
+
+    // ---- service screen ----
+    const svcBack = scr('service').querySelector<HTMLButtonElement>('[data-act="to-cart"]')!;
+    function markServices() {
+      root!.querySelectorAll<HTMLButtonElement>('.svc-pick').forEach((btn) => {
+        const added = cart.some((it) => it.id === btn.dataset.service);
+        btn.classList.toggle('is-added', added);
+        btn.disabled = added; // remove from the cart to re-add with a different size
       });
-      return items;
+      svcBack.hidden = cart.length === 0;
     }
-
-    function validStep1() {
-      return selectedItems().length > 0;
-    }
-
-    function render() {
-      segs.forEach((s) => s.classList.toggle('active', Number(s.dataset.step) <= step));
-      steps.forEach((s) => {
-        const active = Number(s.dataset.step) === step;
-        s.classList.toggle('active', active);
-        s.hidden = !active;
+    root.querySelectorAll<HTMLButtonElement>('.svc-pick').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const service = SERVICES.find((s) => s.id === btn.dataset.service);
+        if (!service) return;
+        buildSize(service);
+        show('size');
       });
-      progress.setAttribute('aria-valuenow', String(step));
-      progress.setAttribute('aria-label', `Korak ${step} od 3`);
-      back.hidden = step === 1;
-      next.textContent = step === 3 ? 'Gotovo' : 'Dalje →';
-      next.disabled = step === 1 && !validStep1();
-      if (step === 3) renderResult();
-    }
+    });
+    svcBack.addEventListener('click', () => show('cart'));
 
+    // ---- size screen ----
+    const sizeQ = root.querySelector('#size-q')!;
+    const sizeOpts = root.querySelector('#size-opts')!;
+    const sizeAdd = root.querySelector('#size-add') as HTMLButtonElement;
+    function buildSize(service: typeof SERVICES[number]) {
+      pending = { id: service.id, name: service.name, sizeLabel: '', price: 0 };
+      sizeQ.textContent = service.sizeLabel;
+      sizeOpts.innerHTML = service.sizes
+        .map(
+          (o) => `<label class="csize-pill"><input type="radio" name="size-pick" value="${o.id}" data-price="${o.price}" data-label="${o.label}"><span>${o.label}</span><b class="mono">${o.price} €</b></label>`,
+        )
+        .join('');
+      sizeOpts.querySelectorAll<HTMLInputElement>('input').forEach((r) => {
+        r.addEventListener('change', () => {
+          if (!pending) return;
+          pending.sizeLabel = r.dataset.label || '';
+          pending.price = Number(r.dataset.price);
+          sizeAdd.disabled = false;
+        });
+      });
+      sizeAdd.disabled = true;
+    }
+    sizeAdd.addEventListener('click', () => {
+      if (!pending || !pending.sizeLabel) return;
+      cart.push({ ...pending });
+      pending = null;
+      show('cart');
+    });
+    scr('size').querySelector('[data-act="size-back"]')!.addEventListener('click', () => {
+      pending = null;
+      show(cart.length ? 'cart' : 'service');
+    });
+
+    // ---- cart screen ----
+    const cartEl = root.querySelector('#calc-cart')!;
+    const cartDisc = root.querySelector('#cart-disc') as HTMLElement;
+    function renderCart() {
+      cartEl.innerHTML = cart
+        .map(
+          (it, i) => `<div class="cart-row"><span class="cart-name">${SERVICE_EMOJI[it.id as keyof typeof SERVICE_EMOJI]} ${it.name} <span class="cart-size">${it.sizeLabel}</span></span><span class="cart-price mono">${it.price} €</span><button type="button" class="cart-del" data-i="${i}" aria-label="Ukloni ${it.name}">✕</button></div>`,
+        )
+        .join('');
+      const q = computeQuote(cart, null);
+      if (q.discountPct > 0) {
+        cartDisc.hidden = false;
+        cartDisc.textContent = `Popust za ${q.count} usluge: −${q.discountPct}%`;
+      } else {
+        cartDisc.hidden = true;
+      }
+      cartEl.querySelectorAll<HTMLButtonElement>('.cart-del').forEach((b) => {
+        b.addEventListener('click', () => {
+          cart.splice(Number(b.dataset.i), 1);
+          if (cart.length === 0) show('service');
+          else renderCart();
+        });
+      });
+    }
+    root.querySelector('#add-more')!.addEventListener('click', () => show('service'));
+    root.querySelector('#to-location')!.addEventListener('click', () => show('location'));
+
+    // ---- location screen ----
+    scr('location').querySelector('[data-act="loc-back"]')!.addEventListener('click', () => show('cart'));
+    root.querySelector('#to-result')!.addEventListener('click', () => show('result'));
+
+    // ---- result screen ----
     function renderResult() {
-      const items = selectedItems();
-      const q = computeQuote(items, distanceKm);
+      const q = computeQuote(cart, distanceKm);
       const itemsEl = root!.querySelector('#cr-items')!;
-      const rows = items.map((i) => `<div class="cr-row"><span>${i.name} (${i.sizeLabel})</span><span class="mono">${i.price} €</span></div>`);
+      const rows = cart.map(
+        (i) => `<div class="cr-row"><span>${i.name} (${i.sizeLabel})</span><span class="mono">${i.price} €</span></div>`,
+      );
       if (q.discountPct > 0) rows.push(`<div class="cr-row cr-disc"><span>Popust (${q.count} usluge, -${q.discountPct}%)</span><span class="mono">-${q.discountAmount} €</span></div>`);
       if (q.fuel > 0) rows.push(`<div class="cr-row"><span>Dolazak (${q.distanceKm} km)</span><span class="mono">+${q.fuel} €</span></div>`);
       itemsEl.innerHTML = rows.join('');
@@ -149,39 +226,20 @@ import { fromEur } from '../../lib/format';
       if (q.discountPct > 0) parts.push(`Uključuje popust za ${q.count} usluge.`);
       if (q.minApplied) parts.push('Minimalna narudžba je 40 €.');
       note.textContent = parts.join(' ');
-      const wa = root!.querySelector('#cr-wa') as HTMLAnchorElement;
-      wa.href = buildWhatsAppPayload(q, locationLabel || undefined);
+      (root!.querySelector('#cr-wa') as HTMLAnchorElement).href = buildWhatsAppPayload(q, locationLabel || undefined);
     }
+    scr('result').querySelector('[data-act="res-back"]')!.addEventListener('click', () => show('cart'));
 
-    // service checkbox → reveal size group
-    root.querySelectorAll<HTMLInputElement>('.csvc-check').forEach((chk) => {
-      chk.addEventListener('change', () => {
-        const card = chk.closest('.csvc')!;
-        const size = card.querySelector('.csize') as HTMLElement;
-        card.querySelector('.csvc-card')!.classList.toggle('is-on', chk.checked);
-        size.hidden = !chk.checked;
-        if (!chk.checked) card.querySelectorAll<HTMLInputElement>('input[type=radio]').forEach((r) => (r.checked = false));
-        next.disabled = step === 1 && !validStep1();
-      });
-    });
-    root.querySelectorAll<HTMLInputElement>('.csize input[type=radio]').forEach((r) => {
-      r.addEventListener('change', () => { next.disabled = step === 1 && !validStep1(); });
-    });
-
-    next.addEventListener('click', () => { if (step < 3) { step++; render(); scrollToCard(); } });
-    back.addEventListener('click', () => { if (step > 1) { step--; render(); scrollToCard(); } });
-
-    // Keep the wizard in view when changing step (esp. on mobile).
+    // Keep the wizard in view when changing screen (esp. on mobile).
     function scrollToCard() {
       const top = (root as HTMLElement).getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top, behavior: 'smooth' });
     }
 
-    // geocoding (with error handling, button never sticks)
+    // ---- geocoding (button never sticks) ----
     const searchBtn = root.querySelector('#calc-search') as HTMLButtonElement;
     const addressInput = root.querySelector('#calc-address') as HTMLInputElement;
     const distanceEl = root.querySelector('#calc-distance') as HTMLElement;
-
     async function search() {
       const q = addressInput.value.trim();
       if (!q) return;
@@ -214,6 +272,6 @@ import { fromEur } from '../../lib/format';
     searchBtn.addEventListener('click', search);
     addressInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); search(); } });
 
-    render();
+    show('service');
   }
 </script>
