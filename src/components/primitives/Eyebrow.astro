@@ -1,0 +1,8 @@
+---
+interface Props {
+  onDark?: boolean;
+  class?: string;
+}
+const { onDark = false, class: cls } = Astro.props;
+---
+<span class:list={['eyebrow', !onDark && 'eyebrow-dark', cls]}><slot /></span>

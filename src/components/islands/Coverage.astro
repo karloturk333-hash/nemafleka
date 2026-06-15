@@ -1,0 +1,79 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+import Button from '../primitives/Button.astro';
+const bullets = [
+  'Vrbovec i okolica, besplatan dolazak',
+  'Dugo Selo, Ivanić-Grad, Kloštar Ivanić, besplatan dolazak',
+  'Križevci, Sv. Ivan Zelina, Čazma, besplatan dolazak',
+  'Bjelovar, Koprivnica, mali putni dodatak',
+  'Zagreb, Sesvete, na upit',
+];
+---
+<section class="section section-dark" id="zona">
+  <div class="container zona-grid">
+    <div class="zona-copy">
+      <SectionHeader
+        onDark
+        align="left"
+        eyebrow="Zona pokrivenosti"
+        title={`Vaši susjedi za<br><span class="accent">dubinsko čišćenje.</span>`}
+        sub="Baza u Vrbovcu, pokrivamo cijeli koridor od Dugog Sela do Koprivnice. Mi smo odavde."
+      />
+      <ul class="zona-list" role="list">
+        {bullets.map((b) => <li>{b}</li>)}
+      </ul>
+      <div class="zona-cta-row">
+        <Button href="#kalkulator" variant="cta">Provjerite svoju lokaciju</Button>
+        <a class="zona-link" href="/podrucje-pokrivenosti">Sva mjesta koja pokrivamo →</a>
+      </div>
+    </div>
+    <div id="coverage-map" class="zona-map" role="group" aria-label="Interaktivna karta zone pokrivenosti oko Vrbovca"></div>
+  </div>
+</section>
+
+<script>
+  import { TOWNS } from '../../data/towns';
+  import { VRBOVEC, FREE_KM } from '../../data/pricing';
+
+  const el = document.getElementById('coverage-map');
+  if (el) {
+    const obs = new IntersectionObserver((entries, o) => {
+      if (entries.some((e) => e.isIntersecting)) { o.disconnect(); loadMap(); }
+    }, { rootMargin: '300px' });
+    obs.observe(el);
+  }
+
+  function loadMap() {
+    if ((window as any).L) return init();
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    s.crossOrigin = '';
+    s.onload = init;
+    document.body.appendChild(s);
+  }
+
+  function init() {
+    const L = (window as any).L;
+    const map = L.map('coverage-map', { scrollWheelZoom: false }).setView([VRBOVEC.lat, VRBOVEC.lng], 9);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+    }).addTo(map);
+    L.circle([VRBOVEC.lat, VRBOVEC.lng], {
+      radius: FREE_KM * 1000, color: '#C8FF3E', weight: 1, fillColor: '#C8FF3E', fillOpacity: 0.08,
+    }).addTo(map);
+    L.circleMarker([VRBOVEC.lat, VRBOVEC.lng], {
+      radius: 7, color: '#0D0E45', fillColor: '#C8FF3E', fillOpacity: 1, weight: 2,
+    }).addTo(map).bindPopup('Baza, Vrbovec');
+    TOWNS.forEach((t) => {
+      L.circleMarker([t.lat, t.lng], {
+        radius: 5, color: '#fff', weight: 1,
+        fillColor: t.free ? '#C8FF3E' : '#5A5DD6', fillOpacity: 0.9,
+      }).addTo(map).bindPopup(`${t.name}, ${t.free ? 'besplatan dolazak' : 'mali putni dodatak'}`);
+    });
+  }
+</script>

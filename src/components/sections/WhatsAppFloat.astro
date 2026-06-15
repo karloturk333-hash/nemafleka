@@ -1,0 +1,8 @@
+---
+import Icon from '../primitives/Icon.astro';
+import { waLink } from '../../lib/links';
+---
+<a class="wa-float" href={waLink()} target="_blank" rel="noopener" aria-label="Pišite nam na WhatsApp">
+  <Icon name="whatsapp" size={26} />
+  <span class="wa-float-label">WhatsApp</span>
+</a>

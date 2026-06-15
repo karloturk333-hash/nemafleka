@@ -1,0 +1,34 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+import Button from '../primitives/Button.astro';
+import { SERVICES, fromOf } from '../../data/services';
+import { fromEur } from '../../lib/format';
+const rows = SERVICES.filter((s) => ['couch', 'armchair', 'carpet', 'mattress', 'car'].includes(s.id));
+---
+<section class="section section-tint" id="cjenik">
+  <div class="container">
+    <SectionHeader
+      title="Transparentne cijene"
+      sub="Finalna cijena nakon besplatne procjene. Nikad više od dogovorenog."
+    />
+    <div class="price-card">
+      <div class="price-table">
+        {rows.map((s) => (
+          <div class="price-row">
+            <span class="p-name">{s.cardLabel}</span>
+            <span class="p-val mono">{fromEur(fromOf(s))}</span>
+          </div>
+        ))}
+        <div class="price-row best">
+          <span class="p-name">2+ usluge = popust</span>
+          <span class="p-val mono">-10 do -20%</span>
+        </div>
+      </div>
+      <div class="badge-strip">
+        <span class="badge">Garancija zadovoljstva</span>
+        <span class="badge">Ekološki</span>
+      </div>
+      <Button href="#kalkulator" variant="cta" class="price-cta">Zatražite besplatnu procjenu →</Button>
+    </div>
+  </div>
+</section>

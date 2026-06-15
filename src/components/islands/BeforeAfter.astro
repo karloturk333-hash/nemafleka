@@ -1,0 +1,111 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+const pairs = {
+  couch: { before: '/images/ba-couch-before.webp', after: '/images/ba-couch-after.webp', label: 'kauča' },
+  mattress: { before: '/images/ba-mattress-before.webp', after: '/images/ba-mattress-after.webp', label: 'madraca' },
+};
+---
+<section class="section section-dark" id="dokaz">
+  <div class="container ba-wrap">
+    <div class="ba-copy">
+      <SectionHeader
+        onDark
+        align="left"
+        eyebrow="Vizualni dokaz"
+        title={`Razlika koja se<br><span class="accent">vidi golim okom.</span>`}
+        sub="Nije reklama, ovo su naši pravi rezultati. Povucite klizač i usporedite."
+      />
+      <div class="ba-tabs" role="tablist" aria-label="Odaberi kategoriju">
+        <button class="ba-tab active" role="tab" aria-selected="true" data-pair="couch">Kauč</button>
+        <button class="ba-tab" role="tab" aria-selected="false" data-pair="mattress">Madrac</button>
+      </div>
+      <div class="ba-stats">
+        <div><strong>Eko</strong><span>sredstva za obitelj</span></div>
+        <div><strong>2-4 h</strong><span>suši se brzo</span></div>
+        <div><strong>Garancija</strong><span>povrat novca</span></div>
+      </div>
+    </div>
+
+    <figure class="ba-widget">
+      <div class="proof-split big" id="ba-split">
+        <img id="ba-after-img" src={pairs.couch.after} alt="Kauč nakon čišćenja" class="proof-after" loading="lazy" decoding="async" />
+        <div class="proof-before-wrap" id="ba-before-wrap" style="width:50%">
+          <img id="ba-before-img" src={pairs.couch.before} alt="Kauč prije čišćenja" class="proof-before" loading="lazy" decoding="async" />
+        </div>
+        <span class="proof-divider" id="ba-divider" style="left:50%"></span>
+        <button
+          class="ba-handle"
+          id="ba-handle"
+          role="slider"
+          aria-label="Klizač za usporedbu prije i poslije"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          aria-valuetext="50% prikaza nakon čišćenja"
+          tabindex="0"
+          style="left:50%"
+        ></button>
+        <span class="proof-tag proof-tag-before">PRIJE</span>
+        <span class="proof-tag proof-tag-after">NAKON</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<script>
+  const PAIRS = {
+    couch: { before: '/images/ba-couch-before.webp', after: '/images/ba-couch-after.webp', label: 'kauča' },
+    mattress: { before: '/images/ba-mattress-before.webp', after: '/images/ba-mattress-after.webp', label: 'madraca' },
+  } as const;
+
+  const split = document.getElementById('ba-split')!;
+  const wrap = document.getElementById('ba-before-wrap')!;
+  const divider = document.getElementById('ba-divider')!;
+  const handle = document.getElementById('ba-handle')!;
+  const beforeImg = document.getElementById('ba-before-img') as HTMLImageElement;
+  const afterImg = document.getElementById('ba-after-img') as HTMLImageElement;
+  let value = 50;
+
+  function setValue(v: number) {
+    value = Math.max(0, Math.min(100, Math.round(v)));
+    wrap.style.width = value + '%';
+    divider.style.left = value + '%';
+    handle.style.left = value + '%';
+    handle.setAttribute('aria-valuenow', String(value));
+    handle.setAttribute('aria-valuetext', `${value}% prikaza nakon čišćenja`);
+  }
+
+  function fromClientX(clientX: number) {
+    const r = split.getBoundingClientRect();
+    setValue(((clientX - r.left) / r.width) * 100);
+  }
+
+  let dragging = false;
+  split.addEventListener('pointerdown', (e) => { dragging = true; handle.focus(); fromClientX(e.clientX); });
+  window.addEventListener('pointermove', (e) => { if (dragging) fromClientX(e.clientX); });
+  window.addEventListener('pointerup', () => { dragging = false; });
+
+  handle.addEventListener('keydown', (e) => {
+    const step = e.shiftKey ? 10 : 2;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); setValue(value - step); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); setValue(value + step); }
+    else if (e.key === 'Home') { e.preventDefault(); setValue(0); }
+    else if (e.key === 'End') { e.preventDefault(); setValue(100); }
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.ba-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const key = tab.dataset.pair as keyof typeof PAIRS;
+      const pair = PAIRS[key];
+      document.querySelectorAll('.ba-tab').forEach((t) => {
+        t.classList.toggle('active', t === tab);
+        t.setAttribute('aria-selected', String(t === tab));
+      });
+      beforeImg.src = pair.before;
+      beforeImg.alt = `Slika prije čišćenja, ${pair.label}`;
+      afterImg.src = pair.after;
+      afterImg.alt = `Slika nakon čišćenja, ${pair.label}`;
+      setValue(50);
+    });
+  });
+</script>

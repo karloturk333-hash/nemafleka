@@ -4,3 +4,15 @@ screenshot.png
 *.log
 .DS_Store
 Thumbs.db
+
+# Astro build output
+dist/
+.astro/
+
+# test artifacts
+test-results/
+playwright-report/
+coverage/
+
+# redesign scratch (audits, prototype, baseline screenshots) — kept local, not in the app
+.redesign/

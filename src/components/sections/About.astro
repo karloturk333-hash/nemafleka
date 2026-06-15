@@ -1,0 +1,30 @@
+---
+import Button from '../primitives/Button.astro';
+const features = [
+  { t: 'Brz dolazak', d: 'Baza u Vrbovcu, pokrivamo okolicu. Bez dugih vožnji, bez čekanja tjednima.' },
+  { t: 'Profesionalna oprema', d: 'Industrijski ekstraktor i UV dezinfekcija. Kućni usisavač to ne može.' },
+  { t: 'Ekološki, sigurno za obitelj', d: 'Sredstva sigurna za djecu, ljubimce i alergičare.' },
+  { t: 'Cijena unaprijed', d: 'Cijene su na webu, vidite ih prije kontakta. Bez skrivenih troškova.' },
+];
+---
+<section class="section" id="zasto">
+  <div class="container why-grid">
+    <div class="why-copy">
+      <h2 class="section-h2">Lokalni tim. Pošten posao.</h2>
+      <p class="section-sub left">
+        Mi smo <strong>Karlo i Ivan</strong>, lokalni tim iz Vrbovca. Krenuli smo jer u našem kraju
+        nije bilo nekoga tko brzo dođe, radi temeljito i naplati pošteno, bez vožnji i marži iz
+        velikog grada.
+      </p>
+      <ul class="why-list" role="list">
+        {features.map((f) => <li><strong>{f.t}.</strong> {f.d}</li>)}
+      </ul>
+      <Button href="#kalkulator" variant="cta">Zatražite besplatnu procjenu →</Button>
+    </div>
+    <aside class="founder-card">
+      <p class="founder-novi">Novi smo, lokalni i želimo dobar glas, zato se trudimo duplo.</p>
+      <p class="founder-quote">„Ulažemo u profesionalnu opremu i u svaki posao kao da je naš dom.”</p>
+      <p class="founder-by"><strong>Karlo &amp; Ivan</strong> · osnivači, Vrbovec</p>
+    </aside>
+  </div>
+</section>

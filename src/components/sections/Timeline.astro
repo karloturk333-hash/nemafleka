@@ -1,0 +1,34 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+import { BUSINESS } from '../../data/business';
+const steps = [
+  { n: '1', t: 'Nazovete ili nam pišete', d: 'Kažete nam što treba očistiti i gdje ste. Odmah dobijete okvirnu cijenu, besplatno.' },
+  { n: '2', t: 'Dogovorimo termin', d: 'Dolazimo kad vama odgovara: ujutro, popodne ili vikendom.' },
+  { n: '3', t: 'Dolazimo i očistimo', d: 'Naš tim dođe s opremom i sve temeljito očisti. Vi se opustite.' },
+  { n: '4', t: 'Gotovo, čisto je', d: 'Bez fleka i bez mirisa. Plaćate tek kad ste zadovoljni.' },
+];
+const k = BUSINESS.phones[0];
+---
+<section class="section section-tint" id="kako">
+  <div class="container">
+    <SectionHeader
+      title="Kako naručiti čišćenje?"
+      sub="U četiri jednostavna koraka. Bez komplikacija."
+    />
+    <ol class="steps" role="list">
+      {steps.map((s) => (
+        <li>
+          <span class="step-badge" aria-hidden="true">{s.n}</span>
+          <h3>{s.t}</h3>
+          <p>{s.d}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="kako-cta">
+      <span class="kako-cta-text">Najlakše je da nas jednostavno nazovete:</span>
+      <Button href={`tel:${k.tel}`} variant="cta"><Icon name="phone" size={18} /> {k.name}: {k.display}</Button>
+    </div>
+  </div>
+</section>

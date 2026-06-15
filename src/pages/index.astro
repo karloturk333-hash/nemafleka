@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TrustStrip from '../components/sections/TrustStrip.astro';
+import Services from '../components/sections/Services.astro';
+import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
+import PriceCard from '../components/sections/PriceCard.astro';
+import BeforeAfter from '../components/islands/BeforeAfter.astro';
+import Timeline from '../components/sections/Timeline.astro';
+import About from '../components/sections/About.astro';
+import Coverage from '../components/islands/Coverage.astro';
+import FaqList from '../components/sections/FaqList.astro';
+import ContactCTA from '../components/sections/ContactCTA.astro';
+import { localBusinessJsonLd, faqJsonLd } from '../lib/jsonld';
+---
+<BaseLayout
+  title="Nema Fleka, Dubinsko čišćenje | Vrbovec, Dugo Selo, Križevci, Bjelovar"
+  description="Profesionalno dubinsko čišćenje kauča, tepiha, madraca i automobila. Lokalni tim iz Vrbovca. Transparentne cijene, ekološka sredstva, garancija zadovoljstva."
+  path="/"
+  jsonLd={[localBusinessJsonLd(), faqJsonLd()]}
+>
+  <Hero />
+  <TrustStrip />
+  <Services />
+  <CalculatorWizard />
+  <PriceCard />
+  <BeforeAfter />
+  <Timeline />
+  <About />
+  <Coverage />
+  <FaqList />
+  <ContactCTA />
+</BaseLayout>

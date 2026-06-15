@@ -1,0 +1,16 @@
+---
+import Eyebrow from './Eyebrow.astro';
+interface Props {
+  eyebrow?: string;
+  title: string; // may contain inline HTML (<br>, <span class="accent">)
+  sub?: string;
+  onDark?: boolean;
+  align?: 'center' | 'left';
+}
+const { eyebrow, title, sub, onDark = false, align = 'left' } = Astro.props;
+---
+<div class:list={['section-head', align === 'center' && 'section-head--center']}>
+  {eyebrow && <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>}
+  <h2 class:list={['section-h2', onDark && 'on-dark']} set:html={title} />
+  {sub && <p class:list={['section-sub', onDark && 'on-dark-sub']} set:html={sub} />}
+</div>
