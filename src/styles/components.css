@@ -54,7 +54,7 @@
 }
 .wp-seg b {
   display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%;
-  background: var(--line); color: var(--ink-700);
+  background: var(--line); color: var(--ink-700); line-height: 1;
 }
 .wp-seg.active { background: var(--ink-800); color: #fff; }
 .wp-seg.active b { background: var(--lime); color: var(--ink-800); }
