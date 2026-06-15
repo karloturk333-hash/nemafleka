@@ -13,7 +13,7 @@ const pairs = {
         align="left"
         eyebrow="Vizualni dokaz"
         title={`Razlika koja se<br><span class="accent">vidi golim okom.</span>`}
-        sub="Nije reklama — ovo su naši pravi rezultati. Povucite klizač i usporedite."
+        sub="Nije reklama, ovo su naši pravi rezultati. Povucite klizač i usporedite."
       />
       <div class="ba-tabs" role="tablist" aria-label="Odaberi kategoriju">
         <button class="ba-tab active" role="tab" aria-selected="true" data-pair="couch">Kauč</button>
@@ -21,7 +21,7 @@ const pairs = {
       </div>
       <div class="ba-stats">
         <div><strong>Eko</strong><span>sredstva za obitelj</span></div>
-        <div><strong>2–4 h</strong><span>suši se brzo</span></div>
+        <div><strong>2-4 h</strong><span>suši se brzo</span></div>
         <div><strong>Garancija</strong><span>povrat novca</span></div>
       </div>
     </div>
@@ -102,9 +102,9 @@ const pairs = {
         t.setAttribute('aria-selected', String(t === tab));
       });
       beforeImg.src = pair.before;
-      beforeImg.alt = `Slika prije čišćenja — ${pair.label}`;
+      beforeImg.alt = `Slika prije čišćenja, ${pair.label}`;
       afterImg.src = pair.after;
-      afterImg.alt = `Slika nakon čišćenja — ${pair.label}`;
+      afterImg.alt = `Slika nakon čišćenja, ${pair.label}`;
       setValue(50);
     });
   });

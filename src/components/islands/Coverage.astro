@@ -2,11 +2,11 @@
 import SectionHeader from '../primitives/SectionHeader.astro';
 import Button from '../primitives/Button.astro';
 const bullets = [
-  'Vrbovec i okolica — besplatan dolazak',
-  'Dugo Selo, Ivanić-Grad, Kloštar Ivanić — besplatan dolazak',
-  'Križevci, Sv. Ivan Zelina, Čazma — besplatan dolazak',
-  'Bjelovar, Koprivnica — mali putni dodatak',
-  'Zagreb, Sesvete — na upit',
+  'Vrbovec i okolica, besplatan dolazak',
+  'Dugo Selo, Ivanić-Grad, Kloštar Ivanić, besplatan dolazak',
+  'Križevci, Sv. Ivan Zelina, Čazma, besplatan dolazak',
+  'Bjelovar, Koprivnica, mali putni dodatak',
+  'Zagreb, Sesvete, na upit',
 ];
 ---
 <section class="section section-dark" id="zona">
@@ -68,12 +68,12 @@ const bullets = [
     }).addTo(map);
     L.circleMarker([VRBOVEC.lat, VRBOVEC.lng], {
       radius: 7, color: '#0D0E45', fillColor: '#C8FF3E', fillOpacity: 1, weight: 2,
-    }).addTo(map).bindPopup('Baza — Vrbovec');
+    }).addTo(map).bindPopup('Baza, Vrbovec');
     TOWNS.forEach((t) => {
       L.circleMarker([t.lat, t.lng], {
         radius: 5, color: '#fff', weight: 1,
         fillColor: t.free ? '#C8FF3E' : '#5A5DD6', fillOpacity: 0.9,
-      }).addTo(map).bindPopup(`${t.name} — ${t.free ? 'besplatan dolazak' : 'mali putni dodatak'}`);
+      }).addTo(map).bindPopup(`${t.name}, ${t.free ? 'besplatan dolazak' : 'mali putni dodatak'}`);
     });
   }
 </script>

@@ -1,4 +1,4 @@
-// Structured data built from the single source of truth — WITHOUT aggregateRating
+// Structured data built from the single source of truth, WITHOUT aggregateRating
 // (the business is launching; fabricated review schema was a Google manual-action + legal risk).
 import { BUSINESS } from '../data/business';
 import { FAQ } from '../data/faq';

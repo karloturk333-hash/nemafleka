@@ -1,4 +1,4 @@
-// Coverage data — drives the coverage hub, the map markers, optional future [town] pages,
+// Coverage data, drives the coverage hub, the map markers, optional future [town] pages,
 // and the old-URL redirects. Distances/free flags are [POTVRDITI] with Karlo.
 export interface Town {
   slug: string;

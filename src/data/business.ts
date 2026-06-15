@@ -1,4 +1,4 @@
-// Canonical business identity (NAP). ONE email, ONE set of phones — fixes the
+// Canonical business identity (NAP). ONE email, ONE set of phones, fixes the
 // nemafleka.info@ vs nemafleka@ mismatch. Business is not registered yet → honest disclaimer.
 export const WHATSAPP_PHONE = '385953765343';
 
@@ -17,11 +17,11 @@ export const BUSINESS = {
     { name: 'Ivan', tel: '+385916184796', display: '091 618 4796' },
   ],
   hours: [
-    { days: 'Pon–Pet', time: '08:00–20:00', dow: ['Mo', 'Tu', 'We', 'Th', 'Fr'], opens: '08:00', closes: '20:00' },
-    { days: 'Subota', time: '09:00–18:00', dow: ['Sa'], opens: '09:00', closes: '18:00' },
+    { days: 'Pon-Pet', time: '08:00-20:00', dow: ['Mo', 'Tu', 'We', 'Th', 'Fr'], opens: '08:00', closes: '20:00' },
+    { days: 'Subota', time: '09:00-18:00', dow: ['Sa'], opens: '09:00', closes: '18:00' },
     { days: 'Nedjelja', time: 'Po dogovoru', dow: [], opens: '', closes: '' },
   ],
-  // Honest legal block — obrt nije još registriran.
+  // Honest legal block, obrt nije još registriran.
   legal: {
     registered: false,
     disclaimer: 'Obrt u postupku registracije', // [POTVRDITI točan status/naziv]

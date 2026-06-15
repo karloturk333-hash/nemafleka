@@ -11,7 +11,9 @@ const links = [
 ---
 <header class="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Nema Fleka — početna">Nema&nbsp;Fleka<span class="dot">.</span></a>
+    <a href="/" class="nav-logo" aria-label="Nema Fleka, početna">
+      <img src="/images/logo.webp" alt="Nema Fleka" width="400" height="259" />
+    </a>
     <nav class="nav-links" aria-label="Glavna navigacija">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>

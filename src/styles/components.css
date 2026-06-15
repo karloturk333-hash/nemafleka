@@ -198,7 +198,7 @@
 .footer-impressum strong { color: #C9CCEC; }
 
 /* ---- Mobile nav ---- */
-.hamburger { display: none; flex-direction: column; gap: 5px; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger { display: none; margin-left: auto; flex-direction: column; gap: 5px; background: transparent; border: 0; cursor: pointer; padding: 8px; }
 .hamburger span { width: 26px; height: 2.5px; background: var(--ink-800); border-radius: 2px; }
 /* `hidden` must win over the display rules below (else the panel shows on desktop). */
 .m-panel[hidden], .m-overlay[hidden] { display: none; }
@@ -220,3 +220,57 @@
   .hamburger { display: flex; }
   .nav-cta { display: none; }
 }
+
+/* ============ Review-round fixes ============ */
+
+/* Before/after widget had collapsed to ~0 height (margin-inline:auto on a grid
+   item whose only children are absolutely-positioned images). Give it a width. */
+.ba-widget { width: min(100%, 440px); }
+
+/* Keep the calculator in view when stepping (sits below the sticky nav). */
+#kalkulator { scroll-margin-top: 80px; }
+
+/* Hero trust: stack vertically on small screens so the checkmarks aren't crowded. */
+@media (max-width: 600px) {
+  .hero-trust { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+
+/* Final-CTA contact links: vertically centre icon + text. */
+.cta-contacts a { display: inline-flex; align-items: center; gap: .45em; }
+
+/* "Kako radimo": clear single-digit step badge + phone CTA. */
+.step-badge {
+  display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  background: var(--ink-800); color: var(--lime);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; margin-bottom: var(--space-3);
+}
+.kako-cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: var(--space-4); margin-top: var(--space-8); text-align: center;
+}
+.kako-cta-text { color: var(--text-body); font-weight: 600; }
+
+/* Floating WhatsApp button (replaces the dark bottom bar). Just the button, no container. */
+.wa-float {
+  position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: var(--z-float);
+  display: inline-flex; align-items: center; gap: .5em;
+  background: var(--wa-green); color: #06351b;
+  font-family: var(--font-display); font-weight: 700;
+  padding: .8em 1.2em; border-radius: var(--r-pill); box-shadow: 0 8px 24px rgba(8,9,46,.28);
+  transition: transform var(--t-fast), background var(--t-base);
+}
+.wa-float:hover { transform: translateY(-2px); background: #3ddc78; }
+.wa-float svg { flex: none; }
+
+/* No bottom bar anymore -> drop the space it used to reserve. */
+@media (max-width: 900px) { body { padding-bottom: 0; } }
+
+/* The nav had backdrop-filter, which makes it a containing block for position:fixed
+   children -> the mobile menu panel was sized to the 67px nav bar instead of the viewport.
+   Drop the blur (opaque bar) so the fixed panel/overlay are relative to the viewport. */
+.nav { backdrop-filter: none; background: var(--paper); }
+
+/* Real brand logo (lime graffiti on navy blob, transparent bg). */
+.nav-logo img { height: 44px; width: auto; display: block; }
+.footer-logo img { height: 40px; width: auto; display: block; }
+@media (max-width: 600px) { .nav-logo img { height: 38px; } }

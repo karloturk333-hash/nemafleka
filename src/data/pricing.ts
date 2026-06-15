@@ -1,4 +1,4 @@
-// Calculator constants — ONE place. Drives the engine, the coverage copy, and the JSON-LD.
+// Calculator constants, ONE place. Drives the engine, the coverage copy, and the JSON-LD.
 // NOTE: values marked [POTVRDITI] await Karlo's confirmation (see .redesign/design/content-inputs.md).
 export const VRBOVEC = { lat: 45.8833, lng: 16.4167 } as const;
 

@@ -1,4 +1,4 @@
-// Pure pricing engine — no DOM, fully unit-testable. The UI island wraps this.
+// Pure pricing engine, no DOM, fully unit-testable. The UI island wraps this.
 import { DISCOUNT_TIERS, FREE_KM, FUEL_RATE, VRBOVEC } from '../data/pricing';
 import { WHATSAPP_PHONE } from '../data/business';
 

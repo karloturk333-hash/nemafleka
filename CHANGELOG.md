@@ -42,3 +42,23 @@ Potpuni redizajn + refactor. **Još nije na `main` — preview za pregled.**
 3. Lighthouse na Vercel preview-u (≥90) — potrebno isključiti Deployment Protection ili dati bypass token.
 4. Provjeriti redirecte starih URL-ova (301 → /podrucje-pokrivenosti).
 5. Odluka o mergeu `redesign/astro` → `main`.
+
+### Round 2 (popravci nakon pregleda)
+- Popravljen "Vizualni dokaz": before/after widget se urušio na 0px (margin-inline:auto na grid
+  itemu). Sada ima sliku i klizač na mobitelu i desktopu.
+- Popravljen mobilni izbornik: panel je bio proziran/urušen (nav `backdrop-filter` ga je činio
+  containing blockom za fixed elemente). Sada je pun, neproziran. **Dodan Playwright test koji to čuva.**
+- Kalkulator: na "Dalje/Natrag" scrolla se u vidokrug (mobilni UX).
+- Donji CTA bar zamijenjen jednim plutajućim WhatsApp gumbom (dolje desno), maknut "Pozovi".
+- "Kako radimo" prepisan jasnije (manje "1-2-3-4", jasni brojevi, jednostavan jezik, telefon CTA).
+- Hamburger pomaknut desno; hero kvačice posložene (ne više stisnute).
+- Kontakt ikone u završnom CTA-u centrirane.
+- Maknute AI-crtice (— – −) iz cijelog teksta.
+- Dodan pravi logo (lime grafit na navy mrlji) u nav i footer.
+- Cijene potvrđene = kalkulatorski (viši) set.
+
+### Preostali TODO
+- [ ] Lighthouse na živom Vercel preview-u: trenutno blokira Deployment Protection (401) —
+      isključiti zaštitu ili dati bypass token pa izmjeriti pravi mobilni perf.
+- [ ] Cross-browser provjera (WebKit/Firefox) — zasad verificiran Chromium.
+- [ ] `[POTVRDITI]`: impressum/OIB status, founder foto+priča, točan radijus, potvrda email/telefona.

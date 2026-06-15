@@ -1,5 +1,5 @@
 // SINGLE source of truth for services + sizes + prices.
-// ServiceCard, PriceCard, and the CalculatorWizard ALL read this — prices can never drift again.
+// ServiceCard, PriceCard, and the CalculatorWizard ALL read this, prices can never drift again.
 // Prices ported from the original calculator; treat as [POTVRDITI] until Karlo confirms one cjenik.
 
 export interface SizeOption {
@@ -26,8 +26,8 @@ export interface Service {
 export const SERVICES: Service[] = [
   {
     id: 'couch', name: 'Kauč', icon: 'couch', cardLabel: 'Kauč (2-sjed)',
-    sizeLabel: 'Kauč — tip', popular: true, tag: 'Najtraženije',
-    blurb: 'Dubinsko pranje tapeciranog namještaja. Fleke od kave, blata, djece ili ljubimaca — odlaze.',
+    sizeLabel: 'Tip kauča', popular: true, tag: 'Najtraženije',
+    blurb: 'Dubinsko pranje tapeciranog namještaja. Fleke od kave, blata, djece ili ljubimaca? Sve odlazi.',
     sizes: [
       { id: '2', label: '2-sjed', price: 45 },
       { id: '3', label: '3-sjed', price: 55 },
@@ -37,8 +37,8 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'armchair', name: 'Fotelja', icon: 'armchair', cardLabel: 'Fotelja',
-    sizeLabel: 'Fotelja — količina',
-    blurb: 'Fotelje kao nove — dubinski očišćene i osvježene.',
+    sizeLabel: 'Količina fotelja',
+    blurb: 'Fotelje kao nove, dubinski očišćene i osvježene.',
     sizes: [
       { id: '1', label: '1 kom', price: 25 },
       { id: '2', label: '2 kom', price: 50 },
@@ -47,8 +47,8 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'chair', name: 'Stolica', icon: 'chair', cardLabel: 'Stolica',
-    sizeLabel: 'Stolica — količina',
-    blurb: 'Tapecirane stolice — pojedinačno ili cijeli set.',
+    sizeLabel: 'Količina stolica',
+    blurb: 'Tapecirane stolice, pojedinačno ili cijeli set.',
     sizes: [
       { id: '1', label: '1 kom', price: 8 },
       { id: '2', label: '2 kom', price: 16 },
@@ -58,7 +58,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'ottoman', name: 'Tabure', icon: 'ottoman', cardLabel: 'Tabure',
-    sizeLabel: 'Tabure — količina',
+    sizeLabel: 'Količina tabura',
     blurb: 'Taburei i podnožnici, čisti do dna.',
     sizes: [
       { id: '1', label: '1 kom', price: 15 },
@@ -68,18 +68,18 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'carpet', name: 'Tepih', icon: 'carpet', cardLabel: 'Tepih (do 10 m²)',
-    sizeLabel: 'Tepih — površina',
-    blurb: 'Ekstrakcijsko čišćenje koje izvlači prljavštinu iz dubine. Suho za 2–4 sata.',
-    tag: 'Suho za 2–4 h',
+    sizeLabel: 'Površina tepiha',
+    blurb: 'Ekstrakcijsko čišćenje koje izvlači prljavštinu iz dubine. Suho za 2-4 sata.',
+    tag: 'Suho za 2-4 h',
     sizes: [
       { id: 's', label: 'do 10 m²', price: 70 },
-      { id: 'm', label: '10–20 m²', price: 105 },
+      { id: 'm', label: '10-20 m²', price: 105 },
       { id: 'l', label: '20+ m²', price: 150 },
     ],
   },
   {
     id: 'mattress', name: 'Madrac', icon: 'mattress', cardLabel: 'Madrac (140×200)',
-    sizeLabel: 'Madrac — veličina',
+    sizeLabel: 'Veličina madraca',
     blurb: 'UV + ekstrakcija uklanjaju grinje, bakterije i alergene. Sigurno za djecu i ljubimce.',
     tag: 'Sigurno za djecu',
     sizes: [
@@ -90,8 +90,8 @@ export const SERVICES: Service[] = [
     ],
   },
   {
-    id: 'car', name: 'Auto', icon: 'car', cardLabel: 'Auto — interijer',
-    sizeLabel: 'Auto — tip',
+    id: 'car', name: 'Auto', icon: 'car', cardLabel: 'Auto (interijer)',
+    sizeLabel: 'Tip auta',
     blurb: 'Dubinsko čišćenje sjedala, tepiha i prtljažnika + ručno pranje. Auto kao iz salona.',
     tag: 'Interijer + eksterijer',
     sizes: [
@@ -102,7 +102,7 @@ export const SERVICES: Service[] = [
   },
 ];
 
-/** Lowest price for a service — used for "od X€" labels everywhere. */
+/** Lowest price for a service, used for "od X€" labels everywhere. */
 export const fromOf = (s: Service): number => Math.min(...s.sizes.map((o) => o.price));
 
 export const getService = (id: ServiceId): Service =>

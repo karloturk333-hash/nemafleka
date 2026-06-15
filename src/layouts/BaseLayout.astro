@@ -12,7 +12,7 @@ import '../styles/components.css';
 
 import Nav from '../components/sections/Nav.astro';
 import Footer from '../components/sections/Footer.astro';
-import StickyMobileCTA from '../components/sections/StickyMobileCTA.astro';
+import WhatsAppFloat from '../components/sections/WhatsAppFloat.astro';
 import { BUSINESS } from '../data/business';
 
 interface Props {
@@ -75,6 +75,6 @@ const ogImageUrl = new URL(ogImage, BUSINESS.url).href;
       <slot />
     </main>
     <Footer />
-    <StickyMobileCTA />
+    <WhatsAppFloat />
   </body>
 </html>

@@ -8,7 +8,7 @@ import { fromEur } from '../../lib/format';
     <SectionHeader
       eyebrow="Kalkulator cijena"
       title="Izračunajte svoju cijenu"
-      sub="Odaberite usluge, unesite lokaciju — procjena u sekundi. Bez obveze."
+      sub="Odaberite usluge, unesite lokaciju, procjena u sekundi. Bez obveze."
     />
 
     <div class="calc-card">
@@ -45,9 +45,9 @@ import { fromEur } from '../../lib/format';
           ))}
         </div>
         <div class="calc-tiers" aria-label="Popusti za više usluga">
-          <span>2 usluge <strong>−10%</strong></span>
-          <span>3 usluge <strong>−15%</strong></span>
-          <span>5+ usluga <strong>−20%</strong></span>
+          <span>2 usluge <strong>-10%</strong></span>
+          <span>3 usluge <strong>-15%</strong></span>
+          <span>5+ usluga <strong>-20%</strong></span>
         </div>
       </div>
 
@@ -66,7 +66,7 @@ import { fromEur } from '../../lib/format';
         <div class="calc-result">
           <div class="cr-items" id="cr-items"></div>
           <div class="cr-total-label">Procijenjena cijena</div>
-          <div class="cr-total" id="cr-total">—</div>
+          <div class="cr-total" id="cr-total">0 €</div>
           <p class="cr-note" id="cr-note"></p>
           <a class="btn btn-wa cr-cta" id="cr-wa" href="#" target="_blank" rel="noopener" aria-label="Zatražite točnu ponudu na WhatsApp">Zatražite točnu ponudu na WhatsApp →</a>
           <p class="cr-disclaim mono">Procjena je orijentacijska. Točnu cijenu potvrđujemo pri dogovoru.</p>
@@ -141,10 +141,10 @@ import { fromEur } from '../../lib/format';
       const q = computeQuote(items, distanceKm);
       const itemsEl = root!.querySelector('#cr-items')!;
       const rows = items.map((i) => `<div class="cr-row"><span>${i.name} (${i.sizeLabel})</span><span class="mono">${i.price} €</span></div>`);
-      if (q.discountPct > 0) rows.push(`<div class="cr-row cr-disc"><span>Popust (${q.count} usluge, −${q.discountPct}%)</span><span class="mono">−${q.discountAmount} €</span></div>`);
+      if (q.discountPct > 0) rows.push(`<div class="cr-row cr-disc"><span>Popust (${q.count} usluge, -${q.discountPct}%)</span><span class="mono">-${q.discountAmount} €</span></div>`);
       if (q.fuel > 0) rows.push(`<div class="cr-row"><span>Dolazak (${q.distanceKm} km)</span><span class="mono">+${q.fuel} €</span></div>`);
       itemsEl.innerHTML = rows.join('');
-      (root!.querySelector('#cr-total') as HTMLElement).textContent = q.total > 0 ? `${q.total} €` : '—';
+      (root!.querySelector('#cr-total') as HTMLElement).textContent = `${q.total} €`;
       const note = root!.querySelector('#cr-note') as HTMLElement;
       note.textContent = q.discountPct > 0 ? `Uključuje popust za ${q.count} usluge.` : '';
       const wa = root!.querySelector('#cr-wa') as HTMLAnchorElement;
@@ -166,10 +166,16 @@ import { fromEur } from '../../lib/format';
       r.addEventListener('change', () => { next.disabled = step === 1 && !validStep1(); });
     });
 
-    next.addEventListener('click', () => { if (step < 3) { step++; render(); } });
-    back.addEventListener('click', () => { if (step > 1) { step--; render(); } });
+    next.addEventListener('click', () => { if (step < 3) { step++; render(); scrollToCard(); } });
+    back.addEventListener('click', () => { if (step > 1) { step--; render(); scrollToCard(); } });
 
-    // geocoding (with error handling — button never sticks)
+    // Keep the wizard in view when changing step (esp. on mobile).
+    function scrollToCard() {
+      const top = (root as HTMLElement).getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    // geocoding (with error handling, button never sticks)
     const searchBtn = root.querySelector('#calc-search') as HTMLButtonElement;
     const addressInput = root.querySelector('#calc-address') as HTMLInputElement;
     const distanceEl = root.querySelector('#calc-distance') as HTMLElement;
@@ -193,10 +199,10 @@ import { fromEur } from '../../lib/format';
         distanceKm = km;
         locationLabel = q;
         distanceEl.textContent = km <= FREE_KM
-          ? `~${km} km od Vrbovca — besplatan dolazak ✓`
-          : `~${km} km od Vrbovca — mali putni dodatak za gorivo.`;
+          ? `~${km} km od Vrbovca, besplatan dolazak ✓`
+          : `~${km} km od Vrbovca, mali putni dodatak za gorivo.`;
       } catch {
-        distanceEl.textContent = 'Trenutno ne možemo provjeriti udaljenost. Slobodno nastavite — dogovaramo na WhatsApp.';
+        distanceEl.textContent = 'Trenutno ne možemo provjeriti udaljenost. Slobodno nastavite, dogovaramo na WhatsApp.';
         distanceKm = null;
       } finally {
         searchBtn.disabled = false;

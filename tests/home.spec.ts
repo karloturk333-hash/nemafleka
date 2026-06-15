@@ -31,6 +31,29 @@ test('mobile nav opens, then closes on Escape', async ({ page }) => {
   await expect(page.locator('#nf-mpanel')).toBeHidden();
 });
 
+test('mobile nav panel covers the screen and is opaque (not collapsed/transparent)', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.locator('#nf-hamburger').click();
+  const panel = page.locator('#nf-mpanel');
+  await expect(panel).toBeVisible();
+
+  // Regression guard: the panel must be full-height, not collapsed to the nav bar (~67px).
+  const box = await panel.boundingBox();
+  expect(box!.height).toBeGreaterThan(700);
+
+  // ...and have a fully opaque background so content behind never shows through.
+  const alpha = await panel.evaluate((el) => {
+    const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+    return m && m.length === 4 ? Number(m[3]) : 1;
+  });
+  expect(alpha).toBe(1);
+
+  // The overlay must cover the full viewport too.
+  const overlay = await page.locator('#nf-moverlay').boundingBox();
+  expect(overlay!.height).toBeGreaterThan(700);
+});
+
 test('before/after slider responds to keyboard', async ({ page }) => {
   await page.goto('/');
   const handle = page.locator('#ba-handle');
