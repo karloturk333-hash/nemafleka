@@ -156,7 +156,10 @@
 .ba-handle:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 #ba-split { cursor: ew-resize; }
 
-/* ---- FAQ extra ---- */
+/* ---- FAQ (centered single column, breaks the consecutive-split rhythm) ---- */
+.faq-centered { max-width: 820px; margin-inline: auto; }
+.faq-head { text-align: center; margin-bottom: var(--space-8); }
+.faq-head .faq-side-desc { margin-inline: auto; max-width: 52ch; }
 .faq-side-desc { color: var(--text-muted); margin: var(--space-3) 0 var(--space-5); }
 
 /* AA fixes: lime-on-light text inherited from global.css (was --lime-700 @ ~2.5:1) */
