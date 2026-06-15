@@ -24,11 +24,11 @@ describe('getDiscount', () => {
 });
 
 describe('getFuelCharge', () => {
-  it('is free within the radius and €0.5/km beyond it', () => {
+  it('is free within the local zone and a flat fee beyond it', () => {
     expect(getFuelCharge(0)).toBe(0);
-    expect(getFuelCharge(20)).toBe(0);
-    expect(getFuelCharge(30)).toBe(5); // (30-20)*0.5
-    expect(getFuelCharge(45)).toBe(13); // (45-20)*0.5 = 12.5 -> 13
+    expect(getFuelCharge(25)).toBe(0);
+    expect(getFuelCharge(30)).toBe(5);
+    expect(getFuelCharge(45)).toBe(5); // flat, not per-km
     expect(getFuelCharge(null)).toBe(0);
   });
 });
@@ -49,6 +49,14 @@ describe('computeQuote', () => {
     const q = computeQuote([]);
     expect(q.subtotal).toBe(0);
     expect(q.total).toBe(0);
+    expect(q.minApplied).toBe(false);
+  });
+
+  it('applies the 40 € minimum order on small selections', () => {
+    const q = computeQuote([{ id: 'chair', name: 'Stolica', sizeLabel: '2 kom', price: 12 }]);
+    expect(q.subtotal).toBe(12);
+    expect(q.minApplied).toBe(true);
+    expect(q.total).toBe(40);
   });
 
   it('single service gets no discount and (within radius) no fuel', () => {

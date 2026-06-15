@@ -1,5 +1,5 @@
 // Pure pricing engine, no DOM, fully unit-testable. The UI island wraps this.
-import { DISCOUNT_TIERS, FREE_KM, FUEL_RATE, VRBOVEC } from '../data/pricing';
+import { DISCOUNT_TIERS, FREE_KM, TRAVEL_FEE, MIN_ORDER, VRBOVEC } from '../data/pricing';
 import { WHATSAPP_PHONE } from '../data/business';
 
 export interface QuoteItem {
@@ -18,6 +18,7 @@ export interface Quote {
   discountedSubtotal: number;
   fuel: number;
   distanceKm: number | null;
+  minApplied: boolean; // true when the minimum order bumped the total up
   total: number;
 }
 
@@ -29,10 +30,10 @@ export function getDiscount(serviceCount: number): number {
   return 0;
 }
 
-/** Travel charge: free within FREE_KM, else FUEL_RATE €/km beyond it (rounded). */
+/** Travel charge: free within the local zone (FREE_KM), else a flat surcharge. */
 export function getFuelCharge(distanceKm: number | null): number {
   if (distanceKm == null || distanceKm <= FREE_KM) return 0;
-  return Math.round((distanceKm - FREE_KM) * FUEL_RATE);
+  return TRAVEL_FEE;
 }
 
 /** Great-circle distance in km. */
@@ -66,10 +67,12 @@ export function computeQuote(
   const discountedSubtotal = Math.round((subtotal * (100 - discountPct)) / 100);
   const discountAmount = subtotal - discountedSubtotal;
   const fuel = getFuelCharge(distanceKm);
-  const total = discountedSubtotal + fuel;
+  const raw = discountedSubtotal + fuel;
+  const minApplied = count > 0 && raw < MIN_ORDER;
+  const total = count > 0 ? Math.max(raw, MIN_ORDER) : 0;
   return {
     items, subtotal, count, discountPct, discountAmount,
-    discountedSubtotal, fuel, distanceKm, total,
+    discountedSubtotal, fuel, distanceKm, minApplied, total,
   };
 }
 

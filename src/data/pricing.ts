@@ -1,11 +1,13 @@
 // Calculator constants, ONE place. Drives the engine, the coverage copy, and the JSON-LD.
-// NOTE: values marked [POTVRDITI] await Karlo's confirmation (see .redesign/design/content-inputs.md).
+// Travel + minimum-order model from Karlo's market research (cjenik, 2026-06-15):
+// local zone is free; nearby towns outside it pay a flat surcharge; a minimum order applies.
 export const VRBOVEC = { lat: 45.8833, lng: 16.4167 } as const;
 
-export const FREE_KM = 20; // besplatan dolazak unutar ovog radijusa [POTVRDITI]
-export const FUEL_RATE = 0.5; // €/km izvan FREE_KM [POTVRDITI]
+export const FREE_KM = 25; // besplatan dolazak u lokalnoj zoni oko Vrbovca
+export const TRAVEL_FEE = 5; // fiksni putni dodatak izvan lokalne zone (EUR)
+export const MIN_ORDER = 40; // minimalna narudžba po dolasku (EUR)
 
-// Applied to subtotal by number of distinct selected services (most generous first).
+// Multi-service launch discount, applied to the subtotal (most generous tier first).
 export const DISCOUNT_TIERS = [
   { minServices: 5, pct: 20 },
   { minServices: 3, pct: 15 },

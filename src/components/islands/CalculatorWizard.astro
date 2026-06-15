@@ -146,7 +146,10 @@ import { fromEur } from '../../lib/format';
       itemsEl.innerHTML = rows.join('');
       (root!.querySelector('#cr-total') as HTMLElement).textContent = `${q.total} €`;
       const note = root!.querySelector('#cr-note') as HTMLElement;
-      note.textContent = q.discountPct > 0 ? `Uključuje popust za ${q.count} usluge.` : '';
+      const parts: string[] = [];
+      if (q.discountPct > 0) parts.push(`Uključuje popust za ${q.count} usluge.`);
+      if (q.minApplied) parts.push('Minimalna narudžba je 40 €.');
+      note.textContent = parts.join(' ');
       const wa = root!.querySelector('#cr-wa') as HTMLAnchorElement;
       wa.href = buildWhatsAppPayload(q, locationLabel || undefined);
     }
@@ -200,7 +203,7 @@ import { fromEur } from '../../lib/format';
         locationLabel = q;
         distanceEl.textContent = km <= FREE_KM
           ? `~${km} km od Vrbovca, besplatan dolazak ✓`
-          : `~${km} km od Vrbovca, mali putni dodatak za gorivo.`;
+          : `~${km} km od Vrbovca, mali putni dodatak (+5 €).`;
       } catch {
         distanceEl.textContent = 'Trenutno ne možemo provjeriti udaljenost. Slobodno nastavite, dogovaramo na WhatsApp.';
         distanceKm = null;

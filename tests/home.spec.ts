@@ -12,7 +12,8 @@ test('calculator computes a quote and builds a WhatsApp link', async ({ page }) 
   await page.locator('#wiz-next').click(); // → Lokacija
   await page.locator('#wiz-next').click(); // → Ponuda
 
-  await expect(page.locator('#cr-total')).toHaveText('104 €');
+  // Dvosjed (40) + tepih do 10 m² (55) = 95, -10% (2 usluge) = 86, no location -> no travel fee.
+  await expect(page.locator('#cr-total')).toHaveText('86 €');
 
   const href = await page.locator('#cr-wa').getAttribute('href');
   expect(href).toContain('wa.me/385953765343');
