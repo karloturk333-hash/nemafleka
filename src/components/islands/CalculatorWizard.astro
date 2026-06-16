@@ -94,10 +94,10 @@ import { fromEur } from '../../lib/format';
 </section>
 
 <script>
-  import { computeQuote, buildWhatsAppPayload, distanceFromBase } from '../../lib/calculator';
+  import { computeQuote, buildWhatsAppPayload, distanceFromBase, getFuelCharge } from '../../lib/calculator';
   import type { QuoteItem } from '../../lib/calculator';
   import { SERVICES, SERVICE_EMOJI } from '../../data/services';
-  import { FREE_KM } from '../../data/pricing';
+  import { FREE_KM, MIN_ORDER } from '../../data/pricing';
 
   const root = document.querySelector('.calc-card');
   if (root) {
@@ -224,7 +224,7 @@ import { fromEur } from '../../lib/format';
       const note = root!.querySelector('#cr-note') as HTMLElement;
       const parts: string[] = [];
       if (q.discountPct > 0) parts.push(`Uključuje popust za ${q.count} usluge.`);
-      if (q.minApplied) parts.push('Minimalna narudžba je 40 €.');
+      if (q.minApplied) parts.push(`Minimalna narudžba je ${MIN_ORDER} €.`);
       note.textContent = parts.join(' ');
       (root!.querySelector('#cr-wa') as HTMLAnchorElement).href = buildWhatsAppPayload(q, locationLabel || undefined);
     }
@@ -260,7 +260,7 @@ import { fromEur } from '../../lib/format';
         locationLabel = q;
         distanceEl.textContent = km <= FREE_KM
           ? `~${km} km od Vrbovca, besplatan dolazak ✓`
-          : `~${km} km od Vrbovca, mali putni dodatak (+5 €).`;
+          : `~${km} km od Vrbovca, putni dodatak +${getFuelCharge(km)} €.`;
       } catch {
         distanceEl.textContent = 'Trenutno ne možemo provjeriti udaljenost. Slobodno nastavite, dogovaramo na WhatsApp.';
         distanceKm = null;

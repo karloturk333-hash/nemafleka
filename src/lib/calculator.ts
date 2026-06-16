@@ -1,5 +1,5 @@
 // Pure pricing engine, no DOM, fully unit-testable. The UI island wraps this.
-import { DISCOUNT_TIERS, FREE_KM, TRAVEL_FEE, MIN_ORDER, VRBOVEC } from '../data/pricing';
+import { DISCOUNT_TIERS, FREE_KM, PER_KM_FEE, MIN_ORDER, VRBOVEC } from '../data/pricing';
 import { WHATSAPP_PHONE } from '../data/business';
 
 export interface QuoteItem {
@@ -30,10 +30,10 @@ export function getDiscount(serviceCount: number): number {
   return 0;
 }
 
-/** Travel charge: free within the local zone (FREE_KM), else a flat surcharge. */
+/** Travel charge: free within the local zone (FREE_KM), else 0.50 €/km beyond it. */
 export function getFuelCharge(distanceKm: number | null): number {
   if (distanceKm == null || distanceKm <= FREE_KM) return 0;
-  return TRAVEL_FEE;
+  return Math.round((distanceKm - FREE_KM) * PER_KM_FEE);
 }
 
 /** Great-circle distance in km. */

@@ -4,12 +4,12 @@ test('calculator computes a quote and builds a WhatsApp link', async ({ page }) 
   await page.goto('/');
   await page.locator('#kalkulator').scrollIntoViewIfNeeded();
 
-  // Service 1: Kauč → Dvosjed (40)
+  // Service 1: Kauč → Dvosjed (45)
   await page.locator('.svc-pick[data-service=couch]').click();
   await page.locator('#size-opts .csize-pill').first().click();
   await page.locator('#size-add').click(); // → cart
 
-  // Service 2: Tepih → do 10 m² (55)
+  // Service 2: Tepih → do 10 m² (65)
   await page.locator('#add-more').click(); // → service list
   await page.locator('.svc-pick[data-service=carpet]').click();
   await page.locator('#size-opts .csize-pill').first().click();
@@ -18,8 +18,8 @@ test('calculator computes a quote and builds a WhatsApp link', async ({ page }) 
   await page.locator('#to-location').click(); // → Lokacija
   await page.locator('#to-result').click(); // → Ponuda
 
-  // Dvosjed (40) + tepih do 10 m² (55) = 95, -10% (2 usluge) = 86, no location -> no travel fee.
-  await expect(page.locator('#cr-total')).toHaveText('86 €');
+  // Dvosjed (45) + tepih do 10 m² (65) = 110, -10% (2 usluge) = 99, no location -> no travel fee.
+  await expect(page.locator('#cr-total')).toHaveText('99 €');
 
   const href = await page.locator('#cr-wa').getAttribute('href');
   expect(href).toContain('wa.me/385953765343');
