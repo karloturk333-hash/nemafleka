@@ -30,11 +30,11 @@ export const SERVICES: Service[] = [
     sizeLabel: 'Tip garniture', popular: true, tag: 'Najtraženije',
     blurb: 'Dubinsko pranje tapeciranog namještaja. Fleke od kave, blata, djece ili ljubimaca? Sve odlazi.',
     sizes: [
-      { id: 'dvosjed', label: 'Dvosjed', price: 40 },
-      { id: 'trosjed', label: 'Trosjed / kauč', price: 45 },
-      { id: 'kutna', label: 'Kutna garnitura', price: 60 },
-      { id: 'velika', label: 'Velika kutna', price: 80 },
-      { id: 'u', label: 'U garnitura', price: 85 },
+      { id: 'dvosjed', label: 'Dvosjed', price: 45 },
+      { id: 'trosjed', label: 'Trosjed / kauč', price: 50 },
+      { id: 'kutna', label: 'Kutna garnitura', price: 70 },
+      { id: 'velika', label: 'Velika kutna', price: 90 },
+      { id: 'u', label: 'U garnitura', price: 100 },
     ],
   },
   {
@@ -42,9 +42,9 @@ export const SERVICES: Service[] = [
     sizeLabel: 'Količina fotelja',
     blurb: 'Fotelje kao nove, dubinski očišćene i osvježene.',
     sizes: [
-      { id: '1', label: '1 kom', price: 22 },
-      { id: '2', label: '2 kom', price: 44 },
-      { id: '3', label: '3 kom', price: 66 },
+      { id: '1', label: '1 kom', price: 25 },
+      { id: '2', label: '2 kom', price: 50 },
+      { id: '3', label: '3 kom', price: 75 },
     ],
   },
   {
@@ -52,9 +52,9 @@ export const SERVICES: Service[] = [
     sizeLabel: 'Količina stolica',
     blurb: 'Tapecirane stolice, sjedalo i naslon kao novi.',
     sizes: [
-      { id: '2', label: '2 kom', price: 12 },
-      { id: '4', label: '4 kom', price: 24 },
-      { id: '6', label: '6 kom', price: 36 },
+      { id: '2', label: '2 kom', price: 14 },
+      { id: '4', label: '4 kom', price: 28 },
+      { id: '6', label: '6 kom', price: 42 },
     ],
   },
   {
@@ -62,9 +62,9 @@ export const SERVICES: Service[] = [
     sizeLabel: 'Veličina taburea',
     blurb: 'Taburei, podnožnici i lazy bag, čisti do dna.',
     sizes: [
-      { id: 'mali', label: 'Mali', price: 10 },
-      { id: 'veliki', label: 'Veliki', price: 20 },
-      { id: 'lazybag', label: 'Lazy bag', price: 20 },
+      { id: 'mali', label: 'Mali', price: 12 },
+      { id: 'veliki', label: 'Veliki', price: 23 },
+      { id: 'lazybag', label: 'Lazy bag', price: 23 },
     ],
   },
   {
@@ -73,9 +73,9 @@ export const SERVICES: Service[] = [
     blurb: 'Ekstrakcijsko čišćenje koje izvlači prljavštinu iz dubine. Suho za 2-4 sata.',
     tag: 'Suho za 2-4 h',
     sizes: [
-      { id: 's', label: 'do 10 m²', price: 55 },
-      { id: 'm', label: '10-20 m²', price: 85 },
-      { id: 'l', label: '20+ m²', price: 130 },
+      { id: 's', label: 'do 10 m²', price: 65 },
+      { id: 'm', label: '10-20 m²', price: 100 },
+      { id: 'l', label: '20+ m²', price: 150 },
     ],
   },
   {
@@ -84,10 +84,10 @@ export const SERVICES: Service[] = [
     blurb: 'UV + ekstrakcija uklanjaju grinje, bakterije i alergene. Sigurno za djecu i ljubimce.',
     tag: 'Sigurno za djecu',
     sizes: [
-      { id: 'djecji', label: 'Dječji', price: 18 },
-      { id: '90', label: 'Jednoosobni (90)', price: 25 },
-      { id: '140', label: 'Francuski (140)', price: 35 },
-      { id: 'bracni', label: 'Bračni (160+)', price: 40 },
+      { id: 'djecji', label: 'Dječji', price: 20 },
+      { id: '90', label: 'Jednoosobni (90)', price: 30 },
+      { id: '140', label: 'Francuski (140)', price: 40 },
+      { id: 'bracni', label: 'Bračni (160+)', price: 45 },
     ],
   },
   {
@@ -96,9 +96,9 @@ export const SERVICES: Service[] = [
     blurb: 'Dubinsko čišćenje sjedala, podnica i prtljažnika. Auto kao iz salona.',
     tag: 'Interijer',
     sizes: [
-      { id: 'sjedala', label: 'Osobni - sjedala', price: 70 },
-      { id: 'komplet', label: 'Osobni - komplet', price: 100 },
-      { id: 'suv', label: 'SUV / kombi - komplet', price: 120 },
+      { id: 'sjedala', label: 'Osobni - sjedala', price: 80 },
+      { id: 'komplet', label: 'Osobni - komplet', price: 115 },
+      { id: 'suv', label: 'SUV / kombi - komplet', price: 140 },
     ],
   },
 ];

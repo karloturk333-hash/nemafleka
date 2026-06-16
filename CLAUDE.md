@@ -29,7 +29,7 @@ Astro, `output: 'static'`, zero JS except interactive **islands**. `inlineStyles
 ### Single source of truth for data (`src/data/`)
 Pricing, sizes, discounts, services, towns, business identity, and FAQ live **only** here. The calculator, the price list (cjenik), the coverage map, and the JSON-LD all read the same data, so numbers cannot drift apart (a real past bug: home 45€ vs city 40€). Change a price in `src/data/` and it changes everywhere.
 
-- `services.ts` / `pricing.ts` — prices, sizes, discount tiers, travel model. The travel/minimum-order model: local zone (`FREE_KM` around Vrbovec) is free, towns outside it pay a flat `TRAVEL_FEE`, with a `MIN_ORDER` floor.
+- `services.ts` / `pricing.ts` — prices, sizes, discount tiers, travel model. The travel/minimum-order model: local zone (`FREE_KM` around Vrbovec) is free, beyond it the surcharge is per-km (`PER_KM_FEE`), with a `MIN_ORDER` floor.
 - `towns.ts` — coverage towns + coordinates.
 - `business.ts` — identity/impressum. The obrt is not yet registered → impressum carries an honest "u postupku registracije" disclaimer and **no invented OIB**.
 
