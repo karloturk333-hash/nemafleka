@@ -114,7 +114,7 @@ import { fromEur } from '../../lib/format';
     const screens = root.querySelectorAll<HTMLElement>('.calc-screen');
     const scr = (s: Screen) => root.querySelector<HTMLElement>(`.calc-screen[data-screen="${s}"]`)!;
 
-    function show(s: Screen) {
+    function show(s: Screen, scroll = true) {
       screens.forEach((el) => { el.hidden = el.dataset.screen !== s; });
       const ph = PHASE[s];
       segs.forEach((seg) => seg.classList.toggle('active', Number(seg.dataset.phase) <= ph));
@@ -123,7 +123,7 @@ import { fromEur } from '../../lib/format';
       if (s === 'service') markServices();
       if (s === 'cart') renderCart();
       if (s === 'result') renderResult();
-      scrollToCard();
+      if (scroll) scrollToCard();
     }
 
     // ---- service screen ----
@@ -272,6 +272,6 @@ import { fromEur } from '../../lib/format';
     searchBtn.addEventListener('click', search);
     addressInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); search(); } });
 
-    show('service');
+    show('service', false); // initial render must not scroll the page to the calculator
   }
 </script>
