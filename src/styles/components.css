@@ -305,3 +305,46 @@
 .nav-logo img { height: 44px; width: auto; display: block; }
 .footer-logo img { height: 40px; width: auto; display: block; }
 @media (max-width: 600px) { .nav-logo img { height: 38px; } }
+
+/* ============ Responsive refinements (wizard + grids) ============ */
+
+/* Tablet (768): the calculator service picker auto-fills to 4–5 cramped
+   columns. Pin it to 3 so each card has room; town grid likewise stays at a
+   comfortable 2–3 cols. */
+@media (max-width: 1024px) {
+  .calc-services { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  /* Service picker: 2 columns reads better than tiny auto-fill cards. */
+  .calc-services { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .svc-pick { padding: var(--space-3); }
+
+  /* Wizard progress: 3 segments stack to full-width pills instead of wrapping
+     awkwardly to uneven rows. */
+  .wizard-progress { gap: var(--space-2); }
+  .wp-seg { min-width: 0; flex: 1 1 100%; }
+
+  /* Action rows: let back/next/add-more wrap and fill so they never crowd.
+     Keep the primary (next/add) full-width and comfortably tappable. */
+  .calc-actions { gap: var(--space-2); }
+  .calc-actions .wizard-next,
+  .calc-actions .wizard-back,
+  .calc-add-more { margin-left: 0; flex: 1 1 100%; justify-content: center; text-align: center; min-height: 44px; }
+  .wizard-nav { gap: var(--space-2); }
+
+  /* Address row: stack input + button so the button stays a full tap target. */
+  .calc-address-row { flex-direction: column; }
+  .calc-search-btn { width: 100%; min-height: 44px; }
+
+  /* Town cards full width on phones. */
+  .town-grid { grid-template-columns: 1fr; }
+
+  /* Discount tiers: stack so the three tiers don't squeeze. */
+  .calc-tiers { flex-direction: column; gap: var(--space-2); }
+}
+
+/* Coverage town grid on tablet: keep it to 2 intentional columns. */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .town-grid { grid-template-columns: 1fr 1fr; }
+}

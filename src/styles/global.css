@@ -202,18 +202,29 @@ a{color:var(--link);text-decoration:none}
 .mcta-wa{background:var(--wa-green);color:#06351b}
 
 /* ---- RESPONSIVE ---- */
+
+/* Tablet (<= 1024px): stack the 2-col hero/zona earlier so neither column
+   gets squeezed, and keep the heaviest grids to an intentional 2 columns. */
+@media(max-width:1024px){
+  .hero-grid,.zona-grid{grid-template-columns:1fr;gap:clamp(2rem,5vw,3rem)}
+  .hero-proof{margin-top:var(--space-5)}
+  .footer-grid{grid-template-columns:1.4fr 1fr 1fr}
+}
+
 @media(max-width:900px){
   .nav-links{display:none}
-  .hero-grid,.ba-wrap,.why-grid,.zona-grid,.faq-grid,.calc-demo{grid-template-columns:1fr}
+  .ba-wrap,.why-grid,.faq-grid,.calc-demo{grid-template-columns:1fr}
   .trust-inner,.svc-grid,.steps{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
-  .hero-proof{margin-top:var(--space-6)}
   .faq-side{position:static}
-  .mcta{display:flex}
-  body{padding-bottom:4.5rem}
+  /* Sticky mobile bar replaced by the floating WhatsApp button; keep it off. */
+  body{padding-bottom:0}
 }
 @media(max-width:540px){
   .trust-inner,.svc-grid,.steps,.footer-grid{grid-template-columns:1fr}
   .hero-trust{gap:var(--space-3)}
   .ba-stats{gap:var(--space-4)}
+  /* The hero proof badge sat slightly off the frame's right edge; pull it in
+     so it never risks clipping on the narrowest phones. */
+  .proof-badge{right:0}
 }
