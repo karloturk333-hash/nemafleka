@@ -24,7 +24,7 @@ export const BUSINESS = {
   // Honest legal block, obrt nije još registriran.
   legal: {
     registered: false,
-    disclaimer: 'Obrt u postupku registracije', // [POTVRDITI točan status/naziv]
+    disclaimer: 'Lokalni obrt u osnivanju — radimo transparentno, cijena dogovorena unaprijed; račun izdajemo po registraciji', // [POTVRDITI točan status/naziv]
     legalName: null as string | null, // [POTVRDITI]
     oib: null as string | null, // [POTVRDITI]
   },
