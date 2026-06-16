@@ -16,3 +16,6 @@ coverage/
 
 # redesign scratch (audits, prototype, baseline screenshots) — kept local, not in the app
 .redesign/
+
+# transient git worktrees created for background agents
+.claude/worktrees/
