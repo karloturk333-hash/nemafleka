@@ -66,20 +66,32 @@ const pairs = {
   const beforeImg = document.getElementById('ba-before-img') as HTMLImageElement;
   const afterImg = document.getElementById('ba-after-img') as HTMLImageElement;
   let value = 50;
+  // Cached on pointerdown so a drag never reads layout (getBoundingClientRect) per move;
+  // null when not dragging so the next read is fresh.
+  let rect: DOMRect | null = null;
+  let rafId = 0;
 
-  function setValue(v: number) {
-    value = Math.max(0, Math.min(100, Math.round(v)));
+  function paint() {
+    rafId = 0;
     // Clip the before layer instead of resizing it — keeps the image full-size
     // (no horizontal stretch); the slider just reveals/hides it over the after layer.
     beforeImg.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
     divider.style.left = value + '%';
     handle.style.left = value + '%';
+  }
+
+  function setValue(v: number) {
+    value = Math.max(0, Math.min(100, Math.round(v)));
+    // ARIA state is updated synchronously (cheap, no layout cost) so assistive tech and
+    // tests see it immediately; the visual style writes are coalesced into one rAF per
+    // frame so rapid pointer moves don't thrash layout.
     handle.setAttribute('aria-valuenow', String(value));
     handle.setAttribute('aria-valuetext', `${value}% prikaza nakon čišćenja`);
+    if (!rafId) rafId = requestAnimationFrame(paint);
   }
 
   function fromClientX(clientX: number) {
-    const r = split.getBoundingClientRect();
+    const r = rect ?? (rect = split.getBoundingClientRect());
     setValue(((clientX - r.left) / r.width) * 100);
   }
 
@@ -89,6 +101,7 @@ const pairs = {
   let dragging = false;
   split.addEventListener('pointerdown', (e) => {
     dragging = true;
+    rect = split.getBoundingClientRect();
     try { split.setPointerCapture(e.pointerId); } catch {}
     handle.focus({ preventScroll: true });
     fromClientX(e.clientX);
@@ -97,6 +110,7 @@ const pairs = {
   split.addEventListener('pointermove', (e) => { if (dragging) fromClientX(e.clientX); });
   const stop = (e: PointerEvent) => {
     dragging = false;
+    rect = null;
     try { split.releasePointerCapture(e.pointerId); } catch {}
   };
   split.addEventListener('pointerup', stop);

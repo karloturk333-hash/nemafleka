@@ -6,6 +6,10 @@ import '@fontsource/manrope/600.css';
 import '@fontsource/manrope/700.css';
 import '@fontsource/space-mono/400.css';
 import '@fontsource/space-mono/700.css';
+// Preload URLs for the two faces in the critical render path (H1 display + body text),
+// so they're fetched in parallel with the inlined CSS instead of after it parses.
+import groteskDisplay from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url';
+import manropeBody from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
 import '../styles/tokens.css';
 import '../styles/global.css';
 import '../styles/components.css';
@@ -20,7 +24,7 @@ interface Props {
   description: string;
   path?: string; // canonical path, e.g. '/' or '/podrucje-pokrivenosti'
   ogImage?: string;
-  preloadHero?: string;
+  preloadHero?: { src: string; srcset?: string; sizes?: string };
   jsonLd?: unknown[];
 }
 const {
@@ -60,8 +64,18 @@ const ogImageUrl = new URL(ogImage, BUSINESS.url).href;
     <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png" />
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
 
+    <link rel="preload" as="font" type="font/woff2" href={groteskDisplay} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={manropeBody} crossorigin />
+
     {preloadHero && (
-      <link rel="preload" as="image" href={preloadHero} type="image/webp" fetchpriority="high" />
+      <link
+        rel="preload"
+        as="image"
+        href={preloadHero.src}
+        imagesrcset={preloadHero.srcset}
+        imagesizes={preloadHero.sizes}
+        fetchpriority="high"
+      />
     )}
 
     {jsonLd.map((obj) => (

@@ -1,6 +1,9 @@
 ---
+import { getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
+import couchAfter from '../assets/ba-couch-after.webp';
+import { proofWidths, proofSizes } from '../lib/heroProof';
 import TrustStrip from '../components/sections/TrustStrip.astro';
 import Services from '../components/sections/Services.astro';
 import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
@@ -12,11 +15,16 @@ import Coverage from '../components/islands/Coverage.astro';
 import FaqList from '../components/sections/FaqList.astro';
 import ContactCTA from '../components/sections/ContactCTA.astro';
 import { localBusinessJsonLd, faqJsonLd } from '../lib/jsonld';
+
+// Preload the hero "after" image (the LCP element) with the SAME widths/sizes the Hero
+// <Image> renders, so it's fetched from <head> before the inlined CSS is parsed.
+const heroProof = await getImage({ src: couchAfter, widths: proofWidths, sizes: proofSizes });
 ---
 <BaseLayout
   title="Nema Fleka, Dubinsko čišćenje | Vrbovec, Dugo Selo, Križevci, Bjelovar"
   description="Profesionalno dubinsko čišćenje kauča, tepiha, madraca i automobila. Lokalni tim iz Vrbovca. Transparentne cijene, ekološka sredstva, garancija zadovoljstva."
   path="/"
+  preloadHero={{ src: heroProof.src, srcset: heroProof.srcSet.attribute, sizes: proofSizes }}
   jsonLd={[localBusinessJsonLd(), faqJsonLd()]}
 >
   <Hero />

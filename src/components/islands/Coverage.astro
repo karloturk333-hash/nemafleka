@@ -43,8 +43,20 @@ const bullets = [
     obs.observe(el);
   }
 
+  function preconnect(href: string) {
+    const l = document.createElement('link');
+    l.rel = 'preconnect';
+    l.href = href;
+    l.crossOrigin = '';
+    document.head.appendChild(l);
+  }
+
   function loadMap() {
     if ((window as any).L) return init();
+    // Warm the sockets to the Leaflet CDN and the tile host before they're needed —
+    // the observer fires ~300px early, so these resolve while the user scrolls in.
+    preconnect('https://unpkg.com');
+    ['a', 'b', 'c', 'd'].forEach((s) => preconnect(`https://${s}.basemaps.cartocdn.com`));
     const css = document.createElement('link');
     css.rel = 'stylesheet';
     css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
