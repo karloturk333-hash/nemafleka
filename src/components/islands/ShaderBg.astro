@@ -2,8 +2,12 @@
 // Vanilla WebGL "shader" mesh background (whatamesh). One shared script inits every
 // .shader-canvas on the page; per-instance shape/animation comes from data-* attrs
 // (amp/seed/freqX/freqY) so each navy section gets the SAME colours but a different
-// flow. Auto-pauses off-screen; skipped entirely under prefers-reduced-motion (the
-// element's own solid/gradient background then shows through the transparent canvas).
+// flow. Init is deferred off the critical path: each canvas is only initialised when it
+// nears the viewport (IntersectionObserver) and the shader compile runs in requestIdle-
+// Callback, so the four instances no longer block first paint / TTI. Once running,
+// whatamesh pauses its own render loop while the canvas is off-screen. Skipped entirely
+// under prefers-reduced-motion (the element's solid/gradient bg shows through the
+// transparent canvas).
 interface Props {
   id: string;
   colors?: [string, string, string, string];
@@ -38,7 +42,13 @@ const style = [
   import { Gradient } from 'whatamesh';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduce) {
-    document.querySelectorAll<HTMLCanvasElement>('canvas.shader-canvas').forEach((c) => {
+    // Yield the shader compile to the browser's idle time so it never competes with LCP.
+    const idle = (cb: () => void) =>
+      'requestIdleCallback' in window
+        ? (window as any).requestIdleCallback(cb, { timeout: 1500 })
+        : setTimeout(cb, 1);
+
+    const start = (c: HTMLCanvasElement) => {
       const g = new Gradient() as any;
       const d = c.dataset;
       if (d.amp) g.amp = Number(d.amp);
@@ -46,6 +56,23 @@ const style = [
       if (d.freqx) g.freqX = Number(d.freqx);
       if (d.freqy) g.freqY = Number(d.freqy);
       g.initGradient('#' + c.id);
-    });
+    };
+
+    const canvases = document.querySelectorAll<HTMLCanvasElement>('canvas.shader-canvas');
+    if ('IntersectionObserver' in window) {
+      // Only initialise a canvas when it nears the viewport — the 3 below-fold shaders
+      // stay dormant until scrolled to; the hero one fires immediately but still via idle.
+      const io = new IntersectionObserver((entries, o) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          o.unobserve(e.target);
+          const c = e.target as HTMLCanvasElement;
+          idle(() => start(c));
+        }
+      }, { rootMargin: '200px' });
+      canvases.forEach((c) => io.observe(c));
+    } else {
+      canvases.forEach((c) => idle(() => start(c)));
+    }
   }
 </script>
