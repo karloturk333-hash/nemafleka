@@ -4,10 +4,32 @@ State for the autonomous `/goal` loop. The loop reads `dry_rounds` first and sto
 This file is loop bookkeeping for the dev branch only — delete it before merging to `main`.
 
 ```yaml
-dry_rounds: 1
-rounds_total: 7
+dry_rounds: 2
+rounds_total: 8
+status: GOAL_MET
 branch: claude/repo-optimization-e15l37
 ```
+
+## 🎯 GOAL MET — 2 consecutive dry rounds (R7 + R8)
+
+8 rounds, 4 dimensions each (Performance, Accessibility, SEO, Code-quality/bundle).
+**17 verified improvements shipped**; ~93 candidates generated, the rest killed by adversarial
+verification or executor judgment. Every applied change passed the full gate (build · 9 unit
+tests · responsive-check · Playwright+axe 7/7) before push to claude/repo-optimization-e15l37.
+
+What shipped, by theme:
+- **Perf/CWV:** latin+latin-ext-only font subsets (smaller inlined CSS); (earlier branch work:
+  deferred/lazy shaders, hero LCP preload, font preload, slider rAF, map preconnect).
+- **A11y:** .ba-tab focus-visible; calculator quote aria-live; size-radio radiogroup semantics.
+- **SEO:** BreadcrumbList + Service/Offer JSON-LD (real prices); og/twitter image dims+alt;
+  canonical↔sitemap trailing-slash fix.
+- **Quality/bundle:** removed dead exports, dead CSS (.hero-trust/.ht-ic/.step-n/.mcta*/old
+  .calc-*/.cq-*/.ba-stats), unused tokens (--success/--warning/--star), dup .ba-widget +
+  .calc-card, unused class attrs.
+
+Open for owner decision (logged, not applied): 14 unused design-system scale tokens (keep for
+scale completeness?); OG image redesign (hero-slide-1 is a square 800×800 brand image).
+
 
 ## Round log
 
@@ -138,3 +160,7 @@ dregs + design-system judgment calls. Expect dry next.
 2 candidates → 0 survived → 0 applied. Both were a11y contrast claims that the skeptics
 refuted with the actual WCAG math (#9A9ECF ≈ 6.75–7.63:1, #8589BC ≈ 5.26–5.79:1 — all pass
 AA). Nothing real to apply. **First dry round — one more dry round triggers STOP.**
+
+### Round 8 — DRY (dry_rounds 1 → 2) → STOP
+0 candidates found across all 4 dimensions — the finders surfaced nothing to even verify.
+Second consecutive dry round → **GOAL MET**, loop terminated.
