@@ -2,6 +2,17 @@
 // (the business is launching; fabricated review schema was a Google manual-action + legal risk).
 import { BUSINESS } from '../data/business';
 import { FAQ } from '../data/faq';
+import { SERVICES } from '../data/services';
+
+const AREA_SERVED = {
+  '@type': 'GeoCircle',
+  geoMidpoint: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS.geo.lat,
+    longitude: BUSINESS.geo.lng,
+  },
+  geoRadius: String(BUSINESS.geoRadiusKm * 1000),
+};
 
 const DAYMAP: Record<string, string> = {
   Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday',
@@ -29,15 +40,7 @@ export function localBusinessJsonLd() {
       latitude: BUSINESS.geo.lat,
       longitude: BUSINESS.geo.lng,
     },
-    areaServed: {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: BUSINESS.geo.lat,
-        longitude: BUSINESS.geo.lng,
-      },
-      geoRadius: String(BUSINESS.geoRadiusKm * 1000),
-    },
+    areaServed: AREA_SERVED,
     openingHoursSpecification: BUSINESS.hours
       .filter((h) => h.opens)
       .map((h) => ({
@@ -64,6 +67,25 @@ export function breadcrumbJsonLd() {
       },
     ],
   };
+}
+
+// One Service node per offering, with real Offer prices from the single source of truth
+// (src/data/services.ts). No reviews/ratings — those stay banned.
+export function serviceJsonLd() {
+  return SERVICES.map((s) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Dubinsko čišćenje — ${s.name}`,
+    serviceType: s.name,
+    provider: { '@type': 'LocalBusiness', name: BUSINESS.name, url: BUSINESS.url },
+    areaServed: AREA_SERVED,
+    offers: s.sizes.map((o) => ({
+      '@type': 'Offer',
+      name: o.label,
+      price: String(o.price),
+      priceCurrency: 'EUR',
+    })),
+  }));
 }
 
 export function faqJsonLd() {
