@@ -5,7 +5,7 @@ This file is loop bookkeeping for the dev branch only — delete it before mergi
 
 ```yaml
 dry_rounds: 0
-rounds_total: 2
+rounds_total: 3
 branch: claude/repo-optimization-e15l37
 ```
 
@@ -58,3 +58,26 @@ nav (broken/incorrect semantics); gating scroll-behavior on reduced-motion (alre
 tokens.css).
 
 **Verify gate:** build ✓ · test 9/9 ✓ · responsive-check 0 overflow ✓ · E2E+axe 7/7 ✓.
+
+### Round 3 — PRODUCTIVE (dry_rounds 0 → 0)
+Dimensions audited: Performance, Accessibility, SEO, Code-quality/bundle.
+8 candidates (territory thinning) → 5 survived → 3 applied (1 overruled, a11y/quality empty-ish).
+
+**Applied:**
+- `194c9d4` perf — import only latin + latin-ext @fontsource subsets (drop inlined
+  cyrillic/greek/vietnamese @font-face); visually confirmed Croatian glyphs still render.
+- `8ed97cd` seo — Service + Offer JSON-LD per offering from src/data/services.ts (real prices,
+  no reviews); refactored localBusinessJsonLd to reuse AREA_SERVED.
+- `4aff38f` refactor — removed dead pre-Astro CSS (.hero-trust/.ht-ic/.step-n/.mcta*).
+
+**Overruled by executor (skeptic kept, I rejected):**
+- seo: shorten coverage-page <title> to ~32 chars — would strip the local-SEO town keywords
+  (Dugo Selo…Koprivnica); titles truncate by pixel width not char count. Kept descriptive title.
+
+**Rejected by skeptics (do not retry):** sitemap priority/changefreq (false signals on a 2-page
+site); consolidating BeforeAfter pairs into a shared module (component-internal, src/data is for
+pricing/etc. — not worth it).
+
+**Verify gate:** build ✓ · test 9/9 ✓ · responsive-check 0 overflow + glyph check ✓ · E2E+axe 7/7 ✓.
+
+**Trend:** R1 applied 7, R2 applied 6, R3 applied 3. Candidates 40→28→8. Converging toward dry-up.
