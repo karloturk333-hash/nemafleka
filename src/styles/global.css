@@ -55,9 +55,6 @@ a{color:var(--link);text-decoration:none}
 .hero-h1{font-size:var(--text-hero);font-weight:700;color:#fff;letter-spacing:-.03em;margin-bottom:var(--space-5)}
 .hero-sub{font-size:var(--text-lg);color:#D7D9F0;max-width:42ch;margin-bottom:var(--space-6)}
 .hero-cta-row{display:flex;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6)}
-.hero-trust{list-style:none;display:flex;gap:var(--space-5);flex-wrap:wrap;font-size:var(--text-sm);color:#C9CCEC}
-.hero-trust li{display:flex;align-items:center;gap:.4em}
-.ht-ic{display:grid;place-items:center;width:1.25em;height:1.25em;background:var(--lime);color:var(--ink-800);border-radius:50%;font-size:.7em;font-weight:900}
 
 /* before/after proof frame */
 .hero-proof{position:relative}
@@ -142,7 +139,6 @@ a{color:var(--link);text-decoration:none}
 /* steps */
 .steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5);counter-reset:s}
 .steps li{background:#fff;border:1px solid var(--line);border-radius:var(--r-xl);padding:var(--space-6)}
-.step-n{display:inline-block;font-size:1.6rem;font-weight:700;color:var(--lime-700);margin-bottom:var(--space-3)}
 .steps h3{font-size:var(--text-lg);margin-bottom:var(--space-2)}
 .steps p{font-size:var(--text-sm);color:var(--text-muted)}
 
@@ -195,11 +191,6 @@ a{color:var(--link);text-decoration:none}
 .muted-list{color:#8589BC}
 .footer-bottom{display:flex;justify-content:space-between;margin-top:var(--space-6);padding-top:var(--space-5);border-top:1px solid rgba(255,255,255,.1);font-size:var(--text-xs);color:#8589BC}
 
-/* sticky mobile CTA */
-.mcta{position:fixed;left:0;right:0;bottom:0;z-index:var(--z-float);display:none;gap:.6rem;padding:.6rem;background:rgba(8,9,46,.95);backdrop-filter:blur(8px)}
-.mcta-btn{flex:1;text-align:center;padding:.9em;border-radius:var(--r-pill);font-family:var(--font-display);font-weight:700}
-.mcta-call{background:#fff;color:var(--ink-800)}
-.mcta-wa{background:var(--wa-green);color:#06351b}
 
 /* ---- RESPONSIVE ---- */
 
@@ -222,7 +213,6 @@ a{color:var(--link);text-decoration:none}
 }
 @media(max-width:540px){
   .trust-inner,.svc-grid,.steps,.footer-grid{grid-template-columns:1fr}
-  .hero-trust{gap:var(--space-3)}
   /* The hero proof badge sat slightly off the frame's right edge; pull it in
      so it never risks clipping on the narrowest phones. */
   .proof-badge{right:0}
