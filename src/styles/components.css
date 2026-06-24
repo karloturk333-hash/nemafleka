@@ -244,7 +244,6 @@
 
 /* Before/after widget had collapsed to ~0 height (margin-inline:auto on a grid
    item whose only children are absolutely-positioned images). Give it a width. */
-.ba-widget { width: min(100%, 440px); }
 
 /* Keep the calculator in view when stepping (sits below the sticky nav). */
 #kalkulator { scroll-margin-top: 80px; }

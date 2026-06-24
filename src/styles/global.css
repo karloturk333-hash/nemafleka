@@ -223,7 +223,6 @@ a{color:var(--link);text-decoration:none}
 @media(max-width:540px){
   .trust-inner,.svc-grid,.steps,.footer-grid{grid-template-columns:1fr}
   .hero-trust{gap:var(--space-3)}
-  .ba-stats{gap:var(--space-4)}
   /* The hero proof badge sat slightly off the frame's right edge; pull it in
      so it never risks clipping on the narrowest phones. */
   .proof-badge{right:0}
