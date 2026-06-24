@@ -1,11 +1,21 @@
 ---
-import '@fontsource/space-grotesk/600.css';
-import '@fontsource/space-grotesk/700.css';
-import '@fontsource/manrope/400.css';
-import '@fontsource/manrope/600.css';
-import '@fontsource/manrope/700.css';
-import '@fontsource/space-mono/400.css';
-import '@fontsource/space-mono/700.css';
+// Only the latin + latin-ext subsets are imported — Croatian needs latin-ext (č ć š ž đ)
+// but never cyrillic/greek/vietnamese, whose @font-face blocks would otherwise be inlined
+// into every page's HTML (inlineStylesheets: 'always').
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-ext-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
+import '@fontsource/space-grotesk/latin-ext-700.css';
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-ext-400.css';
+import '@fontsource/manrope/latin-600.css';
+import '@fontsource/manrope/latin-ext-600.css';
+import '@fontsource/manrope/latin-700.css';
+import '@fontsource/manrope/latin-ext-700.css';
+import '@fontsource/space-mono/latin-400.css';
+import '@fontsource/space-mono/latin-ext-400.css';
+import '@fontsource/space-mono/latin-700.css';
+import '@fontsource/space-mono/latin-ext-700.css';
 // Preload URLs for the two faces in the critical render path (H1 display + body text),
 // so they're fetched in parallel with the inlined CSS instead of after it parses.
 import groteskDisplay from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url';
