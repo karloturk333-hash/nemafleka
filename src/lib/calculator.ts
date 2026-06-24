@@ -37,7 +37,7 @@ export function getFuelCharge(distanceKm: number | null): number {
 }
 
 /** Great-circle distance in km. */
-export function haversineKm(
+function haversineKm(
   a: { lat: number; lng: number },
   b: { lat: number; lng: number },
 ): number {
