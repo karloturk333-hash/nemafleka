@@ -5,7 +5,7 @@ This file is loop bookkeeping for the dev branch only — delete it before mergi
 
 ```yaml
 dry_rounds: 0
-rounds_total: 5
+rounds_total: 6
 branch: claude/repo-optimization-e15l37
 ```
 
@@ -114,3 +114,22 @@ Dimensions audited: Performance, Accessibility, SEO, Code-quality/bundle.
 
 **Trend:** applied 7 → 6 → 3 → 1 → 2; candidates 40 → 28 → 8 → 3 → 4. Still finding the
 occasional real win (the canonical mismatch was genuine), so not dry yet.
+
+### Round 6 — PRODUCTIVE (dry_rounds 0 → 0)
+2 candidates → 2 survived → 1 applied (1 declined by executor).
+
+**Applied:**
+- `a0151a8` refactor — removed duplicate .calc-card rule from global.css (components.css
+  fully redeclares it + loads later; verified identical effective styles).
+
+**Declined by executor (NOT a skeptic rejection — owner's call):**
+- quality: bulk-remove 14 "unused" tokens (--space-1/10/12/16, --text-2xl, --ink-500,
+  --leading-snug, --t-slow, --z-base, --white, --text-on-ink, --wa-green-700, --link-hover,
+  --container-narrow). They ARE unused today, but most are SCALE STEPS of the documented
+  design system (tokens.css); removing them punches gaps in the spacing/type/color ramps for
+  negligible compressible bytes. Flagged for owner decision rather than auto-applied.
+
+**Verify gate:** build ✓ · test 9/9 ✓ · responsive-check ✓ · E2E+axe 7/7 ✓.
+
+**Trend:** applied 7→6→3→1→2→1; candidates 40→28→8→3→4→2. Remaining finds are pure dead-code
+dregs + design-system judgment calls. Expect dry next.
