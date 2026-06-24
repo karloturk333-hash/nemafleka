@@ -50,6 +50,22 @@ export function localBusinessJsonLd() {
   };
 }
 
+export function breadcrumbJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Početna', item: BUSINESS.url },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Područje pokrivenosti',
+        item: new URL('/podrucje-pokrivenosti', BUSINESS.url).href,
+      },
+    ],
+  };
+}
+
 export function faqJsonLd() {
   return {
     '@context': 'https://schema.org',
