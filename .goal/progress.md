@@ -4,8 +4,8 @@ State for the autonomous `/goal` loop. The loop reads `dry_rounds` first and sto
 This file is loop bookkeeping for the dev branch only — delete it before merging to `main`.
 
 ```yaml
-dry_rounds: 0
-rounds_total: 6
+dry_rounds: 1
+rounds_total: 7
 branch: claude/repo-optimization-e15l37
 ```
 
@@ -133,3 +133,8 @@ occasional real win (the canonical mismatch was genuine), so not dry yet.
 
 **Trend:** applied 7→6→3→1→2→1; candidates 40→28→8→3→4→2. Remaining finds are pure dead-code
 dregs + design-system judgment calls. Expect dry next.
+
+### Round 7 — DRY (dry_rounds 0 → 1)
+2 candidates → 0 survived → 0 applied. Both were a11y contrast claims that the skeptics
+refuted with the actual WCAG math (#9A9ECF ≈ 6.75–7.63:1, #8589BC ≈ 5.26–5.79:1 — all pass
+AA). Nothing real to apply. **First dry round — one more dry round triggers STOP.**
