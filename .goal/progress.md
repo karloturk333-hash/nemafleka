@@ -5,7 +5,7 @@ This file is loop bookkeeping for the dev branch only — delete it before mergi
 
 ```yaml
 dry_rounds: 0
-rounds_total: 3
+rounds_total: 4
 branch: claude/repo-optimization-e15l37
 ```
 
@@ -81,3 +81,20 @@ pricing/etc. — not worth it).
 **Verify gate:** build ✓ · test 9/9 ✓ · responsive-check 0 overflow + glyph check ✓ · E2E+axe 7/7 ✓.
 
 **Trend:** R1 applied 7, R2 applied 6, R3 applied 3. Candidates 40→28→8. Converging toward dry-up.
+
+### Round 4 — PRODUCTIVE (dry_rounds 0 → 0)
+Dimensions audited: Performance, Accessibility, SEO, Code-quality/bundle.
+3 candidates → 2 survived → 1 applied (both quality dead-code, merged into one commit).
+Perf/a11y/seo finders returned essentially nothing real.
+
+**Applied:**
+- `10d6b63` refactor — removed obsolete pre-island calculator CSS
+  (.calc-steps/.cs/.calc-demo/.calc-tiles/.ct*/.calc-quote/.cq-*/.calc-foot) + unused
+  semantic tokens --success/--warning/--star (executor also verified --success dead).
+
+**Rejected by skeptics:** Cache-Control for HTML in vercel.json (speculative; freshness is a
+deliberate choice — only hash-busted assets are immutably cached).
+
+**Verify gate:** build ✓ · test 9/9 ✓ · responsive-check ✓ · E2E+axe 7/7 ✓.
+
+**Trend:** applied 7 → 6 → 3 → 1; candidates 40 → 28 → 8 → 3. Next round likely DRY.
