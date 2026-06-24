@@ -179,7 +179,6 @@
 .faq-side-desc { color: var(--text-muted); margin: var(--space-3) 0 var(--space-5); }
 
 /* AA fixes: lime-on-light text inherited from global.css (was --lime-700 @ ~2.5:1) */
-.step-n { color: var(--lime-text); }
 .faq-list summary::after { color: var(--lime-text); }
 
 /* ---- Coverage extra ---- */
@@ -248,10 +247,6 @@
 /* Keep the calculator in view when stepping (sits below the sticky nav). */
 #kalkulator { scroll-margin-top: 80px; }
 
-/* Hero trust: stack vertically on small screens so the checkmarks aren't crowded. */
-@media (max-width: 600px) {
-  .hero-trust { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
-}
 
 /* Final-CTA contact links: vertically centre icon + text. */
 .cta-contacts a { display: inline-flex; align-items: center; gap: .45em; }
