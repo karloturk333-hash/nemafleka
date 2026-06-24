@@ -33,10 +33,7 @@
   --text-muted-on-ink: var(--ink-400);
 
   /* ---- Semantic ---- */
-  --success: #1B9E54;   /* AA on white for text+icon */
-  --warning: #B6791F;
-  --error:   #C0392B;
-  --star:    #E8990C;   /* amber, AA on white */
+  --error:   #C0392B;   /* AA on white for text+icon */
   --wa-green: #25D366;  /* icon fills only */
   --wa-green-700: #128C43; /* WhatsApp text/AA */
 
