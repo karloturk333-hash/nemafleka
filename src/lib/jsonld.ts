@@ -63,7 +63,7 @@ export function breadcrumbJsonLd() {
         '@type': 'ListItem',
         position: 2,
         name: 'Područje pokrivenosti',
-        item: new URL('/podrucje-pokrivenosti', BUSINESS.url).href,
+        item: new URL('/podrucje-pokrivenosti/', BUSINESS.url).href,
       },
     ],
   };
