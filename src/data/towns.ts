@@ -23,5 +23,3 @@ export const TOWNS: Town[] = [
   { slug: 'cazma', name: 'Čazma', lat: 45.7497, lng: 16.6167, distanceKm: 22, free: true },
   { slug: 'klostar-ivanic', name: 'Kloštar Ivanić', lat: 45.7411, lng: 16.4536, distanceKm: 18, free: true },
 ];
-
-export const REDIRECT_TOWNS = TOWNS.filter((t) => t.oldUrl);
