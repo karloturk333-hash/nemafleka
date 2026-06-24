@@ -5,7 +5,7 @@ This file is loop bookkeeping for the dev branch only — delete it before mergi
 
 ```yaml
 dry_rounds: 0
-rounds_total: 4
+rounds_total: 5
 branch: claude/repo-optimization-e15l37
 ```
 
@@ -98,3 +98,19 @@ deliberate choice — only hash-busted assets are immutably cached).
 **Verify gate:** build ✓ · test 9/9 ✓ · responsive-check ✓ · E2E+axe 7/7 ✓.
 
 **Trend:** applied 7 → 6 → 3 → 1; candidates 40 → 28 → 8 → 3. Next round likely DRY.
+
+### Round 5 — PRODUCTIVE (dry_rounds 0 → 0)
+Dimensions audited: Performance, Accessibility, SEO, Code-quality/bundle.
+4 candidates → 3 survived → 3 applied (perf/a11y finders dry).
+
+**Applied:**
+- `e169d8c` seo — coverage-page canonical + breadcrumb now use the trailing-slash form to
+  MATCH the sitemap (real sitemap↔canonical mismatch; homepage already uses slash form).
+- `6dddd6e` refactor — removed unused class attrs wa-float-label, founder-novi (no CSS/JS).
+
+**Rejected:** .footer-made (already vetoed earlier).
+
+**Verify gate:** build ✓ · test 9/9 ✓ · responsive-check ✓ · E2E+axe 7/7 ✓.
+
+**Trend:** applied 7 → 6 → 3 → 1 → 2; candidates 40 → 28 → 8 → 3 → 4. Still finding the
+occasional real win (the canonical mismatch was genuine), so not dry yet.
