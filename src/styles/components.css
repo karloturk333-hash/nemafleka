@@ -156,6 +156,7 @@
   background: transparent; color: #C9CCEC; font-weight: 700; cursor: pointer; font-family: var(--font-display);
 }
 .ba-tab.active { background: var(--lime); color: var(--ink-800); border-color: var(--lime); }
+.ba-tab:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .ba-handle {
   position: absolute; top: 50%; transform: translate(-50%, -50%); z-index: 5;
   width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--lime);
