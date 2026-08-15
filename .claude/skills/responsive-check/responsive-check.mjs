@@ -44,7 +44,7 @@ const PAGES = [
   { name: 'coverage', path: '/podrucje-pokrivenosti/' },
 ];
 
-const TYPE_SELECTORS = ['.hero-h1', '.hero-sub', '.section-h2', '.section-sub', '.calc-q'];
+const TYPE_SELECTORS = ['.hero-h1', '.hero-sub', '.section-h2', '.section-sub', '.price-group-title'];
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',

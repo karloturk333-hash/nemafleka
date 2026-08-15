@@ -1,8 +1,16 @@
 ---
 import SectionHeader from '../primitives/SectionHeader.astro';
 import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
 import { PRICE_GROUPS } from '../../data/services';
-import { LIVING_ROOM_PACKAGE, MIN_ORDER } from '../../data/pricing';
+import { LIVING_ROOM_PACKAGE, MIN_ORDER, TRAVEL_ZONES } from '../../data/pricing';
+import { waLink, WA_MSG } from '../../lib/links';
+
+interface Props {
+  waMessage?: string;
+  waSource?: string;
+}
+const { waMessage = WA_MSG.cjenik, waSource = 'cjenik' } = Astro.props;
 ---
 <section class="section section-tint" id="cjenik">
   <div class="container">
@@ -34,13 +42,30 @@ import { LIVING_ROOM_PACKAGE, MIN_ORDER } from '../../data/pricing';
         <p class="price-was"><s>Zasebno {LIVING_ROOM_PACKAGE.wasPrice} €</s></p>
       </div>
 
+      <div class="price-group">
+        <h3 class="price-group-title">Dolazak</h3>
+        <div class="price-table">
+          {TRAVEL_ZONES.map((z) => (
+            <div class="price-row">
+              <span class="p-name">
+                {z.name}
+                {z.note && <small class="p-note">{z.note}</small>}
+              </span>
+              <span class="p-val mono">{z.price}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <p class="price-min muted">Minimalni izlazak {MIN_ORDER} €</p>
 
       <div class="badge-strip">
         <span class="badge">Garancija zadovoljstva</span>
         <span class="badge">Ekološki</span>
       </div>
-      <Button href="#kalkulator" variant="cta" class="price-cta">Zatražite besplatnu procjenu →</Button>
+      <Button href={waLink(waMessage)} variant="wa" class="price-cta" external data-wa-source={waSource}>
+        <Icon name="whatsapp" size={18} /> Pišite nam na WhatsApp →
+      </Button>
     </div>
   </div>
 </section>

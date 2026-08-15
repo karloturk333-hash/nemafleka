@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Eyebrow from '../components/primitives/Eyebrow.astro';
 import Button from '../components/primitives/Button.astro';
 import Coverage from '../components/islands/Coverage.astro';
-import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
 import FaqList from '../components/sections/FaqList.astro';
 import { TOWNS, cityPath } from '../data/towns';
 import { localBusinessJsonLd, breadcrumbJsonLd } from '../lib/jsonld';
@@ -29,11 +28,11 @@ import { localBusinessJsonLd, breadcrumbJsonLd } from '../lib/jsonld';
         Koprivnice. Ispod je svako mjesto koje pokrivamo, s poštenom informacijom o dolasku.
         Ne vidite svoje mjesto? <strong>Pišite nam, vjerojatno ipak dolazimo.</strong>
       </p>
-      <Button href="#kalkulator" variant="cta">Izračunajte cijenu za svoju adresu →</Button>
+      <Button href="/#cjenik" variant="cta">Pogledajte cjenik →</Button>
     </div>
   </section>
 
-  <Coverage />
+  <Coverage showPlacesCta={false} />
 
   <section class="section section-tint">
     <div class="container">
@@ -53,6 +52,5 @@ import { localBusinessJsonLd, breadcrumbJsonLd } from '../lib/jsonld';
     </div>
   </section>
 
-  <CalculatorWizard />
   <FaqList />
 </BaseLayout>

@@ -25,7 +25,7 @@ It will:
 4. For each page x viewport:
    - take a **full-page** screenshot to `/tmp/rc-<page>-<viewport>.png`
    - log horizontal overflow = `documentElement.scrollWidth - clientWidth`
-   - log the computed `font-size` of `.hero-h1`, `.hero-sub`, `.section-h2`, `.section-sub`, `.calc-q`
+   - log the computed `font-size` of `.hero-h1`, `.hero-sub`, `.section-h2`, `.section-sub`, `.price-group-title`
 
 Pages probed: `/` and `/podrucje-pokrivenosti/`.
 Viewports: pixel 393x851, iphone13 390x844, tablet 768x1024, desktop 1440x900.
@@ -36,7 +36,7 @@ Viewports: pixel 393x851, iphone13 390x844, tablet 768x1024, desktop 1440x900.
   means something is wider than the viewport (the script exits non-zero and prints `FAIL`).
 - **Type scales down on mobile.** The fluid (`clamp()`) ramp should report a *smaller*
   `font-size` at 390-393px than at 1440px for `.hero-h1`, `.hero-sub`, `.section-sub`,
-  `.calc-q`. On desktop the hero H1 should reach its full ~5rem (80px) size.
+  `.price-group-title`. On desktop the hero H1 should reach its full ~5rem (80px) size.
 - Tap targets stay >= 44px and WebGL canvases are not clipped (inspect screenshots).
 
 ## Notes

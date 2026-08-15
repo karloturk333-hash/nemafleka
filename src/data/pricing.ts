@@ -1,4 +1,4 @@
-// Calculator constants, ONE place. Drives the engine, the coverage copy, and the JSON-LD.
+// Travel + minimums, ONE place. Drives the cjenik, the coverage copy, and the JSON-LD.
 export const VRBOVEC = { lat: 45.8833, lng: 16.4167 } as const;
 
 /** Približan radijus besplatnog dolaska (vizual na karti). Imenovane zone su izvor istine. */
@@ -52,6 +52,23 @@ const PLUS20_NAMES = ['sesvetski kraljevec', 'sesvete', 'gornja dubrava', 'donja
 function includesName(haystack: string, name: string): boolean {
   return (` ${haystack} `).includes(` ${name} `) || haystack.startsWith(name + ' ') || haystack.endsWith(' ' + name) || haystack === name;
 }
+
+/** Named travel rows shown on the cjenik (same zones as resolveTravel). */
+export const TRAVEL_ZONES: { name: string; price: string; note?: string }[] = [
+  {
+    name: 'Vrbovec, Dugo Selo, Križevci, Sv. Ivan Zelina, Ivanić-Grad, Kloštar Ivanić, Čazma',
+    price: 'besplatno',
+  },
+  {
+    name: 'Bjelovar, Koprivnica',
+    price: `+${SURCHARGE_BJEL_KOP} €`,
+  },
+  {
+    name: 'Sesvete, Gornja/Donja Dubrava, Sesvetski Kraljevec',
+    price: `+${SURCHARGE_ZAGREB_EAST} €`,
+    note: `minimalni izlazak ${MIN_ORDER_ZAGREB_EAST} €`,
+  },
+];
 
 /** Named travel zones from the cjenik. Unknown places: fee 0, confirm on WhatsApp. */
 export function resolveTravel(query: string | null | undefined): TravelQuote {

@@ -22,7 +22,6 @@ const { links, waMessage = WA_MSG.sticky, waSource = 'sticky' } = Astro.props;
   <nav aria-label="Mobilna navigacija">
     <ul class="m-links" role="list">
       {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-      <li><a href="/#kalkulator">Kalkulator</a></li>
       <li><a href="/podrucje-pokrivenosti">Područje pokrivenosti</a></li>
     </ul>
   </nav>
