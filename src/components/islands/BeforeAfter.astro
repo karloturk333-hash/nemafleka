@@ -2,10 +2,15 @@
 import SectionHeader from '../primitives/SectionHeader.astro';
 import Button from '../primitives/Button.astro';
 import ShaderBg from './ShaderBg.astro';
-const pairs = {
-  couch: { before: '/images/ba-couch-before.webp', after: '/images/ba-couch-after.webp', label: 'kauča' },
-  mattress: { before: '/images/ba-mattress-before.webp', after: '/images/ba-mattress-after.webp', label: 'madraca' },
-};
+import galerija from '../../data/galerija.json';
+
+interface Props {
+  defaultUsluga?: string;
+}
+const { defaultUsluga } = Astro.props;
+const pairs = galerija;
+const usluge = [...new Set(pairs.map((p) => p.usluga))];
+const initial = pairs.find((p) => p.usluga === defaultUsluga) ?? pairs[0]!;
 ---
 <section class="section section-dark" id="dokaz">
   <ShaderBg id="dokaz-shader" amp={220} seed={11} freqX={0.0002} freqY={0.00018} />
@@ -19,8 +24,14 @@ const pairs = {
         sub="Nije reklama, ovo su naši pravi rezultati. Povucite klizač i usporedite."
       />
       <div class="ba-tabs" role="tablist" aria-label="Odaberi kategoriju">
-        <button class="ba-tab active" role="tab" aria-selected="true" data-pair="couch">Kauč</button>
-        <button class="ba-tab" role="tab" aria-selected="false" data-pair="mattress">Madrac</button>
+        {usluge.map((u) => (
+          <button
+            class:list={['ba-tab', u === initial.usluga && 'active']}
+            role="tab"
+            aria-selected={u === initial.usluga ? 'true' : 'false'}
+            data-pair={u}
+          >{u.charAt(0).toUpperCase() + u.slice(1)}</button>
+        ))}
       </div>
       <ul class="ba-points" role="list">
         <li><span class="ba-check" aria-hidden="true"></span><span><strong>Eko sredstva</strong> — sigurno za djecu i ljubimce</span></li>
@@ -32,8 +43,8 @@ const pairs = {
 
     <figure class="ba-widget">
       <div class="proof-split big" id="ba-split">
-        <img id="ba-after-img" src={pairs.couch.after} alt="Kauč nakon čišćenja" class="proof-after" loading="lazy" decoding="async" />
-        <img id="ba-before-img" src={pairs.couch.before} alt="Kauč prije čišćenja" class="proof-before" loading="lazy" decoding="async" style="clip-path:inset(0 50% 0 0)" />
+        <img id="ba-after-img" src={initial.after} alt={`Slika nakon čišćenja, ${initial.label}`} class="proof-after" width={initial.width} height={initial.height} loading="lazy" decoding="async" />
+        <img id="ba-before-img" src={initial.before} alt={`Slika prije čišćenja, ${initial.label}`} class="proof-before" width={initial.width} height={initial.height} loading="lazy" decoding="async" style="clip-path:inset(0 50% 0 0)" />
         <span class="proof-divider" id="ba-divider" style="left:50%"></span>
         <button
           class="ba-handle"
@@ -55,10 +66,9 @@ const pairs = {
 </section>
 
 <script>
-  const PAIRS = {
-    couch: { before: '/images/ba-couch-before.webp', after: '/images/ba-couch-after.webp', label: 'kauča' },
-    mattress: { before: '/images/ba-mattress-before.webp', after: '/images/ba-mattress-after.webp', label: 'madraca' },
-  } as const;
+  import galerija from '../../data/galerija.json';
+
+  const PAIRS = Object.fromEntries(galerija.map((p) => [p.usluga, p]));
 
   const split = document.getElementById('ba-split')!;
   const divider = document.getElementById('ba-divider')!;
@@ -66,15 +76,11 @@ const pairs = {
   const beforeImg = document.getElementById('ba-before-img') as HTMLImageElement;
   const afterImg = document.getElementById('ba-after-img') as HTMLImageElement;
   let value = 50;
-  // Cached on pointerdown so a drag never reads layout (getBoundingClientRect) per move;
-  // null when not dragging so the next read is fresh.
   let rect: DOMRect | null = null;
   let rafId = 0;
 
   function paint() {
     rafId = 0;
-    // Clip the before layer instead of resizing it — keeps the image full-size
-    // (no horizontal stretch); the slider just reveals/hides it over the after layer.
     beforeImg.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
     divider.style.left = value + '%';
     handle.style.left = value + '%';
@@ -82,9 +88,6 @@ const pairs = {
 
   function setValue(v: number) {
     value = Math.max(0, Math.min(100, Math.round(v)));
-    // ARIA state is updated synchronously (cheap, no layout cost) so assistive tech and
-    // tests see it immediately; the visual style writes are coalesced into one rAF per
-    // frame so rapid pointer moves don't thrash layout.
     handle.setAttribute('aria-valuenow', String(value));
     handle.setAttribute('aria-valuetext', `${value}% prikaza nakon čišćenja`);
     if (!rafId) rafId = requestAnimationFrame(paint);
@@ -95,9 +98,6 @@ const pairs = {
     setValue(((clientX - r.left) / r.width) * 100);
   }
 
-  // Pointer capture keeps every move/up routed to the slider even when the cursor
-  // races past the edge — fixes the "stops if you drag too fast" jank. touch-action:none
-  // (CSS) + preventDefault stop the page scrolling / native image-drag from stealing the gesture.
   let dragging = false;
   split.addEventListener('pointerdown', (e) => {
     dragging = true;
@@ -126,8 +126,9 @@ const pairs = {
 
   document.querySelectorAll<HTMLButtonElement>('.ba-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
-      const key = tab.dataset.pair as keyof typeof PAIRS;
+      const key = tab.dataset.pair as string;
       const pair = PAIRS[key];
+      if (!pair) return;
       document.querySelectorAll('.ba-tab').forEach((t) => {
         t.classList.toggle('active', t === tab);
         t.setAttribute('aria-selected', String(t === tab));

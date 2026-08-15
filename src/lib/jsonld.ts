@@ -1,18 +1,13 @@
-// Structured data built from the single source of truth, WITHOUT aggregateRating
-// (the business is launching; fabricated review schema was a Google manual-action + legal risk).
-import { BUSINESS } from '../data/business';
-import { FAQ } from '../data/faq';
+// Structured data built from the single source of truth, WITHOUT aggregateRating.
+import { BUSINESS, PRIMARY_PHONE } from '../data/business';
+import { FAQ, type FaqEntry } from '../data/faq';
 import { SERVICES } from '../data/services';
+import type { CityPage } from '../data/cities';
 
-const AREA_SERVED = {
-  '@type': 'GeoCircle',
-  geoMidpoint: {
-    '@type': 'GeoCoordinates',
-    latitude: BUSINESS.geo.lat,
-    longitude: BUSINESS.geo.lng,
-  },
-  geoRadius: String(BUSINESS.geoRadiusKm * 1000),
-};
+const AREA_SERVED = BUSINESS.servedCities.map((name) => ({
+  '@type': 'City',
+  name,
+}));
 
 const DAYMAP: Record<string, string> = {
   Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday',
@@ -24,12 +19,12 @@ export function localBusinessJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: BUSINESS.name,
-    description:
-      'Profesionalno dubinsko čišćenje kauča, tepiha, madraca i automobila u Vrbovcu i okolici.',
+    description: 'Dubinsko čišćenje kauča, tepiha, madraca i automobila.',
     url: BUSINESS.url,
-    telephone: BUSINESS.phones.map((p) => p.tel),
+    telephone: PRIMARY_PHONE.tel,
     email: BUSINESS.email,
-    image: BUSINESS.url + BUSINESS.ogImage,
+    image: BUSINESS.url + BUSINESS.logo,
+    priceRange: '€€',
     address: {
       '@type': 'PostalAddress',
       addressLocality: BUSINESS.baseTown,
@@ -49,36 +44,33 @@ export function localBusinessJsonLd() {
         opens: h.opens,
         closes: h.closes,
       })),
-    priceRange: '€€',
   };
 }
 
-export function breadcrumbJsonLd() {
+export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Početna', item: BUSINESS.url },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Područje pokrivenosti',
-        item: new URL('/podrucje-pokrivenosti/', BUSINESS.url).href,
-      },
-    ],
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: new URL(item.path, BUSINESS.url).href,
+    })),
   };
 }
 
-// One Service node per offering, with real Offer prices from the single source of truth
-// (src/data/services.ts). No reviews/ratings — those stay banned.
-export function serviceJsonLd() {
-  return SERVICES.map((s) => ({
+export function serviceJsonLd(areaName?: string) {
+  const area = areaName
+    ? { '@type': 'City', name: areaName }
+    : AREA_SERVED;
+  return SERVICES.filter((s) => s.id !== 'package').map((s) => ({
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: `Dubinsko čišćenje — ${s.name}`,
     serviceType: s.name,
     provider: { '@type': 'LocalBusiness', name: BUSINESS.name, url: BUSINESS.url },
-    areaServed: AREA_SERVED,
+    areaServed: area,
     offers: s.sizes.map((o) => ({
       '@type': 'Offer',
       name: o.label,
@@ -88,11 +80,24 @@ export function serviceJsonLd() {
   }));
 }
 
-export function faqJsonLd() {
+export function cityServiceJsonLd(city: CityPage) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Dubinsko čišćenje ${city.grad}`,
+    serviceType: 'Dubinsko čišćenje',
+    description: `Dubinsko čišćenje kauča, tepiha, madraca i auta u ${city.locative}.`,
+    provider: { '@type': 'LocalBusiness', name: BUSINESS.name, url: BUSINESS.url },
+    areaServed: { '@type': 'City', name: city.name },
+    url: new URL(`/dubinsko-ciscenje-${city.slug}`, BUSINESS.url).href,
+  };
+}
+
+export function faqJsonLd(entries: FaqEntry[] = FAQ) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ.map((f) => ({
+    mainEntity: entries.map((f) => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },

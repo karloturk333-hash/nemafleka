@@ -2,7 +2,7 @@
 import SectionHeader from '../primitives/SectionHeader.astro';
 import ServiceCard from './ServiceCard.astro';
 import { SERVICES } from '../../data/services';
-const featured = SERVICES.filter((s) => ['couch', 'carpet', 'mattress', 'car'].includes(s.id));
+const featured = SERVICES.filter((s) => s.featured);
 ---
 <section class="section" id="usluge">
   <div class="container">

@@ -1,6 +1,8 @@
 ---
-import { type Service, fromOf, SERVICE_EMOJI } from '../../data/services';
-import { fromEur } from '../../lib/format';
+import { type Service, SERVICE_EMOJI } from '../../data/services';
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+import { waLink, WA_MSG } from '../../lib/links';
 interface Props {
   service: Service;
 }
@@ -11,5 +13,10 @@ const { service } = Astro.props;
   {service.tag && <span class="svc-badge">{service.tag}</span>}
   <h3>{service.name}</h3>
   <p>{service.blurb}</p>
-  <span class="svc-price mono">{fromEur(fromOf(service))}</span>
+  <span class="svc-price mono">{service.pickerPrice}</span>
+  {service.id === 'car' && (
+    <Button href={waLink(WA_MSG.car)} variant="wa" class="svc-wa" external data-wa-source="auto">
+      <Icon name="whatsapp" size={16} /> Pišite za auto
+    </Button>
+  )}
 </article>

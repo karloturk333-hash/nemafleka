@@ -1,48 +1,27 @@
 import { describe, it, expect } from 'vitest';
 import {
-  getDiscount,
-  getFuelCharge,
   computeQuote,
   buildWhatsAppPayload,
   distanceFromBase,
+  hasStandaloneService,
   type QuoteItem,
 } from './calculator';
+import { resolveTravel, MIN_ORDER } from '../data/pricing';
+import { waLink, WA_MSG } from './links';
 
-const couch: QuoteItem = { id: 'couch', name: 'Kauč', sizeLabel: '2-sjed', price: 45 };
-const carpet: QuoteItem = { id: 'carpet', name: 'Tepih', sizeLabel: 'do 10 m²', price: 65 };
-
-describe('getDiscount', () => {
-  it('applies the right tier at each boundary', () => {
-    expect(getDiscount(0)).toBe(0);
-    expect(getDiscount(1)).toBe(0);
-    expect(getDiscount(2)).toBe(10);
-    expect(getDiscount(3)).toBe(15);
-    expect(getDiscount(4)).toBe(15);
-    expect(getDiscount(5)).toBe(20);
-    expect(getDiscount(8)).toBe(20);
-  });
-});
-
-describe('getFuelCharge', () => {
-  it('is free within the local zone and 0.50 €/km beyond it', () => {
-    expect(getFuelCharge(null)).toBe(0);
-    expect(getFuelCharge(20)).toBe(0);
-    expect(getFuelCharge(25)).toBe(0); // FREE_KM boundary
-    expect(getFuelCharge(45)).toBe(10); // (45-25)*0.5 = 10
-    expect(getFuelCharge(60)).toBe(18); // round((60-25)*0.5)=round(17.5)=18
-  });
-});
+const kutna: QuoteItem = { id: 'couch', name: 'Kauč', sizeLabel: 'Kutna garnitura', price: 90 };
+const tepih: QuoteItem = { id: 'carpet', name: 'Tepih', sizeLabel: 'Tepih do 6 m²', price: 60 };
+const stolica: QuoteItem = { id: 'chair', name: 'Stolica', sizeLabel: '1 stolica', price: 15 };
+const tabure: QuoteItem = { id: 'ottoman', name: 'Tabure', sizeLabel: '1 tabure', price: 15 };
+const fotelja: QuoteItem = { id: 'armchair', name: 'Fotelja', sizeLabel: '1 fotelja', price: 30 };
 
 describe('computeQuote', () => {
-  it('couch(45) + carpet(65) @45km → subtotal 110, -10%, +10 fuel = 109', () => {
-    const q = computeQuote([couch, carpet], 45);
-    expect(q.subtotal).toBe(110);
-    expect(q.count).toBe(2);
-    expect(q.discountPct).toBe(10);
-    expect(q.discountedSubtotal).toBe(99); // round(110*0.9)=99
-    expect(q.discountAmount).toBe(11);
-    expect(q.fuel).toBe(10); // (45-25)*0.5
-    expect(q.total).toBe(109);
+  it('kutna 90 + tepih 60 totals 150 with no percentage discount', () => {
+    const q = computeQuote([kutna, tepih]);
+    expect(q.subtotal).toBe(150);
+    expect(q.total).toBe(150);
+    expect(q.minApplied).toBe(false);
+    expect(q.travel).toBe(0);
   });
 
   it('empty selection totals 0', () => {
@@ -52,48 +31,96 @@ describe('computeQuote', () => {
     expect(q.minApplied).toBe(false);
   });
 
-  it('applies the 50 € minimum order on small selections', () => {
-    const q = computeQuote([{ id: 'chair', name: 'Stolica', sizeLabel: '2 kom', price: 14 }]);
-    expect(q.subtotal).toBe(14);
+  it('applies the 60 € minimum order on small selections', () => {
+    const q = computeQuote([fotelja]);
+    expect(q.subtotal).toBe(30);
     expect(q.minApplied).toBe(true);
-    expect(q.total).toBe(50);
+    expect(q.total).toBe(MIN_ORDER);
   });
 
-  it('single service above the minimum gets no discount and (within radius) no fuel', () => {
-    const trosjed: QuoteItem = { id: 'couch', name: 'Kauč', sizeLabel: 'Trosjed / kauč', price: 70 };
-    const q = computeQuote([trosjed], 10);
-    expect(q.discountPct).toBe(0);
-    expect(q.fuel).toBe(0);
-    expect(q.minApplied).toBe(false);
-    expect(q.total).toBe(70);
+  it('adds Bjelovar travel on top of the subtotal', () => {
+    const q = computeQuote([kutna], resolveTravel('Bjelovar'));
+    expect(q.travel).toBe(15);
+    expect(q.total).toBe(105);
   });
 
-  it('multi-service discount with the new prices: couch(45)+carpet(65)+mattress(45) → -15%', () => {
-    const mattress: QuoteItem = { id: 'mattress', name: 'Madrac', sizeLabel: 'Bračni (160+)', price: 45 };
-    const q = computeQuote([couch, carpet, mattress]);
-    expect(q.subtotal).toBe(155);
-    expect(q.count).toBe(3);
-    expect(q.discountPct).toBe(15);
-    expect(q.discountedSubtotal).toBe(132); // round(155*0.85)=131.75→132
-    expect(q.discountAmount).toBe(23);
-    expect(q.minApplied).toBe(false);
-    expect(q.total).toBe(132);
+  it('uses the 100 € minimum for Sesvete', () => {
+    const q = computeQuote([fotelja], resolveTravel('Sesvete'));
+    expect(q.travel).toBe(20);
+    expect(q.minOrder).toBe(100);
+    expect(q.total).toBe(100);
+  });
+});
+
+describe('hasStandaloneService', () => {
+  it('rejects chair or ottoman as the only service', () => {
+    expect(hasStandaloneService([stolica])).toBe(false);
+    expect(hasStandaloneService([tabure, stolica])).toBe(false);
+    expect(hasStandaloneService([stolica, kutna])).toBe(true);
+    expect(hasStandaloneService([kutna])).toBe(true);
+  });
+});
+
+describe('resolveTravel', () => {
+  it('treats the local corridor as free', () => {
+    expect(resolveTravel('Križevci').fee).toBe(0);
+    expect(resolveTravel('Dugo Selo').fee).toBe(0);
+    expect(resolveTravel('Čazma').known).toBe(true);
+  });
+
+  it('charges +15 € for Bjelovar and Koprivnica', () => {
+    expect(resolveTravel('Bjelovar').fee).toBe(15);
+    expect(resolveTravel('Koprivnica').fee).toBe(15);
+  });
+
+  it('does not treat općina Dubrava near Vrbovec as Zagreb Dubrava', () => {
+    expect(resolveTravel('Dubrava').fee).toBe(0);
+    expect(resolveTravel('Dubrava').known).toBe(false);
+    expect(resolveTravel('Donja Dubrava').fee).toBe(20);
   });
 });
 
 describe('buildWhatsAppPayload', () => {
-  it('targets the WhatsApp number and includes line items, discount, and total', () => {
-    const q = computeQuote([couch, carpet], 45);
-    const url = buildWhatsAppPayload(q);
+  it('uses the calculator message format with items, total, location and newlines', () => {
+    const q = computeQuote([kutna, tepih]);
+    const url = buildWhatsAppPayload(q, 'Križevci');
     expect(url.startsWith('https://wa.me/385953765343?text=')).toBe(true);
     const body = decodeURIComponent(url.split('text=')[1]!);
-    expect(body).toContain('Kauč');
-    expect(body).toContain('Tepih');
-    expect(body).toContain('Popust');
-    expect(body).toContain('Ukupno');
-    expect(body).toContain('109');
-    // diacritics survive round-trip
-    expect(body).toContain('čišćenje');
+    expect(body).toBe(
+      [
+        'Bok! Preko kalkulatora sam dobio procjenu:',
+        '• Kutna garnitura — 90 €',
+        '• Tepih do 6 m² — 60 €',
+        'Ukupno: ~150 €',
+        'Lokacija: Križevci',
+        'Možemo li dogovoriti termin?',
+      ].join('\n'),
+    );
+    expect(body).toContain('procjenu');
+    expect(body).toContain('Možemo');
+    expect(body).toContain('\n');
+    expect(body).not.toContain('<br');
+  });
+
+  it('omits location when it is empty', () => {
+    const q = computeQuote([kutna]);
+    const body = decodeURIComponent(buildWhatsAppPayload(q).split('text=')[1]!);
+    expect(body).not.toContain('Lokacija:');
+  });
+});
+
+describe('waLink', () => {
+  it('keeps Croatian diacritics after encodeURIComponent', () => {
+    const url = waLink(WA_MSG.hero);
+    const body = decodeURIComponent(url.split('text=')[1]!);
+    expect(body).toBe('Bok! Zanima me dubinsko čišćenje.');
+    expect(url).toContain('%C4%8D'); // č
+  });
+
+  it('uses distinct copy per source', () => {
+    expect(WA_MSG.hero).not.toBe(WA_MSG.sticky);
+    expect(WA_MSG.faq).not.toBe(WA_MSG.car);
+    expect(WA_MSG.city('Križevci')).toContain('Križevci');
   });
 });
 

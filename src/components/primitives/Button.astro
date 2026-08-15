@@ -6,12 +6,13 @@ interface Props {
   external?: boolean;
   class?: string;
   'aria-label'?: string;
+  'data-wa-source'?: string;
 }
 const { href, variant = 'cta', size = 'md', external, class: cls, ...rest } = Astro.props;
 const Tag = href ? 'a' : 'button';
 const classList = ['btn', `btn-${variant}`, size === 'lg' && 'btn-lg', cls];
 const extra = href
   ? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) }
-  : { type: 'button' };
+  : { type: 'button' as const };
 ---
 <Tag class:list={classList} {...extra} {...rest}><slot /></Tag>

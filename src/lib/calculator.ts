@@ -1,6 +1,7 @@
 // Pure pricing engine, no DOM, fully unit-testable. The UI island wraps this.
-import { DISCOUNT_TIERS, FREE_KM, PER_KM_FEE, MIN_ORDER, VRBOVEC } from '../data/pricing';
-import { WHATSAPP_PHONE } from '../data/business';
+import { MIN_ORDER, VRBOVEC, resolveTravel, type TravelQuote } from '../data/pricing';
+import { ADDON_ONLY_IDS, type ServiceId } from '../data/services';
+import { waLink } from './links';
 
 export interface QuoteItem {
   id: string;
@@ -13,30 +14,52 @@ export interface Quote {
   items: QuoteItem[];
   subtotal: number;
   count: number;
-  discountPct: number;
-  discountAmount: number;
-  discountedSubtotal: number;
-  fuel: number;
-  distanceKm: number | null;
-  minApplied: boolean; // true when the minimum order bumped the total up
+  travel: number;
+  minOrder: number;
+  minApplied: boolean;
   total: number;
+  travelNote: string;
 }
 
-/** Multi-service discount % by number of distinct services. */
-export function getDiscount(serviceCount: number): number {
-  for (const tier of DISCOUNT_TIERS) {
-    if (serviceCount >= tier.minServices) return tier.pct;
-  }
-  return 0;
+export function hasStandaloneService(items: QuoteItem[]): boolean {
+  return items.some((i) => !ADDON_ONLY_IDS.has(i.id as ServiceId));
 }
 
-/** Travel charge: free within the local zone (FREE_KM), else 0.50 €/km beyond it. */
-export function getFuelCharge(distanceKm: number | null): number {
-  if (distanceKm == null || distanceKm <= FREE_KM) return 0;
-  return Math.round((distanceKm - FREE_KM) * PER_KM_FEE);
+export function computeQuote(
+  items: QuoteItem[],
+  travel: TravelQuote | null = null,
+): Quote {
+  const subtotal = items.reduce((sum, i) => sum + i.price, 0);
+  const count = items.length;
+  const fee = travel?.fee ?? 0;
+  const minOrder = travel?.minOrder ?? MIN_ORDER;
+  const raw = subtotal + fee;
+  const minApplied = count > 0 && raw < minOrder;
+  const total = count > 0 ? Math.max(raw, minOrder) : 0;
+  return {
+    items,
+    subtotal,
+    count,
+    travel: fee,
+    minOrder,
+    minApplied,
+    total,
+    travelNote: travel?.note ?? '',
+  };
 }
 
-/** Great-circle distance in km. */
+/** Pre-filled WhatsApp message from calculator state (diacritics via encodeURIComponent). */
+export function buildWhatsAppPayload(quote: Quote, location?: string): string {
+  const lines: Array<string | null> = [
+    'Bok! Preko kalkulatora sam dobio procjenu:',
+    ...quote.items.map((s) => `• ${s.sizeLabel} — ${s.price} €`),
+    `Ukupno: ~${quote.total} €`,
+    location ? `Lokacija: ${location}` : null,
+    'Možemo li dogovoriti termin?',
+  ];
+  return waLink(lines.filter(Boolean).join('\n'));
+}
+
 function haversineKm(
   a: { lat: number; lng: number },
   b: { lat: number; lng: number },
@@ -56,41 +79,5 @@ export function distanceFromBase(lat: number, lng: number): number {
   return haversineKm(VRBOVEC, { lat, lng });
 }
 
-/** Build a full quote from selected items + optional travel distance. */
-export function computeQuote(
-  items: QuoteItem[],
-  distanceKm: number | null = null,
-): Quote {
-  const subtotal = items.reduce((sum, i) => sum + i.price, 0);
-  const count = items.length;
-  const discountPct = getDiscount(count);
-  const discountedSubtotal = Math.round((subtotal * (100 - discountPct)) / 100);
-  const discountAmount = subtotal - discountedSubtotal;
-  const fuel = getFuelCharge(distanceKm);
-  const raw = discountedSubtotal + fuel;
-  const minApplied = count > 0 && raw < MIN_ORDER;
-  const total = count > 0 ? Math.max(raw, MIN_ORDER) : 0;
-  return {
-    items, subtotal, count, discountPct, discountAmount,
-    discountedSubtotal, fuel, distanceKm, minApplied, total,
-  };
-}
-
-/** Pre-filled WhatsApp message (diacritics preserved via encodeURIComponent). */
-export function buildWhatsAppPayload(quote: Quote, location?: string): string {
-  const lines: string[] = ['Bok! Želim procjenu za dubinsko čišćenje:'];
-  for (const item of quote.items) {
-    lines.push(`• ${item.name} (${item.sizeLabel}): ${item.price} €`);
-  }
-  if (quote.discountPct > 0) {
-    lines.push(
-      `Popust (${quote.count} usluge, -${quote.discountPct}%): -${quote.discountAmount} €`,
-    );
-  }
-  if (quote.fuel > 0) {
-    lines.push(`Dolazak (${quote.distanceKm} km): +${quote.fuel} €`);
-  }
-  if (location) lines.push(`Lokacija: ${location}`);
-  lines.push(`Ukupno: ~${quote.total} €`);
-  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(lines.join('\n'))}`;
-}
+export { resolveTravel };
+export type { TravelQuote };

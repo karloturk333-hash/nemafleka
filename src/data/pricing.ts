@@ -1,15 +1,82 @@
 // Calculator constants, ONE place. Drives the engine, the coverage copy, and the JSON-LD.
-// Travel + minimum-order model from Karlo's market research (cjenik, 2026-06-15):
-// local zone is free; beyond it the travel surcharge is per-km; a minimum order applies.
 export const VRBOVEC = { lat: 45.8833, lng: 16.4167 } as const;
 
-export const FREE_KM = 25; // besplatan dolazak u lokalnoj zoni oko Vrbovca
-export const PER_KM_FEE = 0.5; // putni dodatak po kilometru izvan lokalne zone (EUR/km)
-export const MIN_ORDER = 50; // minimalna narudžba po dolasku (EUR)
+/** Približan radijus besplatnog dolaska (vizual na karti). Imenovane zone su izvor istine. */
+export const FREE_KM = 25;
 
-// Multi-service launch discount, applied to the subtotal (most generous tier first).
-export const DISCOUNT_TIERS = [
-  { minServices: 5, pct: 20 },
-  { minServices: 3, pct: 15 },
-  { minServices: 2, pct: 10 },
-] as const;
+export const MIN_ORDER = 60;
+export const MIN_ORDER_ZAGREB_EAST = 100;
+export const SURCHARGE_BJEL_KOP = 15;
+export const SURCHARGE_ZAGREB_EAST = 20;
+
+export const LIVING_ROOM_PACKAGE = {
+  id: 'package',
+  name: 'Paket Dnevni boravak',
+  price: 150,
+  wasPrice: 180,
+  includes: 'Kutna garnitura + fotelja + tepih do 6 m²',
+} as const;
+
+export type TravelQuote = {
+  fee: number;
+  minOrder: number;
+  note: string;
+  known: boolean;
+};
+
+function fold(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+const FREE_NAMES = [
+  'vrbovec',
+  'dugo selo',
+  'krizevci',
+  'sveti ivan zelina',
+  'sv ivan zelina',
+  'ivanic grad',
+  'klostar ivanic',
+  'cazma',
+];
+
+const PLUS15_NAMES = ['bjelovar', 'koprivnica'];
+
+const PLUS20_NAMES = ['sesvetski kraljevec', 'sesvete', 'gornja dubrava', 'donja dubrava'];
+
+function includesName(haystack: string, name: string): boolean {
+  return (` ${haystack} `).includes(` ${name} `) || haystack.startsWith(name + ' ') || haystack.endsWith(' ' + name) || haystack === name;
+}
+
+/** Named travel zones from the cjenik. Unknown places: fee 0, confirm on WhatsApp. */
+export function resolveTravel(query: string | null | undefined): TravelQuote {
+  const n = fold(query ?? '');
+  if (!n) {
+    return { fee: 0, minOrder: MIN_ORDER, note: '', known: false };
+  }
+  if (PLUS20_NAMES.some((name) => includesName(n, name))) {
+    return {
+      fee: SURCHARGE_ZAGREB_EAST,
+      minOrder: MIN_ORDER_ZAGREB_EAST,
+      note: `Putni trošak +${SURCHARGE_ZAGREB_EAST} €, minimalni izlazak ${MIN_ORDER_ZAGREB_EAST} €.`,
+      known: true,
+    };
+  }
+  if (PLUS15_NAMES.some((name) => includesName(n, name))) {
+    return {
+      fee: SURCHARGE_BJEL_KOP,
+      minOrder: MIN_ORDER,
+      note: `Putni trošak +${SURCHARGE_BJEL_KOP} €.`,
+      known: true,
+    };
+  }
+  if (FREE_NAMES.some((name) => includesName(n, name))) {
+    return { fee: 0, minOrder: MIN_ORDER, note: 'Besplatan dolazak.', known: true };
+  }
+  return { fee: 0, minOrder: MIN_ORDER, note: '', known: false };
+}

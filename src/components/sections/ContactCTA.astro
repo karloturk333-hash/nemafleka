@@ -2,8 +2,13 @@
 import Button from '../primitives/Button.astro';
 import Icon from '../primitives/Icon.astro';
 import { BUSINESS } from '../../data/business';
-import { waLink } from '../../lib/links';
+import { waLink, WA_MSG } from '../../lib/links';
 import ShaderBg from '../islands/ShaderBg.astro';
+interface Props {
+  waMessage?: string;
+  waSource?: string;
+}
+const { waMessage = WA_MSG.sticky, waSource = 'footer' } = Astro.props;
 ---
 <section class="cta-final" id="kontakt">
   <ShaderBg id="cta-shader" amp={300} seed={17} freqX={0.00022} freqY={0.00015} />
@@ -15,7 +20,7 @@ import ShaderBg from '../islands/ShaderBg.astro';
       <span class="cta-chip"><Icon name="leaf" size={14} /> Ekološka sredstva</span>
       <span class="cta-chip"><Icon name="pin" size={14} /> Lokalni tim, Vrbovec i okolica</span>
     </div>
-    <Button href={waLink()} variant="wa" size="lg" external><Icon name="whatsapp" size={22} /> Pišite nam na WhatsApp</Button>
+    <Button href={waLink(waMessage)} variant="wa" size="lg" external data-wa-source={waSource}><Icon name="whatsapp" size={22} /> Pišite nam na WhatsApp</Button>
     <p class="cta-micro">Odgovaramo brzo · Bez obveze</p>
     <div class="cta-contacts">
       {BUSINESS.phones.map((p) => (

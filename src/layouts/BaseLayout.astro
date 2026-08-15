@@ -16,8 +16,6 @@ import '@fontsource/space-mono/latin-400.css';
 import '@fontsource/space-mono/latin-ext-400.css';
 import '@fontsource/space-mono/latin-700.css';
 import '@fontsource/space-mono/latin-ext-700.css';
-// Preload URLs for the two faces in the critical render path (H1 display + body text),
-// so they're fetched in parallel with the inlined CSS instead of after it parses.
 import groteskDisplay from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url';
 import manropeBody from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
 import '../styles/tokens.css';
@@ -28,14 +26,17 @@ import Nav from '../components/sections/Nav.astro';
 import Footer from '../components/sections/Footer.astro';
 import WhatsAppFloat from '../components/sections/WhatsAppFloat.astro';
 import { BUSINESS } from '../data/business';
+import { WA_MSG } from '../lib/links';
 
 interface Props {
   title: string;
   description: string;
-  path?: string; // canonical path, e.g. '/' or '/podrucje-pokrivenosti'
+  path?: string;
   ogImage?: string;
   preloadHero?: { src: string; srcset?: string; sizes?: string };
   jsonLd?: unknown[];
+  waMessage?: string;
+  waSource?: string;
 }
 const {
   title,
@@ -44,10 +45,16 @@ const {
   ogImage = BUSINESS.ogImage,
   preloadHero,
   jsonLd = [],
+  waMessage = WA_MSG.sticky,
+  waSource = 'sticky',
 } = Astro.props;
 
-const canonical = new URL(path, BUSINESS.url).href;
+const canonical = path === '/' ? BUSINESS.url : new URL(path, BUSINESS.url).href;
 const ogImageUrl = new URL(ogImage, BUSINESS.url).href;
+const plausibleDomain =
+  (import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined) ||
+  (import.meta.env.PROD ? 'nemafleka.com' : '');
+const gsc = import.meta.env.PUBLIC_GSC_VERIFICATION as string | undefined;
 ---
 <!doctype html>
 <html lang="hr" dir="ltr">
@@ -64,14 +71,15 @@ const ogImageUrl = new URL(ogImage, BUSINESS.url).href;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:width" content="800" />
-    <meta property="og:image:height" content="800" />
+    <meta property="og:image:width" content={String(BUSINESS.ogImageWidth)} />
+    <meta property="og:image:height" content={String(BUSINESS.ogImageHeight)} />
     <meta property="og:image:alt" content="Nema Fleka — dubinsko čišćenje kauča, tepiha, madraca i automobila" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content="Nema Fleka — dubinsko čišćenje kauča, tepiha, madraca i automobila" />
+    {gsc && <meta name="google-site-verification" content={gsc} />}
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
@@ -93,16 +101,28 @@ const ogImageUrl = new URL(ogImage, BUSINESS.url).href;
     )}
 
     {jsonLd.map((obj) => (
-      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />
     ))}
+
+    {plausibleDomain && (
+      <script is:inline defer data-domain={plausibleDomain} src="https://plausible.io/js/script.tagged-events.js"></script>
+    )}
   </head>
   <body>
     <a href="#main-content" class="skip-link">Preskoči na sadržaj</a>
-    <Nav />
+    <Nav waMessage={waMessage} waSource={waSource} />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
-    <WhatsAppFloat />
+    <Footer waMessage={waMessage} waSource={waSource} />
+    <WhatsAppFloat waMessage={waMessage} waSource={waSource} />
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[data-wa-source], a[href*="wa.me"]') : null;
+        if (!a || typeof window.plausible !== 'function') return;
+        var izvor = a.getAttribute('data-wa-source') || 'ostalo';
+        window.plausible('whatsapp_klik', { props: { izvor: izvor } });
+      });
+    </script>
   </body>
 </html>

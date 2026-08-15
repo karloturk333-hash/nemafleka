@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Button from '../primitives/Button.astro';
 import Icon from '../primitives/Icon.astro';
 import ShaderBg from '../islands/ShaderBg.astro';
-import { waLink } from '../../lib/links';
+import { waLink, WA_MSG } from '../../lib/links';
 import couchAfter from '../../assets/ba-couch-after.webp';
 import couchBefore from '../../assets/ba-couch-before.webp';
 import { proofWidths, proofSizes } from '../../lib/heroProof';
@@ -22,7 +22,7 @@ import { proofWidths, proofSizes } from '../../lib/heroProof';
       </p>
       <div class="hero-cta-row">
         <Button href="#kalkulator" variant="cta" size="lg">Izračunaj cijenu →</Button>
-        <Button href={waLink()} variant="ghost" size="lg" external><Icon name="whatsapp" size={18} /> Pišite nam</Button>
+        <Button href={waLink(WA_MSG.hero)} variant="ghost" size="lg" external data-wa-source="hero"><Icon name="whatsapp" size={18} /> Pišite nam</Button>
       </div>
     </div>
     <div class="hero-proof">

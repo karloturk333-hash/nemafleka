@@ -14,6 +14,10 @@ export const FAQ: FaqEntry[] = [
     a: 'Da, dolazimo k vama, ne morate ništa voziti ni nositi. Pokrivamo Vrbovec i okolicu (Dugo Selo, Križevci, Bjelovar, Koprivnica…). Treba nam samo termin i pristup prostoriji.',
   },
   {
+    q: 'Naplaćujete li dolazak?',
+    a: 'U Vrbovcu, Dugom Selu, Križevcima, Sv. Ivanu Zelini, Ivanić-Gradu, Kloštru Ivaniću i Čazmi dolazak je besplatan. Za Bjelovar i Koprivnicu dodajemo 15 € putnog troška. Minimalni izlazak je 60 €.',
+  },
+  {
     q: 'Jesu li sredstva sigurna za djecu i ljubimce?',
     a: 'Da. Koristimo ekološka sredstva sigurna za djecu, ljubimce i alergičare. Bez agresivnih kemikalija i jakih mirisa.',
   },
@@ -26,11 +30,19 @@ export const FAQ: FaqEntry[] = [
     a: 'Vrijedi naša garancija zadovoljstva: ako niste zadovoljni, dolazimo ponovno besplatno ili vraćamo novac. Bez sitnih slova.',
   },
   {
+    q: 'Radite li i za firme?',
+    a: 'Da — auto-saloni, agencije za nekretnine i uredi. Za veći broj komada dogovaramo cijenu po komadu. Javite se na WhatsApp.',
+  },
+  {
+    q: 'Mogu li dobiti račun?',
+    a: 'Trenutno smo obrt u osnivanju. Račun izdajemo po registraciji. Ako vam treba račun odmah, javite se pa ćemo vidjeti kad je to moguće.',
+  },
+  {
     q: 'Kako rezervirati termin?',
     a: 'Najbrže preko WhatsAppa, javljamo se u roku 30 minuta (u radno vrijeme). Možete i nazvati direktno.',
   },
   {
     q: 'Tek ste počeli, zašto da vas odaberem?',
-    a: 'Da, novi smo i ponosni na to. Zato dajemo punu garanciju, poštenu cijenu i uvodni popust prvim klijentima, jer želimo da nas preporučite. Manje klijenata znači više pažnje za vaš.',
+    a: 'Da, novi smo i ponosni na to. Zato dajemo punu garanciju povrata novca, cijenu znate prije nego što nas nazovete, i radimo manje poslova dnevno nego veliki — što znači više pažnje za vaš. Ako ne budete zadovoljni, dolazimo ponovno ili vraćate novac. Bez sitnih slova.',
   },
 ];

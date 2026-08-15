@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/primitives/Button.astro';
+import Icon from '../components/primitives/Icon.astro';
+import PriceCard from '../components/sections/PriceCard.astro';
+import BeforeAfter from '../components/islands/BeforeAfter.astro';
+import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
+import FaqList from '../components/sections/FaqList.astro';
+import ContactCTA from '../components/sections/ContactCTA.astro';
+import { CITY_PAGES, cityHref } from '../data/cities';
+import { cityBySlug } from '../data/cities';
+import { waLink, WA_MSG } from '../lib/links';
+import { localBusinessJsonLd, faqJsonLd, cityServiceJsonLd, breadcrumbJsonLd } from '../lib/jsonld';
+
+export function getStaticPaths() {
+  return CITY_PAGES.map((city) => ({ params: { grad: city.slug } }));
+}
+
+const { grad } = Astro.params;
+const city = cityBySlug[grad!];
+if (!city) throw new Error(`Missing city ${grad}`);
+
+const wa = waLink(WA_MSG.city(city.grad));
+const related = city.related.map((slug) => cityBySlug[slug]).filter(Boolean);
+---
+<BaseLayout
+  title={`Dubinsko čišćenje ${city.grad} — kauč, tepih, madrac, auto | Nema Fleka`}
+  description={`Dubinsko čišćenje kauča, tepiha, madraca i auta u ${city.locative}. Dolazimo na adresu, ekstrakcijski stroj, cijena unaprijed. Lokalni tim iz Vrbovca.`}
+  path={`/dubinsko-ciscenje-${city.slug}`}
+  waMessage={WA_MSG.city(city.grad)}
+  waSource={`grad-${city.slug}`}
+  jsonLd={[
+    localBusinessJsonLd(),
+    cityServiceJsonLd(city),
+    faqJsonLd(city.faq),
+    breadcrumbJsonLd([
+      { name: 'Početna', path: '/' },
+      { name: 'Područje pokrivenosti', path: '/podrucje-pokrivenosti' },
+      { name: city.grad, path: `/dubinsko-ciscenje-${city.slug}` },
+    ]),
+  ]}
+>
+  <section class="section hub-head city-hero">
+    <div class="container city-prose">
+      <p class="eyebrow eyebrow-dark">
+        {city.town.distanceKm === 0 ? 'Baza' : `~${city.town.distanceKm} km od Vrbovca`}
+        · {city.town.free ? 'Besplatan dolazak' : `+${city.town.travelFee} € putni trošak`}
+      </p>
+      <h1 class="section-h2">Dubinsko čišćenje {city.grad}</h1>
+      <p class="section-sub left">{city.intro}</p>
+      {city.body.map((p) => <p class="city-p">{p}</p>)}
+      <div class="city-cta-row">
+        <Button href="#kalkulator" variant="cta">Izračunajte cijenu →</Button>
+        <Button href={wa} variant="wa" external data-wa-source={`grad-${city.slug}`}>
+          <Icon name="whatsapp" size={18} /> Pišite nam za {city.grad}
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <PriceCard />
+  <BeforeAfter defaultUsluga={city.baDefault === 'mattress' ? 'madrac' : 'kauč'} />
+
+  <section class="section" id="kako">
+    <div class="container">
+      <h2 class="section-h2">{city.howTitle}</h2>
+      <p class="section-sub left">{city.howLead}</p>
+      <ol class="steps" role="list">
+        {city.steps.map((s, i) => (
+          <li>
+            <span class="step-badge" aria-hidden="true">{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CalculatorWizard defaultLocation={city.name} waSource={`grad-${city.slug}`} />
+
+  <FaqList entries={city.faq} waMessage={WA_MSG.city(city.grad)} waSource={`grad-${city.slug}`} />
+
+  <section class="section section-tint">
+    <div class="container">
+      <h2 class="section-h2">Još mjesta u blizini</h2>
+      <ul class="city-related" role="list">
+        {related.map((r) => (
+          <li><a href={cityHref(r.slug)}>Dubinsko čišćenje {r.grad}</a></li>
+        ))}
+        <li><a href="/podrucje-pokrivenosti">Sva područja pokrivenosti</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <ContactCTA waMessage={WA_MSG.city(city.grad)} waSource={`grad-${city.slug}`} />
+</BaseLayout>
