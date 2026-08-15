@@ -31,7 +31,9 @@ import { LIVING_ROOM_PACKAGE, MIN_ORDER } from '../../data/pricing';
       <div class="price-package">
         <h3>Paket "Dnevni boravak" — {LIVING_ROOM_PACKAGE.price} €</h3>
         <p>{LIVING_ROOM_PACKAGE.includes}</p>
-        <p class="price-was"><s>Zasebno {LIVING_ROOM_PACKAGE.wasPrice} €</s></p>
+        {LIVING_ROOM_PACKAGE.wasPrice > LIVING_ROOM_PACKAGE.price && (
+          <p class="price-was"><s>Zasebno {LIVING_ROOM_PACKAGE.wasPrice} €</s></p>
+        )}
       </div>
 
       <p class="price-min muted">Minimalni izlazak {MIN_ORDER} €</p>

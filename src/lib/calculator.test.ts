@@ -9,17 +9,17 @@ import {
 import { resolveTravel, MIN_ORDER } from '../data/pricing';
 import { waLink, WA_MSG } from './links';
 
-const kutna: QuoteItem = { id: 'couch', name: 'Kauč', sizeLabel: 'Kutna garnitura', price: 90 };
-const tepih: QuoteItem = { id: 'carpet', name: 'Tepih', sizeLabel: 'Tepih do 6 m²', price: 60 };
-const stolica: QuoteItem = { id: 'chair', name: 'Stolica', sizeLabel: '1 stolica', price: 15 };
-const tabure: QuoteItem = { id: 'ottoman', name: 'Tabure', sizeLabel: '1 tabure', price: 15 };
-const fotelja: QuoteItem = { id: 'armchair', name: 'Fotelja', sizeLabel: '1 fotelja', price: 30 };
+const kutna: QuoteItem = { id: 'couch', name: 'Kauč', sizeLabel: 'Kutna garnitura', price: 70 };
+const tepih: QuoteItem = { id: 'carpet', name: 'Tepih', sizeLabel: 'Tepih do 6 m²', price: 30 };
+const stolica: QuoteItem = { id: 'chair', name: 'Stolica', sizeLabel: '1 stolica', price: 5 };
+const tabure: QuoteItem = { id: 'ottoman', name: 'Tabure', sizeLabel: '1 tabure', price: 10 };
+const fotelja: QuoteItem = { id: 'armchair', name: 'Fotelja', sizeLabel: '1 fotelja', price: 15 };
 
 describe('computeQuote', () => {
-  it('kutna 90 + tepih 60 totals 150 with no percentage discount', () => {
+  it('kutna 70 + tepih 30 totals 100 with no percentage discount', () => {
     const q = computeQuote([kutna, tepih]);
-    expect(q.subtotal).toBe(150);
-    expect(q.total).toBe(150);
+    expect(q.subtotal).toBe(100);
+    expect(q.total).toBe(100);
     expect(q.minApplied).toBe(false);
     expect(q.travel).toBe(0);
   });
@@ -31,24 +31,24 @@ describe('computeQuote', () => {
     expect(q.minApplied).toBe(false);
   });
 
-  it('applies the 60 € minimum order on small selections', () => {
+  it('applies the 80 € minimum order on small selections', () => {
     const q = computeQuote([fotelja]);
-    expect(q.subtotal).toBe(30);
+    expect(q.subtotal).toBe(15);
     expect(q.minApplied).toBe(true);
     expect(q.total).toBe(MIN_ORDER);
   });
 
   it('adds Bjelovar travel on top of the subtotal', () => {
     const q = computeQuote([kutna], resolveTravel('Bjelovar'));
-    expect(q.travel).toBe(15);
-    expect(q.total).toBe(105);
+    expect(q.travel).toBe(25);
+    expect(q.total).toBe(95);
   });
 
-  it('uses the 100 € minimum for Sesvete', () => {
+  it('uses the 120 € minimum for Sesvete', () => {
     const q = computeQuote([fotelja], resolveTravel('Sesvete'));
     expect(q.travel).toBe(20);
-    expect(q.minOrder).toBe(100);
-    expect(q.total).toBe(100);
+    expect(q.minOrder).toBe(120);
+    expect(q.total).toBe(120);
   });
 });
 
@@ -68,9 +68,9 @@ describe('resolveTravel', () => {
     expect(resolveTravel('Čazma').known).toBe(true);
   });
 
-  it('charges +15 € for Bjelovar and Koprivnica', () => {
-    expect(resolveTravel('Bjelovar').fee).toBe(15);
-    expect(resolveTravel('Koprivnica').fee).toBe(15);
+  it('charges +25 € for Bjelovar and Koprivnica', () => {
+    expect(resolveTravel('Bjelovar').fee).toBe(25);
+    expect(resolveTravel('Koprivnica').fee).toBe(25);
   });
 
   it('does not treat općina Dubrava near Vrbovec as Zagreb Dubrava', () => {
@@ -89,9 +89,9 @@ describe('buildWhatsAppPayload', () => {
     expect(body).toBe(
       [
         'Bok! Preko kalkulatora sam dobio procjenu:',
-        '• Kutna garnitura — 90 €',
-        '• Tepih do 6 m² — 60 €',
-        'Ukupno: ~150 €',
+        '• Kutna garnitura — 70 €',
+        '• Tepih do 6 m² — 30 €',
+        'Ukupno: ~100 €',
         'Lokacija: Križevci',
         'Možemo li dogovoriti termin?',
       ].join('\n'),

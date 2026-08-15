@@ -4,16 +4,17 @@ export const VRBOVEC = { lat: 45.8833, lng: 16.4167 } as const;
 /** Približan radijus besplatnog dolaska (vizual na karti). Imenovane zone su izvor istine. */
 export const FREE_KM = 25;
 
-export const MIN_ORDER = 60;
-export const MIN_ORDER_ZAGREB_EAST = 100;
-export const SURCHARGE_BJEL_KOP = 15;
+export const MIN_ORDER = 80;
+export const MIN_ORDER_ZAGREB_EAST = 120;
+export const SURCHARGE_BJEL_KOP = 25;
 export const SURCHARGE_ZAGREB_EAST = 20;
 
 export const LIVING_ROOM_PACKAGE = {
   id: 'package',
   name: 'Paket Dnevni boravak',
-  price: 150,
-  wasPrice: 180,
+  price: 160,
+  // Kutna 70 + fotelja 15 + tepih 6 m² (30) = 115. Not a discount at 160.
+  wasPrice: 115,
   includes: 'Kutna garnitura + fotelja + tepih do 6 m²',
 } as const;
 
@@ -45,7 +46,7 @@ const FREE_NAMES = [
   'cazma',
 ];
 
-const PLUS15_NAMES = ['bjelovar', 'koprivnica'];
+const BJEL_KOP_NAMES = ['bjelovar', 'koprivnica'];
 
 const PLUS20_NAMES = ['sesvetski kraljevec', 'sesvete', 'gornja dubrava', 'donja dubrava'];
 
@@ -67,7 +68,7 @@ export function resolveTravel(query: string | null | undefined): TravelQuote {
       known: true,
     };
   }
-  if (PLUS15_NAMES.some((name) => includesName(n, name))) {
+  if (BJEL_KOP_NAMES.some((name) => includesName(n, name))) {
     return {
       fee: SURCHARGE_BJEL_KOP,
       minOrder: MIN_ORDER,
