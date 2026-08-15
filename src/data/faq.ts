@@ -15,7 +15,7 @@ export const FAQ: FaqEntry[] = [
   },
   {
     q: 'Naplaćujete li dolazak?',
-    a: 'U Vrbovcu, Dugom Selu, Križevcima, Sv. Ivanu Zelini, Ivanić-Gradu, Kloštru Ivaniću i Čazmi dolazak je besplatan. Za Bjelovar i Koprivnicu dodajemo 15 € putnog troška. Minimalni izlazak je 60 €.',
+    a: 'U Vrbovcu, Dugom Selu, Križevcima, Sv. Ivanu Zelini, Ivanić-Gradu, Kloštru Ivaniću i Čazmi dolazak je besplatan. Za Bjelovar i Koprivnicu dodajemo 25 € putnog troška. Za Sesvete, Sesvetski Kraljevec i Dubravu +20 € i minimalni izlazak 120 €. Inače je minimalni izlazak 80 €.',
   },
   {
     q: 'Jesu li sredstva sigurna za djecu i ljubimce?',
