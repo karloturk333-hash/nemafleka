@@ -92,7 +92,11 @@
 .calc-distance { margin-top: var(--space-4); font-weight: 600; color: var(--ink-700); }
 
 /* ---- Guided wizard screens (one focus at a time) ---- */
-.calc-screen:not([hidden]) { animation: wizFade .3s ease; }
+/* Skip the fade on the first screen so first paint (and axe) see full-opacity prices. */
+.calc-screen:not([hidden]):not([data-screen="service"]) { animation: wizFade .3s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .calc-screen { animation: none; }
+}
 .calc-q { font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); color: var(--text); margin-bottom: var(--space-5); }
 .calc-q .muted { color: var(--text-muted); font-weight: 600; font-size: var(--text-base); }
 
