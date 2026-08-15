@@ -90,6 +90,12 @@ a{color:var(--link);text-decoration:none}
 .section{padding:clamp(3.5rem,8vw,6rem) 0}
 .section-tint{background:var(--surface)}
 .section-dark{position:relative;overflow:hidden;background:var(--ink-800);color:#fff}
+/* Keep copy AA when the WebGL mesh paints a lighter navy. */
+.section-dark::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,9,46,.78),rgba(8,9,46,.28) 58%,rgba(8,9,46,.1));
+}
+.section-dark > .container{position:relative;z-index:2}
 .section-h2{font-size:var(--text-3xl);font-weight:700;margin-bottom:var(--space-3)}
 .section-h2.on-dark{color:#fff}
 .section-sub{font-size:var(--text-lg);color:var(--text-muted);max-width:54ch;margin-bottom:var(--space-8)}
@@ -106,7 +112,7 @@ a{color:var(--link);text-decoration:none}
 .svc-price{display:inline-block;background:var(--ink-800);color:var(--lime);padding:.35em .8em;border-radius:var(--r-pill);font-size:var(--text-sm);font-weight:700}
 
 /* before/after section */
-.ba-wrap{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.ba-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
 .ba-points{list-style:none;display:grid;gap:var(--space-3);margin-top:var(--space-5)}
 .ba-points li{display:flex;align-items:flex-start;gap:.7em;color:#D7D9F0;font-size:var(--text-base);line-height:1.45}
 .ba-points strong{color:#fff;font-weight:700}
@@ -153,7 +159,11 @@ a{color:var(--link);text-decoration:none}
 
 /* final CTA */
 .cta-final{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--ink-900),var(--ink-700));color:#fff;text-align:center;padding:clamp(3.5rem,8vw,6rem) 0}
-.cta-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.cta-final::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:rgba(8,9,46,.45);
+}
+.cta-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
 .cta-h2{font-size:var(--text-3xl);color:#fff;margin-bottom:var(--space-3)}
 .cta-sub{font-size:var(--text-lg);color:#C9CCEC;margin-bottom:var(--space-6)}
 .cta-contacts{display:flex;gap:var(--space-5);margin-top:var(--space-5);flex-wrap:wrap;justify-content:center}

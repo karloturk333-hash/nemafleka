@@ -1,7 +1,5 @@
 // SINGLE source of truth for services + sizes + prices.
-// ServiceCard, PriceCard, and the CalculatorWizard ALL read this, prices can never drift again.
-// Prices from Karlo's competitive market research (cjenik_dubinsko_ciscenje, 2026-06-15):
-// positioned between the lower (Pro-plus) and higher (Sjajni tim) operators in the region.
+// ServiceCard, PriceCard, and the CalculatorWizard ALL read this.
 
 export interface SizeOption {
   id: string;
@@ -10,104 +8,176 @@ export interface SizeOption {
 }
 
 export type ServiceId =
-  | 'couch' | 'armchair' | 'chair' | 'ottoman' | 'carpet' | 'mattress' | 'car';
+  | 'couch' | 'armchair' | 'chair' | 'ottoman' | 'carpet' | 'mattress' | 'car' | 'package';
 
 export interface Service {
   id: ServiceId;
   name: string;
   icon: ServiceId;
-  cardLabel: string; // price-card row label
-  sizeLabel: string; // size-group heading
+  cardLabel: string;
+  sizeLabel: string;
   blurb: string;
   tag?: string;
   popular?: boolean;
+  /** Cannot be booked as the only service (stolica, tabure). */
+  addonOnly?: boolean;
+  /** Hide from the "Što sve čistimo" grid (package lives in cjenik + calculator). */
+  featured?: boolean;
+  pickerPrice: string;
   sizes: SizeOption[];
 }
+
+export const CARPET_PER_M2 = 10;
+export const CARPET_MINIMUM = 50;
 
 export const SERVICES: Service[] = [
   {
     id: 'couch', name: 'Kauč', icon: 'couch', cardLabel: 'Kauč / garnitura',
-    sizeLabel: 'Tip garniture', popular: true, tag: 'Najtraženije',
+    sizeLabel: 'Tip garniture', popular: true, tag: 'Najtraženije', featured: true,
+    pickerPrice: '55 / 70 / 90 €',
     blurb: 'Dubinsko pranje tapeciranog namještaja. Fleke od kave, blata, djece ili ljubimaca? Sve odlazi.',
     sizes: [
-      { id: 'dvosjed', label: 'Dvosjed', price: 45 },
-      { id: 'trosjed', label: 'Trosjed / kauč', price: 50 },
-      { id: 'kutna', label: 'Kutna garnitura', price: 70 },
-      { id: 'velika', label: 'Velika kutna', price: 90 },
-      { id: 'u', label: 'U garnitura', price: 100 },
+      { id: 'dvosjed', label: 'Dvosjed', price: 55 },
+      { id: 'trosjed', label: 'Trosjed', price: 70 },
+      { id: 'kutna', label: 'Kutna garnitura', price: 90 },
     ],
   },
   {
     id: 'armchair', name: 'Fotelja', icon: 'armchair', cardLabel: 'Fotelja',
-    sizeLabel: 'Količina fotelja',
+    sizeLabel: 'Količina fotelja', featured: false,
+    pickerPrice: '30 €',
     blurb: 'Fotelje kao nove, dubinski očišćene i osvježene.',
     sizes: [
-      { id: '1', label: '1 kom', price: 25 },
-      { id: '2', label: '2 kom', price: 50 },
-      { id: '3', label: '3 kom', price: 75 },
+      { id: '1', label: '1 fotelja', price: 30 },
+      { id: '2', label: '2 fotelje', price: 60 },
+      { id: '3', label: '3 fotelje', price: 90 },
     ],
   },
   {
-    id: 'chair', name: 'Stolica', icon: 'chair', cardLabel: 'Stolice',
-    sizeLabel: 'Količina stolica',
-    blurb: 'Tapecirane stolice, sjedalo i naslon kao novi.',
+    id: 'chair', name: 'Stolica', icon: 'chair', cardLabel: 'Stolica',
+    sizeLabel: 'Količina stolica', addonOnly: true, featured: false,
+    pickerPrice: '15 €',
+    blurb: 'Tapecirane stolice, sjedalo i naslon kao novi. Samo uz drugu uslugu.',
     sizes: [
-      { id: '2', label: '2 kom', price: 14 },
-      { id: '4', label: '4 kom', price: 28 },
-      { id: '6', label: '6 kom', price: 42 },
+      { id: '1', label: '1 stolica', price: 15 },
+      { id: '2', label: '2 stolice', price: 30 },
+      { id: '4', label: '4 stolice', price: 60 },
+      { id: '6', label: '6 stolica', price: 90 },
     ],
   },
   {
     id: 'ottoman', name: 'Tabure', icon: 'ottoman', cardLabel: 'Tabure',
-    sizeLabel: 'Veličina taburea',
-    blurb: 'Taburei, podnožnici i lazy bag, čisti do dna.',
+    sizeLabel: 'Količina taburea', addonOnly: true, featured: false,
+    pickerPrice: '15 €',
+    blurb: 'Taburei i podnožnici, čisti do dna. Samo uz drugu uslugu.',
     sizes: [
-      { id: 'mali', label: 'Mali', price: 12 },
-      { id: 'veliki', label: 'Veliki', price: 23 },
-      { id: 'lazybag', label: 'Lazy bag', price: 23 },
+      { id: '1', label: '1 tabure', price: 15 },
+      { id: '2', label: '2 taburea', price: 30 },
     ],
   },
   {
     id: 'carpet', name: 'Tepih', icon: 'carpet', cardLabel: 'Tepih',
-    sizeLabel: 'Površina tepiha',
+    sizeLabel: 'Površina tepiha', featured: true,
+    pickerPrice: '10 €/m²',
     blurb: 'Ekstrakcijsko čišćenje koje izvlači prljavštinu iz dubine. Suho za 2-4 sata.',
     tag: 'Suho za 2-4 h',
     sizes: [
-      { id: 's', label: 'do 10 m²', price: 65 },
-      { id: 'm', label: '10-20 m²', price: 100 },
-      { id: 'l', label: '20+ m²', price: 150 },
+      { id: '5', label: 'Tepih 5 m²', price: 50 },
+      { id: '6', label: 'Tepih do 6 m²', price: 60 },
+      { id: '8', label: 'Tepih 8 m²', price: 80 },
+      { id: '10', label: 'Tepih 10 m²', price: 100 },
+      { id: '12', label: 'Tepih 12 m²', price: 120 },
+      { id: '15', label: 'Tepih 15 m²', price: 150 },
     ],
   },
   {
     id: 'mattress', name: 'Madrac', icon: 'mattress', cardLabel: 'Madrac',
-    sizeLabel: 'Veličina madraca',
+    sizeLabel: 'Veličina madraca', featured: true,
+    pickerPrice: '35 / 50 €',
     blurb: 'UV + ekstrakcija uklanjaju grinje, bakterije i alergene. Sigurno za djecu i ljubimce.',
     tag: 'Sigurno za djecu',
     sizes: [
-      { id: 'djecji', label: 'Dječji', price: 20 },
-      { id: '90', label: 'Jednoosobni (90)', price: 30 },
-      { id: '140', label: 'Francuski (140)', price: 40 },
-      { id: 'bracni', label: 'Bračni (160+)', price: 45 },
+      { id: 'jednokrevetni', label: 'Madrac jednokrevetni', price: 35 },
+      { id: 'bracni', label: 'Madrac bračni', price: 50 },
     ],
   },
   {
     id: 'car', name: 'Auto', icon: 'car', cardLabel: 'Auto (interijer)',
-    sizeLabel: 'Opseg čišćenja',
+    sizeLabel: 'Veličina vozila', featured: true,
+    pickerPrice: '85 / 115 / 135 €',
     blurb: 'Dubinsko čišćenje sjedala, podnica i prtljažnika. Auto kao iz salona.',
     tag: 'Interijer',
     sizes: [
-      { id: 'sjedala', label: 'Osobni - sjedala', price: 80 },
-      { id: 'komplet', label: 'Osobni - komplet', price: 115 },
-      { id: 'suv', label: 'SUV / kombi - komplet', price: 140 },
+      { id: 'mali', label: 'Mali auto', price: 85 },
+      { id: 'limuzina', label: 'Limuzina / karavan', price: 115 },
+      { id: 'suv', label: 'SUV / kombi', price: 135 },
+    ],
+  },
+  {
+    id: 'package', name: 'Dnevni boravak', icon: 'package', cardLabel: 'Paket Dnevni boravak',
+    sizeLabel: 'Sadržaj paketa', popular: true, tag: 'Ušteda 30 €', featured: false,
+    pickerPrice: '150 €',
+    blurb: 'Kutna garnitura + fotelja + tepih do 6 m². Zasebno 180 €, u paketu 150 €.',
+    sizes: [
+      { id: 'dnevni', label: 'Kutna garnitura + fotelja + tepih do 6 m²', price: 150 },
     ],
   },
 ];
 
-/** Lowest price for a service, used for "od X€" labels everywhere. */
+export const ADDON_ONLY_IDS: ReadonlySet<ServiceId> = new Set(['chair', 'ottoman']);
+
 export const fromOf = (s: Service): number => Math.min(...s.sizes.map((o) => o.price));
 
-// Decorative emoji (aria-hidden in UI; the heading carries the meaning).
 export const SERVICE_EMOJI: Record<ServiceId, string> = {
   couch: '🛋️', armchair: '💺', chair: '🪑', ottoman: '🟫',
-  carpet: '🧹', mattress: '🛏️', car: '🚗',
+  carpet: '🧹', mattress: '🛏️', car: '🚗', package: '🏠',
 };
+
+export interface PriceRow {
+  name: string;
+  price: string;
+  featured?: boolean;
+  note?: string;
+  was?: string;
+}
+
+export interface PriceGroup {
+  title: string;
+  rows: PriceRow[];
+}
+
+/** Itemized cjenik (no "od X €"). */
+export const PRICE_GROUPS: PriceGroup[] = [
+  {
+    title: 'Tapecirano',
+    rows: [
+      { name: 'Dvosjed', price: '55 €' },
+      { name: 'Trosjed', price: '70 €' },
+      { name: 'Kutna garnitura', price: '90 €', featured: true },
+      { name: 'Fotelja', price: '30 €' },
+      { name: 'Stolica', price: '15 €', note: 'samo uz drugu uslugu' },
+      { name: 'Tabure', price: '15 €', note: 'samo uz drugu uslugu' },
+    ],
+  },
+  {
+    title: 'Madrac',
+    rows: [
+      { name: 'Madrac jednokrevetni', price: '35 €' },
+      { name: 'Madrac bračni', price: '50 €' },
+    ],
+  },
+  {
+    title: 'Tepih',
+    rows: [
+      { name: 'Tepih', price: '10 €/m²', note: 'minimum 50 €' },
+    ],
+  },
+  {
+    title: 'Auto',
+    rows: [
+      { name: 'Mali auto', price: '85 €' },
+      { name: 'Limuzina / karavan', price: '115 €' },
+      { name: 'SUV / kombi', price: '135 €' },
+    ],
+  },
+];

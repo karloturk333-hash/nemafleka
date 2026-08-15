@@ -5,8 +5,8 @@ const bullets = [
   'Vrbovec i okolica, besplatan dolazak',
   'Dugo Selo, Ivanić-Grad, Kloštar Ivanić, besplatan dolazak',
   'Križevci, Sv. Ivan Zelina, Čazma, besplatan dolazak',
-  'Bjelovar, Koprivnica, mali putni dodatak',
-  'Zagreb, Sesvete, na upit',
+  'Bjelovar, Koprivnica, +15 € putnog troška',
+  'Sesvete, Dubrava, Sesvetski Kraljevec — +20 € putnog troška, minimalni izlazak 100 €',
 ];
 ---
 <section class="section section-dark" id="zona">
@@ -85,7 +85,7 @@ const bullets = [
       L.circleMarker([t.lat, t.lng], {
         radius: 5, color: '#fff', weight: 1,
         fillColor: t.free ? '#C8FF3E' : '#5A5DD6', fillOpacity: 0.9,
-      }).addTo(map).bindPopup(`${t.name}, ${t.free ? 'besplatan dolazak' : 'mali putni dodatak'}`);
+      }).addTo(map).bindPopup(`${t.name}, ${t.free ? 'besplatan dolazak' : `+${t.travelFee} € putni trošak`}`);
     });
   }
 </script>

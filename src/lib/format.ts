@@ -1,4 +1,4 @@
-/** "od X €" label. */
-export function fromEur(n: number): string {
-  return `od ${n} €`;
+/** Format a euro amount without "od" anchoring. */
+export function eur(n: number): string {
+  return `${n} €`;
 }

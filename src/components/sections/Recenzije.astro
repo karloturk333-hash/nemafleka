@@ -1,0 +1,43 @@
+---
+import SectionHeader from '../primitives/SectionHeader.astro';
+import { RECENZIJE } from '../../data/recenzije';
+import { BUSINESS } from '../../data/business';
+
+const items = RECENZIJE.filter((r) => r.ocjena >= 1);
+---
+{items.length > 0 && (
+  <section class="section" id="recenzije">
+    <div class="container">
+      <SectionHeader
+        title="Što kažu klijenti"
+        sub="Stvarne recenzije, bez izmišljenih brojki."
+      />
+      <div class="rev-grid">
+        {items.map((r) => (
+          <article class="rev-card">
+            <div
+              class="rev-stars"
+              aria-label={`Ocjena ${r.ocjena} od 5`}
+            >
+              {Array.from({ length: 5 }, (_, i) => (
+                <span class:list={['rev-star', i < r.ocjena && 'is-on']} aria-hidden="true">★</span>
+              ))}
+            </div>
+            <p class="rev-text">{r.tekst}</p>
+            <p class="rev-meta">
+              <strong>{r.ime}</strong>
+              <span class="muted"> · {r.grad} · {r.usluga}</span>
+            </p>
+          </article>
+        ))}
+      </div>
+      {BUSINESS.googleBusinessUrl && (
+        <p class="rev-google">
+          <a href={BUSINESS.googleBusinessUrl} target="_blank" rel="noopener">
+            Pročitajte sve recenzije na Googleu →
+          </a>
+        </p>
+      )}
+    </div>
+  </section>
+)}

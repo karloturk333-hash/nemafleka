@@ -6,9 +6,10 @@ import couchAfter from '../assets/ba-couch-after.webp';
 import { proofWidths, proofSizes } from '../lib/heroProof';
 import TrustStrip from '../components/sections/TrustStrip.astro';
 import Services from '../components/sections/Services.astro';
+import BeforeAfter from '../components/islands/BeforeAfter.astro';
+import Recenzije from '../components/sections/Recenzije.astro';
 import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
 import PriceCard from '../components/sections/PriceCard.astro';
-import BeforeAfter from '../components/islands/BeforeAfter.astro';
 import Timeline from '../components/sections/Timeline.astro';
 import About from '../components/sections/About.astro';
 import Coverage from '../components/islands/Coverage.astro';
@@ -16,8 +17,6 @@ import FaqList from '../components/sections/FaqList.astro';
 import ContactCTA from '../components/sections/ContactCTA.astro';
 import { localBusinessJsonLd, faqJsonLd, serviceJsonLd } from '../lib/jsonld';
 
-// Preload the hero "after" image (the LCP element) with the SAME widths/sizes the Hero
-// <Image> renders, so it's fetched from <head> before the inlined CSS is parsed.
 const heroProof = await getImage({ src: couchAfter, widths: proofWidths, sizes: proofSizes });
 ---
 <BaseLayout
@@ -30,9 +29,10 @@ const heroProof = await getImage({ src: couchAfter, widths: proofWidths, sizes: 
   <Hero />
   <TrustStrip />
   <Services />
+  <BeforeAfter defaultUsluga="kauč" />
+  <Recenzije />
   <CalculatorWizard />
   <PriceCard />
-  <BeforeAfter />
   <Timeline />
   <About />
   <Coverage />

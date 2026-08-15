@@ -1,10 +1,12 @@
 ---
 import Icon from '../primitives/Icon.astro';
-import { waLink } from '../../lib/links';
+import { waLink, WA_MSG } from '../../lib/links';
 interface Props {
   links: { href: string; label: string }[];
+  waMessage?: string;
+  waSource?: string;
 }
-const { links } = Astro.props;
+const { links, waMessage = WA_MSG.sticky, waSource = 'sticky' } = Astro.props;
 ---
 <button class="hamburger" id="nf-hamburger" aria-label="Otvori izbornik" aria-expanded="false" aria-controls="nf-mpanel">
   <span></span><span></span><span></span>
@@ -24,7 +26,7 @@ const { links } = Astro.props;
       <li><a href="/podrucje-pokrivenosti">Područje pokrivenosti</a></li>
     </ul>
   </nav>
-  <a class="m-wa" href={waLink()} target="_blank" rel="noopener">
+  <a class="m-wa" href={waLink(waMessage)} target="_blank" rel="noopener" data-wa-source={waSource}>
     <Icon name="whatsapp" size={18} /> Pišite nam na WhatsApp
   </a>
 </div>

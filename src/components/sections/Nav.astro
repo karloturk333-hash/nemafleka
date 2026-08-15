@@ -1,6 +1,12 @@
 ---
 import Button from '../primitives/Button.astro';
 import MobileNav from '../islands/MobileNav.astro';
+import { WA_MSG } from '../../lib/links';
+interface Props {
+  waMessage?: string;
+  waSource?: string;
+}
+const { waMessage = WA_MSG.sticky, waSource = 'sticky' } = Astro.props;
 const links = [
   { href: '/#usluge', label: 'Usluge' },
   { href: '/#dokaz', label: 'Rezultati' },
@@ -18,6 +24,6 @@ const links = [
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
     <Button href="/#kalkulator" variant="cta" class="nav-cta">Besplatna procjena</Button>
-    <MobileNav links={links} />
+    <MobileNav links={links} waMessage={waMessage} waSource={waSource} />
   </div>
 </header>

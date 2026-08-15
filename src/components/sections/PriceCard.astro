@@ -1,29 +1,41 @@
 ---
 import SectionHeader from '../primitives/SectionHeader.astro';
 import Button from '../primitives/Button.astro';
-import { SERVICES, fromOf } from '../../data/services';
-import { fromEur } from '../../lib/format';
-const rows = SERVICES.filter((s) => ['couch', 'armchair', 'carpet', 'mattress', 'car'].includes(s.id));
+import { PRICE_GROUPS } from '../../data/services';
+import { LIVING_ROOM_PACKAGE, MIN_ORDER } from '../../data/pricing';
 ---
 <section class="section section-tint" id="cjenik">
   <div class="container">
     <SectionHeader
       title="Transparentne cijene"
-      sub="Finalna cijena nakon besplatne procjene. Nikad više od dogovorenog."
+      sub="Konkretne stavke, bez 'od'. Finalna cijena nakon dogovora nikad nije viša od dogovorene."
     />
     <div class="price-card">
-      <div class="price-table">
-        {rows.map((s) => (
-          <div class="price-row">
-            <span class="p-name">{s.cardLabel}</span>
-            <span class="p-val mono">{fromEur(fromOf(s))}</span>
+      {PRICE_GROUPS.map((g) => (
+        <div class="price-group">
+          <h3 class="price-group-title">{g.title}</h3>
+          <div class="price-table">
+            {g.rows.map((r) => (
+              <div class:list={['price-row', r.featured && 'best']}>
+                <span class="p-name">
+                  {r.name}
+                  {r.note && <small class="p-note">{r.note}</small>}
+                </span>
+                <span class="p-val mono">{r.price}</span>
+              </div>
+            ))}
           </div>
-        ))}
-        <div class="price-row best">
-          <span class="p-name">2+ usluge = popust</span>
-          <span class="p-val mono">-10 do -20%</span>
         </div>
+      ))}
+
+      <div class="price-package">
+        <h3>Paket "Dnevni boravak" — {LIVING_ROOM_PACKAGE.price} €</h3>
+        <p>{LIVING_ROOM_PACKAGE.includes}</p>
+        <p class="price-was"><s>Zasebno {LIVING_ROOM_PACKAGE.wasPrice} €</s></p>
       </div>
+
+      <p class="price-min muted">Minimalni izlazak {MIN_ORDER} €</p>
+
       <div class="badge-strip">
         <span class="badge">Garancija zadovoljstva</span>
         <span class="badge">Ekološki</span>

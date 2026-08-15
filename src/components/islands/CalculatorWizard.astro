@@ -1,7 +1,15 @@
 ---
 import SectionHeader from '../primitives/SectionHeader.astro';
-import { SERVICES, fromOf, SERVICE_EMOJI } from '../../data/services';
-import { fromEur } from '../../lib/format';
+import { SERVICES, SERVICE_EMOJI } from '../../data/services';
+import { LIVING_ROOM_PACKAGE } from '../../data/pricing';
+import { waLink } from '../../lib/links';
+
+interface Props {
+  defaultLocation?: string;
+  waSource?: string;
+}
+const { defaultLocation = '', waSource = 'kalkulator' } = Astro.props;
+const fallbackWa = waLink('Bok! Želim procjenu preko kalkulatora.');
 ---
 <section class="section" id="kalkulator">
   <div class="container">
@@ -10,36 +18,39 @@ import { fromEur } from '../../lib/format';
       sub="Korak po korak: odaberite uslugu, veličinu i lokaciju. Procjena u sekundi, bez obveze."
     />
 
-    <div class="calc-card">
+    <noscript>
+      <p class="calc-noscript">Kalkulator treba JavaScript. Pišite nam na WhatsApp i pošaljemo procjenu ručno.</p>
+      <a class="btn btn-wa" href={fallbackWa} target="_blank" rel="noopener" data-wa-source={waSource}>Pišite nam na WhatsApp →</a>
+    </noscript>
+
+    <div class="calc-card" data-default-location={defaultLocation}>
       <div class="wizard-progress" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="Korak 1 od 3">
         <span class="wp-seg active" data-phase="1"><b>1</b> Usluge</span>
         <span class="wp-seg" data-phase="2"><b>2</b> Lokacija</span>
         <span class="wp-seg" data-phase="3"><b>3</b> Ponuda</span>
       </div>
 
-      <!-- SCREEN: pick a service -->
       <div class="calc-screen" data-screen="service">
         <p class="calc-q">Što želite očistiti?</p>
         <div class="calc-services" id="calc-services">
           {SERVICES.map((s) => (
-            <button type="button" class="svc-pick" data-service={s.id}>
+            <button type="button" class="svc-pick" data-service={s.id} data-addon={s.addonOnly ? '1' : '0'}>
               <span class="svc-pick-emoji" aria-hidden="true">{SERVICE_EMOJI[s.id]}</span>
               <span class="svc-pick-name">{s.name}</span>
-              <span class="svc-pick-from mono">{fromEur(fromOf(s))}</span>
+              <span class="svc-pick-from mono">{s.pickerPrice}</span>
+              {s.addonOnly && <span class="svc-pick-note">samo uz drugu</span>}
             </button>
           ))}
         </div>
-        <div class="calc-tiers" aria-label="Popusti za više usluga">
-          <span>2 usluge <strong>-10%</strong></span>
-          <span>3 usluge <strong>-15%</strong></span>
-          <span>5+ usluga <strong>-20%</strong></span>
-        </div>
+        <p class="calc-package-hint">
+          <strong>Paket Dnevni boravak — {LIVING_ROOM_PACKAGE.price} €</strong>
+          {LIVING_ROOM_PACKAGE.includes}. Zasebno {LIVING_ROOM_PACKAGE.wasPrice} €.
+        </p>
         <div class="calc-actions">
           <button type="button" class="wizard-back" data-act="to-cart" hidden>← Natrag na popis</button>
         </div>
       </div>
 
-      <!-- SCREEN: size of the chosen service -->
       <div class="calc-screen" data-screen="size" hidden>
         <p class="calc-q" id="size-q">Veličina</p>
         <div class="csize-opts" id="size-opts" role="radiogroup" aria-labelledby="size-q"></div>
@@ -49,18 +60,16 @@ import { fromEur } from '../../lib/format';
         </div>
       </div>
 
-      <!-- SCREEN: cart / review -->
       <div class="calc-screen" data-screen="cart" hidden>
         <p class="calc-q">Vaše usluge</p>
         <div class="calc-cart" id="calc-cart"></div>
-        <p class="calc-cart-disc mono" id="cart-disc" hidden></p>
+        <p class="calc-cart-warn" id="cart-warn" hidden></p>
         <div class="calc-actions">
           <button type="button" class="calc-add-more" id="add-more">+ Dodaj još uslugu</button>
           <button type="button" class="btn btn-cta wizard-next" id="to-location">Nastavi → Lokacija</button>
         </div>
       </div>
 
-      <!-- SCREEN: location (optional) -->
       <div class="calc-screen" data-screen="location" hidden>
         <p class="calc-q">📍 Lokacija <span class="muted">(neobavezno)</span></p>
         <p class="calc-hint">Unesite mjesto i odmah vidite dolazak.</p>
@@ -75,14 +84,13 @@ import { fromEur } from '../../lib/format';
         </div>
       </div>
 
-      <!-- SCREEN: result -->
       <div class="calc-screen" data-screen="result" hidden>
         <div class="calc-result" aria-live="polite" aria-atomic="true">
           <div class="cr-items" id="cr-items"></div>
           <div class="cr-total-label">Procijenjena cijena</div>
           <div class="cr-total" id="cr-total">0 €</div>
           <p class="cr-note" id="cr-note"></p>
-          <a class="btn btn-wa cr-cta" id="cr-wa" href="#" target="_blank" rel="noopener" aria-label="Zatražite točnu ponudu na WhatsApp">Zatražite točnu ponudu na WhatsApp →</a>
+          <a class="btn btn-wa cr-cta" id="cr-wa" href={fallbackWa} target="_blank" rel="noopener" data-wa-source={waSource} aria-label="Zatražite točnu ponudu na WhatsApp">Zatražite točnu ponudu na WhatsApp →</a>
           <p class="cr-disclaim mono">Procjena je orijentacijska. Točnu cijenu potvrđujemo pri dogovoru.</p>
           <div class="calc-actions calc-actions--center">
             <button type="button" class="wizard-back" data-act="res-back">← Promijeni usluge</button>
@@ -94,10 +102,13 @@ import { fromEur } from '../../lib/format';
 </section>
 
 <script>
-  import { computeQuote, buildWhatsAppPayload, distanceFromBase, getFuelCharge } from '../../lib/calculator';
-  import type { QuoteItem } from '../../lib/calculator';
+  import { computeQuote, buildWhatsAppPayload, distanceFromBase, hasStandaloneService, resolveTravel } from '../../lib/calculator';
+  import type { QuoteItem, TravelQuote } from '../../lib/calculator';
   import { SERVICES, SERVICE_EMOJI } from '../../data/services';
   import { FREE_KM, MIN_ORDER } from '../../data/pricing';
+
+  const MIN_COPY = 'Minimalni izlazak je 60 €. Dodajte još jednu uslugu ili nas pitajte — možda smo ionako u vašem mjestu tog dana.';
+  const ADDON_COPY = 'Stolica i tabure idu samo uz drugu uslugu. Dodajte kauč, tepih, madrac ili auto.';
 
   const root = document.querySelector('.calc-card');
   if (root) {
@@ -106,8 +117,8 @@ import { fromEur } from '../../lib/format';
 
     const cart: QuoteItem[] = [];
     let pending: { id: string; name: string; sizeLabel: string; price: number } | null = null;
-    let distanceKm: number | null = null;
-    let locationLabel = '';
+    let locationLabel = (root as HTMLElement).dataset.defaultLocation || '';
+    let travel: TravelQuote = resolveTravel(locationLabel);
 
     const segs = root.querySelectorAll<HTMLElement>('.wp-seg');
     const progress = root.querySelector('.wizard-progress')!;
@@ -126,13 +137,12 @@ import { fromEur } from '../../lib/format';
       if (scroll) scrollToCard();
     }
 
-    // ---- service screen ----
     const svcBack = scr('service').querySelector<HTMLButtonElement>('[data-act="to-cart"]')!;
     function markServices() {
       root!.querySelectorAll<HTMLButtonElement>('.svc-pick').forEach((btn) => {
         const added = cart.some((it) => it.id === btn.dataset.service);
         btn.classList.toggle('is-added', added);
-        btn.disabled = added; // remove from the cart to re-add with a different size
+        btn.disabled = added;
       });
       svcBack.hidden = cart.length === 0;
     }
@@ -146,7 +156,6 @@ import { fromEur } from '../../lib/format';
     });
     svcBack.addEventListener('click', () => show('cart'));
 
-    // ---- size screen ----
     const sizeQ = root.querySelector('#size-q')!;
     const sizeOpts = root.querySelector('#size-opts')!;
     const sizeAdd = root.querySelector('#size-add') as HTMLButtonElement;
@@ -166,7 +175,15 @@ import { fromEur } from '../../lib/format';
           sizeAdd.disabled = false;
         });
       });
-      sizeAdd.disabled = true;
+      if (service.sizes.length === 1) {
+        const only = service.sizes[0]!;
+        pending.sizeLabel = only.label;
+        pending.price = only.price;
+        sizeOpts.querySelector<HTMLInputElement>('input')!.checked = true;
+        sizeAdd.disabled = false;
+      } else {
+        sizeAdd.disabled = true;
+      }
     }
     sizeAdd.addEventListener('click', () => {
       if (!pending || !pending.sizeLabel) return;
@@ -179,21 +196,28 @@ import { fromEur } from '../../lib/format';
       show(cart.length ? 'cart' : 'service');
     });
 
-    // ---- cart screen ----
     const cartEl = root.querySelector('#calc-cart')!;
-    const cartDisc = root.querySelector('#cart-disc') as HTMLElement;
+    const cartWarn = root.querySelector('#cart-warn') as HTMLElement;
+    const toLocation = root.querySelector('#to-location') as HTMLButtonElement;
     function renderCart() {
       cartEl.innerHTML = cart
         .map(
           (it, i) => `<div class="cart-row"><span class="cart-name">${SERVICE_EMOJI[it.id as keyof typeof SERVICE_EMOJI]} ${it.name} <span class="cart-size">${it.sizeLabel}</span></span><span class="cart-price mono">${it.price} €</span><button type="button" class="cart-del" data-i="${i}" aria-label="Ukloni ${it.name}">✕</button></div>`,
         )
         .join('');
-      const q = computeQuote(cart, null);
-      if (q.discountPct > 0) {
-        cartDisc.hidden = false;
-        cartDisc.textContent = `Popust za ${q.count} usluge: −${q.discountPct}%`;
+      const standalone = hasStandaloneService(cart);
+      const q = computeQuote(cart, travel);
+      if (!standalone) {
+        cartWarn.hidden = false;
+        cartWarn.textContent = ADDON_COPY;
+        toLocation.disabled = true;
+      } else if (q.subtotal < MIN_ORDER) {
+        cartWarn.hidden = false;
+        cartWarn.textContent = MIN_COPY;
+        toLocation.disabled = false;
       } else {
-        cartDisc.hidden = true;
+        cartWarn.hidden = true;
+        toLocation.disabled = false;
       }
       cartEl.querySelectorAll<HTMLButtonElement>('.cart-del').forEach((b) => {
         b.addEventListener('click', () => {
@@ -204,42 +228,45 @@ import { fromEur } from '../../lib/format';
       });
     }
     root.querySelector('#add-more')!.addEventListener('click', () => show('service'));
-    root.querySelector('#to-location')!.addEventListener('click', () => show('location'));
+    toLocation.addEventListener('click', () => {
+      if (!hasStandaloneService(cart)) return;
+      show('location');
+    });
 
-    // ---- location screen ----
     scr('location').querySelector('[data-act="loc-back"]')!.addEventListener('click', () => show('cart'));
     root.querySelector('#to-result')!.addEventListener('click', () => show('result'));
 
-    // ---- result screen ----
     function renderResult() {
-      const q = computeQuote(cart, distanceKm);
+      const q = computeQuote(cart, travel);
       const itemsEl = root!.querySelector('#cr-items')!;
       const rows = cart.map(
-        (i) => `<div class="cr-row"><span>${i.name} (${i.sizeLabel})</span><span class="mono">${i.price} €</span></div>`,
+        (i) => `<div class="cr-row"><span>${i.sizeLabel}</span><span class="mono">${i.price} €</span></div>`,
       );
-      if (q.discountPct > 0) rows.push(`<div class="cr-row cr-disc"><span>Popust (${q.count} usluge, -${q.discountPct}%)</span><span class="mono">-${q.discountAmount} €</span></div>`);
-      if (q.fuel > 0) rows.push(`<div class="cr-row"><span>Dolazak (${q.distanceKm} km)</span><span class="mono">+${q.fuel} €</span></div>`);
+      if (q.travel > 0) rows.push(`<div class="cr-row"><span>Dolazak</span><span class="mono">+${q.travel} €</span></div>`);
+      if (q.minApplied) rows.push(`<div class="cr-row cr-disc"><span>Dopuna do minimuma</span><span class="mono">+${q.total - q.subtotal - q.travel} €</span></div>`);
       itemsEl.innerHTML = rows.join('');
       (root!.querySelector('#cr-total') as HTMLElement).textContent = `${q.total} €`;
       const note = root!.querySelector('#cr-note') as HTMLElement;
       const parts: string[] = [];
-      if (q.discountPct > 0) parts.push(`Uključuje popust za ${q.count} usluge.`);
-      if (q.minApplied) parts.push(`Minimalna narudžba je ${MIN_ORDER} €.`);
+      if (q.minApplied) parts.push(MIN_COPY);
+      if (q.travelNote) parts.push(q.travelNote);
       note.textContent = parts.join(' ');
       (root!.querySelector('#cr-wa') as HTMLAnchorElement).href = buildWhatsAppPayload(q, locationLabel || undefined);
+      const plausible = (window as unknown as { plausible?: (n: string, o?: object) => void }).plausible;
+      plausible?.('kalkulator_zavrsen', { props: { iznos: q.total } });
     }
     scr('result').querySelector('[data-act="res-back"]')!.addEventListener('click', () => show('cart'));
 
-    // Keep the wizard in view when changing screen (esp. on mobile).
     function scrollToCard() {
       const top = (root as HTMLElement).getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top, behavior: 'smooth' });
     }
 
-    // ---- geocoding (button never sticks) ----
     const searchBtn = root.querySelector('#calc-search') as HTMLButtonElement;
     const addressInput = root.querySelector('#calc-address') as HTMLInputElement;
     const distanceEl = root.querySelector('#calc-distance') as HTMLElement;
+    if (locationLabel) addressInput.value = locationLabel;
+
     async function search() {
       const q = addressInput.value.trim();
       if (!q) return;
@@ -247,23 +274,30 @@ import { fromEur } from '../../lib/format';
       searchBtn.textContent = 'Tražim…';
       distanceEl.textContent = '';
       try {
+        locationLabel = q;
+        travel = resolveTravel(q);
         const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=hr&q=' + encodeURIComponent(q);
         const res = await fetch(url, { headers: { Accept: 'application/json' } });
         const data = (await res.json()) as Array<{ lat: string; lon: string; display_name: string }>;
         if (!data.length) {
-          distanceEl.textContent = 'Nismo našli to mjesto. Pokušajte drugačije ili nas pitajte na WhatsApp.';
-          distanceKm = null;
+          distanceEl.textContent = travel.known
+            ? travel.note
+            : 'Nismo našli to mjesto. Pokušajte drugačije ili nas pitajte na WhatsApp.';
           return;
         }
+        const named = resolveTravel(`${q} ${data[0].display_name}`);
+        if (named.known) travel = named;
         const km = Math.round(distanceFromBase(parseFloat(data[0].lat), parseFloat(data[0].lon)));
-        distanceKm = km;
-        locationLabel = q;
-        distanceEl.textContent = km <= FREE_KM
-          ? `~${km} km od Vrbovca, besplatan dolazak ✓`
-          : `~${km} km od Vrbovca, putni dodatak +${getFuelCharge(km)} €.`;
+        if (travel.known) {
+          distanceEl.textContent = `~${km} km od Vrbovca. ${travel.note}`;
+        } else if (km <= FREE_KM) {
+          travel = { fee: 0, minOrder: MIN_ORDER, note: 'Besplatan dolazak.', known: true };
+          distanceEl.textContent = `~${km} km od Vrbovca, besplatan dolazak ✓`;
+        } else {
+          distanceEl.textContent = `~${km} km od Vrbovca. Putni trošak potvrđujemo pri dogovoru.`;
+        }
       } catch {
         distanceEl.textContent = 'Trenutno ne možemo provjeriti udaljenost. Slobodno nastavite, dogovaramo na WhatsApp.';
-        distanceKm = null;
       } finally {
         searchBtn.disabled = false;
         searchBtn.textContent = 'Provjeri';
@@ -272,6 +306,6 @@ import { fromEur } from '../../lib/format';
     searchBtn.addEventListener('click', search);
     addressInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); search(); } });
 
-    show('service', false); // initial render must not scroll the page to the calculator
+    show('service', false);
   }
 </script>

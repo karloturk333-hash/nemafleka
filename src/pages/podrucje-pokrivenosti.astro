@@ -5,14 +5,20 @@ import Button from '../components/primitives/Button.astro';
 import Coverage from '../components/islands/Coverage.astro';
 import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
 import FaqList from '../components/sections/FaqList.astro';
-import { TOWNS } from '../data/towns';
+import { TOWNS, cityPath } from '../data/towns';
 import { localBusinessJsonLd, breadcrumbJsonLd } from '../lib/jsonld';
 ---
 <BaseLayout
   title="Područje pokrivenosti, Nema Fleka | Dubinsko čišćenje od Dugog Sela do Koprivnice"
-  description="Gdje dolazimo: Vrbovec, Dugo Selo, Ivanić-Grad, Križevci, Bjelovar, Koprivnica i okolica. Besplatan dolazak u zoni oko Vrbovca, dalje uz putni dodatak 0,50 €/km."
-  path="/podrucje-pokrivenosti/"
-  jsonLd={[breadcrumbJsonLd(), localBusinessJsonLd()]}
+  description="Gdje dolazimo: Vrbovec, Dugo Selo, Ivanić-Grad, Križevci, Bjelovar, Koprivnica i okolica. Besplatan dolazak u lokalnoj zoni, Bjelovar i Koprivnica +15 €."
+  path="/podrucje-pokrivenosti"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: 'Početna', path: '/' },
+      { name: 'Područje pokrivenosti', path: '/podrucje-pokrivenosti' },
+    ]),
+    localBusinessJsonLd(),
+  ]}
 >
   <section class="section hub-head">
     <div class="container">
@@ -34,13 +40,13 @@ import { localBusinessJsonLd, breadcrumbJsonLd } from '../lib/jsonld';
       <h2 class="section-h2">Mjesta koja pokrivamo</h2>
       <div class="town-grid">
         {TOWNS.map((t) => (
-          <div class="town-card">
+          <a class="town-card town-card-link" href={cityPath(t.slug)}>
             <h3>{t.name}</h3>
-            <p class="town-dist mono">~{t.distanceKm} km od Vrbovca</p>
+            <p class="town-dist mono">{t.distanceKm === 0 ? 'Baza' : `~${t.distanceKm} km od Vrbovca`}</p>
             <span class:list={['town-tag', t.free ? 'town-free' : 'town-sur']}>
-              {t.free ? 'Besplatan dolazak' : 'Mali putni dodatak'}
+              {t.free ? 'Besplatan dolazak' : `+${t.travelFee} € putni trošak`}
             </span>
-          </div>
+          </a>
         ))}
       </div>
       <p class="town-note muted">Udaljenosti su okvirne. Točan dolazak i cijenu potvrđujemo pri dogovoru.</p>

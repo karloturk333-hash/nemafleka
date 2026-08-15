@@ -1,7 +1,12 @@
 ---
 import Icon from '../primitives/Icon.astro';
 import { BUSINESS } from '../../data/business';
-import { waLink } from '../../lib/links';
+import { waLink, WA_MSG } from '../../lib/links';
+interface Props {
+  waMessage?: string;
+  waSource?: string;
+}
+const { waMessage = WA_MSG.sticky, waSource = 'footer' } = Astro.props;
 const { phones, email, hours, legal } = BUSINESS;
 ---
 <footer class="footer" id="site-footer">
@@ -32,7 +37,10 @@ const { phones, email, hours, legal } = BUSINESS;
           <li><Icon name="phone" size={15} /> <a href={`tel:${p.tel}`}>{p.name}: {p.display}</a></li>
         ))}
         <li><Icon name="mail" size={15} /> <a href={`mailto:${email}`}>{email}</a></li>
-        <li><Icon name="whatsapp" size={15} /> <a href={waLink()} target="_blank" rel="noopener">WhatsApp poruka</a></li>
+        <li><Icon name="whatsapp" size={15} /> <a href={waLink(waMessage)} target="_blank" rel="noopener" data-wa-source={waSource}>WhatsApp poruka</a></li>
+        {BUSINESS.googleBusinessUrl && (
+          <li><a href={BUSINESS.googleBusinessUrl} target="_blank" rel="noopener">Google Business profil</a></li>
+        )}
       </ul>
     </div>
 

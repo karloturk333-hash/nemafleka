@@ -1,17 +1,23 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
   "redirects": [
     { "source": "/nemafleka-v5.html", "destination": "/", "permanent": true },
-    { "source": "/dubinsko-ciscenje-dugo-selo", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-dugo-selo.html", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-ivanic-grad", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-ivanic-grad.html", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-krizevci", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-krizevci.html", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-bjelovar", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-bjelovar.html", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-koprivnica", "destination": "/podrucje-pokrivenosti", "permanent": true },
-    { "source": "/dubinsko-ciscenje-koprivnica.html", "destination": "/podrucje-pokrivenosti", "permanent": true }
+    { "source": "/dubinsko-ciscenje-vrbovec.html", "destination": "/dubinsko-ciscenje-vrbovec", "permanent": true },
+    { "source": "/dubinsko-ciscenje-dugo-selo.html", "destination": "/dubinsko-ciscenje-dugo-selo", "permanent": true },
+    { "source": "/dubinsko-ciscenje-ivanic-grad.html", "destination": "/dubinsko-ciscenje-ivanic-grad", "permanent": true },
+    { "source": "/dubinsko-ciscenje-krizevci.html", "destination": "/dubinsko-ciscenje-krizevci", "permanent": true },
+    { "source": "/dubinsko-ciscenje-sveti-ivan-zelina.html", "destination": "/dubinsko-ciscenje-sveti-ivan-zelina", "permanent": true },
+    { "source": "/dubinsko-ciscenje-klostar-ivanic.html", "destination": "/dubinsko-ciscenje-klostar-ivanic", "permanent": true },
+    { "source": "/dubinsko-ciscenje-cazma.html", "destination": "/dubinsko-ciscenje-cazma", "permanent": true },
+    { "source": "/dubinsko-ciscenje-bjelovar.html", "destination": "/dubinsko-ciscenje-bjelovar", "permanent": true },
+    { "source": "/dubinsko-ciscenje-koprivnica.html", "destination": "/dubinsko-ciscenje-koprivnica", "permanent": true },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.nemafleka.com" }],
+      "destination": "https://nemafleka.com/:path*",
+      "permanent": true
+    }
   ],
   "headers": [
     {

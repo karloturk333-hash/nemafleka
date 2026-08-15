@@ -6,6 +6,14 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://nemafleka.com',
   output: 'static',
-  integrations: [sitemap()],
+  trailingSlash: 'never',
+  integrations: [
+    sitemap({
+      serialize(item) {
+        const lastmod = new Date().toISOString();
+        return { ...item, lastmod };
+      },
+    }),
+  ],
   build: { inlineStylesheets: 'always' },
 });

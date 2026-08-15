@@ -1,0 +1,20 @@
+[
+  {
+    "id": "couch-1",
+    "usluga": "kauč",
+    "label": "kauča",
+    "before": "/images/ba-couch-before.webp",
+    "after": "/images/ba-couch-after.webp",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "id": "mattress-1",
+    "usluga": "madrac",
+    "label": "madraca",
+    "before": "/images/ba-mattress-before.webp",
+    "after": "/images/ba-mattress-after.webp",
+    "width": 1200,
+    "height": 1600
+  }
+]
