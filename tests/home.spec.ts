@@ -89,6 +89,13 @@ test('before/after slider responds to keyboard', async ({ page }) => {
   await page.goto('/');
   const handle = page.locator('#ba-handle');
   await handle.scrollIntoViewIfNeeded();
+
+  const split = await page.locator('#ba-split').boundingBox();
+  expect(split!.width).toBeGreaterThan(200);
+  expect(split!.height).toBeGreaterThan(200);
+  const loaded = await page.locator('#ba-before-img').evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
+  expect(loaded).toBe(true);
+
   await handle.focus();
   const before = Number(await handle.getAttribute('aria-valuenow'));
   await page.keyboard.press('ArrowRight');
