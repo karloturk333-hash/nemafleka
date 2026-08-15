@@ -11,13 +11,7 @@
     { "source": "/dubinsko-ciscenje-klostar-ivanic.html", "destination": "/dubinsko-ciscenje-klostar-ivanic", "permanent": true },
     { "source": "/dubinsko-ciscenje-cazma.html", "destination": "/dubinsko-ciscenje-cazma", "permanent": true },
     { "source": "/dubinsko-ciscenje-bjelovar.html", "destination": "/dubinsko-ciscenje-bjelovar", "permanent": true },
-    { "source": "/dubinsko-ciscenje-koprivnica.html", "destination": "/dubinsko-ciscenje-koprivnica", "permanent": true },
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.nemafleka.com" }],
-      "destination": "https://nemafleka.com/:path*",
-      "permanent": true
-    }
+    { "source": "/dubinsko-ciscenje-koprivnica.html", "destination": "/dubinsko-ciscenje-koprivnica", "permanent": true }
   ],
   "headers": [
     {
