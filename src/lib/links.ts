@@ -4,6 +4,7 @@ import { WHATSAPP_PHONE } from '../data/business';
 export const WA_MSG = {
   hero: 'Bok! Zanima me dubinsko čišćenje.',
   sticky: 'Bok! Pišem s vaše web stranice.',
+  cjenik: 'Bok! Gledam cjenik i želim dogovoriti čišćenje.',
   faq: 'Bok! Imam pitanje o dubinskom čišćenju.',
   car: 'Bok! Zanima me čišćenje interijera auta.',
   city: (grad: string) => `Bok! Pišem s vaše stranice za ${grad}.`,

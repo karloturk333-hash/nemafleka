@@ -11,12 +11,10 @@ području Vrbovca i okolice (Dugo Selo → Koprivnica). Lokalni tim, transparent
 
 ## Što stranica radi
 
-- 🧮 **Vođeni kalkulator cijene** — korak po korak (usluga → veličina → košarica → lokacija → ponuda).
-  Dinamičan izračun s popustima za više usluga (2/3/5+ → −10/−15/−20%) i procjenom u sekundi.
-- 💬 **WhatsApp funnel** — gumb na ponudi gradi pre-popunjenu `wa.me` poruku s odabranim uslugama
-  i ukupnom cijenom (URL-encodano), pa lead stiže s točnim podacima.
-- 📍 **Putni model** — besplatan dolazak u lokalnoj zoni (`FREE_KM` oko Vrbovca), izvan toga
-  `0,50 €/km`, uz minimalnu narudžbu.
+- 💶 **Transparentni cjenik** — konkretne stavke, bez „od X €“. Paket, minimalni izlazak i
+  putne zone na jednom mjestu. WhatsApp s cjenika šalje predpopunjenu poruku.
+- 📍 **Putni model** — besplatan dolazak u lokalnoj zoni oko Vrbovca; Bjelovar i Koprivnica
+  +15 €; Zagreb istok +20 € uz viši minimum.
 - 🖼️ **Before/after slider** — prave fotke, `clip-path` reveal (slike se otkrivaju, ne razvlače).
 - 🎨 **WebGL „shader" hero** (vanilla, bez frameworka) + navy/lime design system.
 - 📱 **Responzivno** — fluidna tipografija i provjereni layout na 4 referentna uređaja
@@ -24,19 +22,11 @@ području Vrbovca i okolice (Dugo Selo → Koprivnica). Lokalni tim, transparent
 - 🔎 **Lokalni SEO** — `LocalBusiness` + `FAQPage` JSON-LD, kanonska apex domena s
   www→non-www 301 redirectom, sitemap, self-hostani fontovi, `.webp` slike.
 
-| Naslovna (mobitel) | Kalkulator (mobitel) |
-|---|---|
-| ![Mobitel](docs/screenshots/home-mobile.png) | ![Kalkulator mobitel](docs/screenshots/calculator-mobile.png) |
-
-| Kalkulator — ponuda | Vizualni dokaz (before/after) |
-|---|---|
-| ![Ponuda](docs/screenshots/calculator-result-desktop.png) | ![Before/after](docs/screenshots/before-after-desktop.png) |
-
 ## Tehnologije
 
 - **Astro** — statički build (`output: 'static'`, zero JS osim interaktivnih otoka), deploy na **Vercel**
-- **TypeScript** — tipizirani podatkovni sloj + čisti kalkulator engine
-- **Vanilla islands** (bez frameworka) — kalkulator, before/after slider, Leaflet karta, mobilni meni, [whatamesh](https://github.com/Razzwan/whatamesh) shader gradient
+- **TypeScript** — tipizirani podatkovni sloj (cijene, zone, WhatsApp linkovi)
+- **Vanilla islands** (bez frameworka) — before/after slider, Leaflet karta, mobilni meni, [whatamesh](https://github.com/Razzwan/whatamesh) shader gradient
 - **Vitest** (unit) + **Playwright / axe-core** (E2E + a11y)
 - Samostalno hostani fontovi (Space Grotesk / Manrope / Space Mono)
 
@@ -47,7 +37,7 @@ npm install
 npm run dev        # lokalni dev server
 npm run build      # statički build u dist/
 npm run preview    # pregled builda
-npm test           # vitest (kalkulator engine)
+npm test           # vitest (cijene + WhatsApp linkovi)
 npm run test:e2e   # playwright (treba pokrenut server na :8088 ili BASE_URL)
 ```
 
@@ -59,12 +49,12 @@ viewporta i javlja overflow + veličine fontova.
 ```
 src/
   data/        # JEDAN izvor istine: services, pricing, towns, business, faq
-  lib/         # calculator.ts (čisti engine + testovi), jsonld.ts, format.ts, links.ts
+  lib/         # jsonld.ts, format.ts, links.ts
   layouts/     # BaseLayout.astro (head, fontovi, canonical/OG, JSON-LD)
   components/
     primitives/  # Button, Eyebrow, SectionHeader, Icon
     sections/    # Hero, TrustStrip, Services, PriceCard, Timeline, About, FaqList, ContactCTA, Nav, Footer
-    islands/     # CalculatorWizard, BeforeAfter, Coverage (Leaflet), MobileNav, ShaderBg
+    islands/     # BeforeAfter, Coverage (Leaflet), MobileNav, ShaderBg
   pages/       # index.astro, podrucje-pokrivenosti.astro
   styles/      # tokens.css (design tokeni), global.css, components.css
 public/images/ # WebP + favicons
@@ -72,7 +62,7 @@ public/images/ # WebP + favicons
 
 ### Jedan izvor istine za cijene/mjesta
 Cijene, veličine i popusti žive **samo** u `src/data/services.ts` + `pricing.ts`; mjesta u
-`towns.ts`. Kalkulator, cjenik, karta i JSON-LD čitaju isto → cijene se ne mogu razići (kao prije:
+`towns.ts`. Cjenik, karta i JSON-LD čitaju isto → cijene se ne mogu razići (kao prije:
 home 45€ vs grad 40€). Promijeniš cijenu na jednom mjestu i mijenja se svugdje.
 
 ## Politika poštenog sadržaja

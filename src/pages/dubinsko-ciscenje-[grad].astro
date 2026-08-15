@@ -4,7 +4,6 @@ import Button from '../components/primitives/Button.astro';
 import Icon from '../components/primitives/Icon.astro';
 import PriceCard from '../components/sections/PriceCard.astro';
 import BeforeAfter from '../components/islands/BeforeAfter.astro';
-import CalculatorWizard from '../components/islands/CalculatorWizard.astro';
 import FaqList from '../components/sections/FaqList.astro';
 import ContactCTA from '../components/sections/ContactCTA.astro';
 import { CITY_PAGES, cityHref } from '../data/cities';
@@ -50,7 +49,7 @@ const related = city.related.map((slug) => cityBySlug[slug]).filter(Boolean);
       <p class="section-sub left">{city.intro}</p>
       {city.body.map((p) => <p class="city-p">{p}</p>)}
       <div class="city-cta-row">
-        <Button href="#kalkulator" variant="cta">Izračunajte cijenu →</Button>
+        <Button href="#cjenik" variant="cta">Pogledajte cjenik →</Button>
         <Button href={wa} variant="wa" external data-wa-source={`grad-${city.slug}`}>
           <Icon name="whatsapp" size={18} /> Pišite nam za {city.grad}
         </Button>
@@ -58,7 +57,7 @@ const related = city.related.map((slug) => cityBySlug[slug]).filter(Boolean);
     </div>
   </section>
 
-  <PriceCard />
+  <PriceCard waMessage={WA_MSG.city(city.grad)} waSource={`grad-${city.slug}`} />
   <BeforeAfter defaultUsluga={city.baDefault === 'mattress' ? 'madrac' : 'kauč'} />
 
   <section class="section" id="kako">
@@ -76,8 +75,6 @@ const related = city.related.map((slug) => cityBySlug[slug]).filter(Boolean);
       </ol>
     </div>
   </section>
-
-  <CalculatorWizard defaultLocation={city.name} waSource={`grad-${city.slug}`} />
 
   <FaqList entries={city.faq} waMessage={WA_MSG.city(city.grad)} waSource={`grad-${city.slug}`} />
 

@@ -1,6 +1,10 @@
 ---
 import SectionHeader from '../primitives/SectionHeader.astro';
 import Button from '../primitives/Button.astro';
+interface Props {
+  showPlacesCta?: boolean;
+}
+const { showPlacesCta = true } = Astro.props;
 const bullets = [
   'Vrbovec i okolica, besplatan dolazak',
   'Dugo Selo, Ivanić-Grad, Kloštar Ivanić, besplatan dolazak',
@@ -22,10 +26,11 @@ const bullets = [
       <ul class="zona-list" role="list">
         {bullets.map((b) => <li>{b}</li>)}
       </ul>
-      <div class="zona-cta-row">
-        <Button href="#kalkulator" variant="cta">Provjerite svoju lokaciju</Button>
-        <a class="zona-link" href="/podrucje-pokrivenosti">Sva mjesta koja pokrivamo →</a>
-      </div>
+      {showPlacesCta && (
+        <div class="zona-cta-row">
+          <Button href="/podrucje-pokrivenosti" variant="cta">Sva mjesta koja pokrivamo</Button>
+        </div>
+      )}
     </div>
     <div id="coverage-map" class="zona-map" role="group" aria-label="Interaktivna karta zone pokrivenosti oko Vrbovca"></div>
   </div>

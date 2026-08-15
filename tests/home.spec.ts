@@ -1,51 +1,27 @@
 import { test, expect } from '@playwright/test';
 
-test('calculator computes a quote and builds a WhatsApp link', async ({ page }) => {
+test('cjenik lists concrete prices, travel, and a WhatsApp CTA', async ({ page }) => {
   await page.goto('/');
-  await page.locator('#kalkulator').scrollIntoViewIfNeeded();
+  const cjenik = page.locator('#cjenik');
+  await cjenik.scrollIntoViewIfNeeded();
 
-  // Kauč → Kutna garnitura (90)
-  await page.locator('.svc-pick[data-service=couch]').click();
-  await page.locator('#size-opts .csize-pill').nth(2).click();
-  await page.locator('#size-add').click();
+  await expect(cjenik).toContainText('Kutna garnitura');
+  await expect(cjenik).toContainText('90 €');
+  await expect(cjenik).toContainText('Paket "Dnevni boravak"');
+  await expect(cjenik).toContainText('Minimalni izlazak 60 €');
+  await expect(cjenik).toContainText('Bjelovar, Koprivnica');
+  await expect(cjenik).toContainText('+15 €');
 
-  // Tepih → do 6 m² (60)
-  await page.locator('#add-more').click();
-  await page.locator('.svc-pick[data-service=carpet]').click();
-  await page.locator('#size-opts .csize-pill').nth(1).click();
-  await page.locator('#size-add').click();
-
-  await page.locator('#to-location').click();
-  await page.locator('#to-result').click();
-
-  await expect(page.locator('#cr-total')).toHaveText('150 €');
-
-  const href = await page.locator('#cr-wa').getAttribute('href');
-  expect(href).not.toBe('#');
+  const href = await cjenik.locator('a[data-wa-source="cjenik"]').getAttribute('href');
   expect(href).toContain('wa.me/385953765343');
   const body = decodeURIComponent(href!.split('text=')[1]!);
-  expect(body).toContain('Kutna garnitura — 90 €');
-  expect(body).toContain('Tepih do 6 m² — 60 €');
-  expect(body).toContain('Ukupno: ~150 €');
-  expect(body).toContain('Možemo li dogovoriti termin?');
-  expect(body).toContain('\n');
+  expect(body).toBe('Bok! Gledam cjenik i želim dogovoriti čišćenje.');
 });
 
-test('calculator CTA has a WhatsApp fallback href before JS rewrites it', async ({ page }) => {
+test('homepage has no calculator and hero points at the cjenik', async ({ page }) => {
   await page.goto('/');
-  const href = await page.locator('#cr-wa').getAttribute('href');
-  expect(href).toContain('wa.me/385953765343');
-  expect(href).not.toBe('#');
-});
-
-test('chair cannot proceed as the only service', async ({ page }) => {
-  await page.goto('/');
-  await page.locator('#kalkulator').scrollIntoViewIfNeeded();
-  await page.locator('.svc-pick[data-service=chair]').click();
-  await page.locator('#size-opts .csize-pill').first().click();
-  await page.locator('#size-add').click();
-  await expect(page.locator('#to-location')).toBeDisabled();
-  await expect(page.locator('#cart-warn')).toBeVisible();
+  await expect(page.locator('#kalkulator')).toHaveCount(0);
+  await expect(page.locator('a[href="#cjenik"]').first()).toBeVisible();
 });
 
 test('no "od X €" price anchoring on the homepage', async ({ page }) => {

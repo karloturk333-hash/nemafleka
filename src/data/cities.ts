@@ -41,7 +41,7 @@ export const CITY_PAGES: CityPage[] = [
       'Vrbovec nam je baza, ne usputna stanica. Kauč u centru, tepih u Gornjem Tkalcu ili madrac prema Lonji — dolazimo na adresu, bez putnog troška. Nismo ekipa iz Zagreba koja "može svratiti kad bude u blizini"; ovdje živimo i radimo.',
     body: [
       'Od Vrbovca do Gradeca, Rakovca, Preseke i Farkaševca vožnja je kratka. Zato možemo ponuditi termine isti ili idući dan, a ne tjedne čekanja. Ako ste u općini Dubrava pored Vrbovca (ne zagrebačkoj Dubravi), to je ista zona: dolazak je besplatan.',
-      'Radimo ekstrakcijskim strojem, ne usisavačem. Kauč, tepih, madrac i interijer auta čistimo kod vas. Cijenu vidite na cjeniku i u kalkulatoru prije nego što nam pišete. Minimalni izlazak je 60 €, što u praksi znači da se isplati spojiti kauč i tepih ili uzeti paket Dnevni boravak.',
+      'Radimo ekstrakcijskim strojem, ne usisavačem. Kauč, tepih, madrac i interijer auta čistimo kod vas. Cijenu vidite na cjeniku prije nego što nam pišete. Minimalni izlazak je 60 €, što u praksi znači da se isplati spojiti kauč i tepih ili uzeti paket Dnevni boravak.',
       'Susjedi iz Dugog Sela i Križevaca nas često zovu isti dan kad i Vrbovčani. Ako ste na rubu grada, prema Žabnici ili Kućancu, i dalje smo u besplatnoj zoni. Pišite na WhatsApp, javimo se u 30 minuta u radno vrijeme.',
     ],
     howTitle: 'Kako to izgleda kad dolazimo u Vrbovec',
@@ -250,7 +250,7 @@ export const CITY_PAGES: CityPage[] = [
     howTitle: 'Kako to izgleda kad dolazimo u Bjelovar',
     howLead: 'Najavimo sat, uračunamo 15 € dolaska, radimo kod vas. Ako istog dana imamo Čazmu, satnicu slažemo u jednu rutu.',
     steps: [
-      { t: 'Pošaljete popis', d: 'Kalkulator na ovoj stranici može uračunati Bjelovar ako upišete lokaciju. Ili odmah pišite na WhatsApp.' },
+      { t: 'Pošaljete popis', d: 'Napišite što treba očistiti, ili odmah pišite na WhatsApp. Cijene su na cjeniku; za Bjelovar dodajemo 15 € dolaska.' },
       { t: 'Potvrdimo ukupno', d: 'Usluge + 15 €. Nema iznenađenja na vratima. Ako ste u predgrađu, i dalje +15 €, ne rastući "po kilometru".' },
       { t: 'Dolazak i rad', d: 'Parkiramo, donesemo stroj, očistimo, odemo. Garancija vrijedi i u Bjelovaru: ponovni dolazak ili novac natrag.' },
     ],

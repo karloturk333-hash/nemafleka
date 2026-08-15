@@ -1,5 +1,5 @@
 // SINGLE source of truth for services + sizes + prices.
-// ServiceCard, PriceCard, and the CalculatorWizard ALL read this.
+// ServiceCard and PriceCard ALL read this.
 
 export interface SizeOption {
   id: string;
@@ -21,7 +21,7 @@ export interface Service {
   popular?: boolean;
   /** Cannot be booked as the only service (stolica, tabure). */
   addonOnly?: boolean;
-  /** Hide from the "Što sve čistimo" grid (package lives in cjenik + calculator). */
+  /** Hide from the "Što sve čistimo" grid (package lives in the cjenik). */
   featured?: boolean;
   pickerPrice: string;
   sizes: SizeOption[];
