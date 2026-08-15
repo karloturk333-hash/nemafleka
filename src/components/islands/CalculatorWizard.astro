@@ -44,7 +44,7 @@ const fallbackWa = waLink('Bok! Želim procjenu preko kalkulatora.');
         </div>
         <p class="calc-package-hint">
           <strong>Paket Dnevni boravak — {LIVING_ROOM_PACKAGE.price} €</strong>
-          {LIVING_ROOM_PACKAGE.includes}. Zasebno {LIVING_ROOM_PACKAGE.wasPrice} €.
+          {LIVING_ROOM_PACKAGE.includes}.
         </p>
         <div class="calc-actions">
           <button type="button" class="wizard-back" data-act="to-cart" hidden>← Natrag na popis</button>
@@ -107,7 +107,7 @@ const fallbackWa = waLink('Bok! Želim procjenu preko kalkulatora.');
   import { SERVICES, SERVICE_EMOJI } from '../../data/services';
   import { FREE_KM, MIN_ORDER } from '../../data/pricing';
 
-  const MIN_COPY = 'Minimalni izlazak je 60 €. Dodajte još jednu uslugu ili nas pitajte — možda smo ionako u vašem mjestu tog dana.';
+  const MIN_COPY = `Minimalni izlazak je ${MIN_ORDER} €. Dodajte još jednu uslugu ili nas pitajte — možda smo ionako u vašem mjestu tog dana.`;
   const ADDON_COPY = 'Stolica i tabure idu samo uz drugu uslugu. Dodajte kauč, tepih, madrac ili auto.';
 
   const root = document.querySelector('.calc-card');

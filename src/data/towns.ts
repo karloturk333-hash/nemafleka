@@ -18,8 +18,8 @@ export const TOWNS: Town[] = [
   { slug: 'ivanic-grad', name: 'Ivanić-Grad', lat: 45.7081, lng: 16.3922, distanceKm: 20, free: true, travelFee: 0, page: true },
   { slug: 'klostar-ivanic', name: 'Kloštar Ivanić', lat: 45.7411, lng: 16.4536, distanceKm: 18, free: true, travelFee: 0, page: true },
   { slug: 'cazma', name: 'Čazma', lat: 45.7497, lng: 16.6167, distanceKm: 22, free: true, travelFee: 0, page: true },
-  { slug: 'bjelovar', name: 'Bjelovar', lat: 45.8989, lng: 16.8484, distanceKm: 33, free: false, travelFee: 15, page: true },
-  { slug: 'koprivnica', name: 'Koprivnica', lat: 46.1639, lng: 16.8278, distanceKm: 42, free: false, travelFee: 15, page: true },
+  { slug: 'bjelovar', name: 'Bjelovar', lat: 45.8989, lng: 16.8484, distanceKm: 33, free: false, travelFee: 25, page: true },
+  { slug: 'koprivnica', name: 'Koprivnica', lat: 46.1639, lng: 16.8278, distanceKm: 42, free: false, travelFee: 25, page: true },
 ];
 
 export const cityPath = (slug: string) => `/dubinsko-ciscenje-${slug}`;

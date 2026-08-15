@@ -4,12 +4,12 @@ test('calculator computes a quote and builds a WhatsApp link', async ({ page }) 
   await page.goto('/');
   await page.locator('#kalkulator').scrollIntoViewIfNeeded();
 
-  // Kauč → Kutna garnitura (90)
+  // Kauč → Kutna garnitura (70)
   await page.locator('.svc-pick[data-service=couch]').click();
   await page.locator('#size-opts .csize-pill').nth(2).click();
   await page.locator('#size-add').click();
 
-  // Tepih → do 6 m² (60)
+  // Tepih → do 6 m² (30)
   await page.locator('#add-more').click();
   await page.locator('.svc-pick[data-service=carpet]').click();
   await page.locator('#size-opts .csize-pill').nth(1).click();
@@ -18,15 +18,15 @@ test('calculator computes a quote and builds a WhatsApp link', async ({ page }) 
   await page.locator('#to-location').click();
   await page.locator('#to-result').click();
 
-  await expect(page.locator('#cr-total')).toHaveText('150 €');
+  await expect(page.locator('#cr-total')).toHaveText('100 €');
 
   const href = await page.locator('#cr-wa').getAttribute('href');
   expect(href).not.toBe('#');
   expect(href).toContain('wa.me/385953765343');
   const body = decodeURIComponent(href!.split('text=')[1]!);
-  expect(body).toContain('Kutna garnitura — 90 €');
-  expect(body).toContain('Tepih do 6 m² — 60 €');
-  expect(body).toContain('Ukupno: ~150 €');
+  expect(body).toContain('Kutna garnitura — 70 €');
+  expect(body).toContain('Tepih do 6 m² — 30 €');
+  expect(body).toContain('Ukupno: ~100 €');
   expect(body).toContain('Možemo li dogovoriti termin?');
   expect(body).toContain('\n');
 });
