@@ -365,7 +365,7 @@
 }
 .price-package h3 { color: #fff; font-size: var(--text-xl); margin-bottom: .35em; }
 .price-package p { color: #D7D9F0; }
-.price-was { margin-top: .35em; color: #9A9ECF; }
+.price-was { margin-top: .35em; color: #C9CCEC; }
 .price-was s { text-decoration-thickness: 2px; }
 .price-min { margin-bottom: var(--space-4); font-size: var(--text-sm); }
 
