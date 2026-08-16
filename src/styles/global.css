@@ -78,18 +78,27 @@ a{color:var(--link);text-decoration:none}
   inherits: true;
   initial-value: 86%;
 }
+@property --hero-chrome {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
 .hero-proof .proof-frame{margin:0}
 .hero-proof .proof-split{
   --hero-split: 86%;
+  --hero-chrome: 1;
   aspect-ratio:4/5;
   border-radius:var(--r-xl);
   box-shadow:0 28px 70px rgba(8,9,46,.45),0 0 0 1px rgba(255,255,255,.14);
-  /* Wipe itself is ~3.4s (attention span for this beat). Short delay only
-     so the stills can paint — no long static hold. */
-  animation: hero-split-reveal 3.4s .4s cubic-bezier(.45,0,.15,1) both;
+  /* 4.2s wipe stains → fully clean. Last ~20% fades the split chrome
+     so the still lands as the result, not a parked slider. */
+  animation: hero-split-reveal 4.2s .3s cubic-bezier(.45,0,.15,1) both;
 }
-.hero-proof .proof-split img{object-position:50% 40%}
+.hero-proof .proof-split img{object-position:38% 36%}
 .hero-proof .proof-before{clip-path:inset(0 calc(100% - var(--hero-split)) 0 0)}
+.hero-proof .proof-divider,
+.hero-proof .proof-knob,
+.hero-proof .proof-tag{opacity:var(--hero-chrome)}
 .hero-proof .proof-divider{left:var(--hero-split);width:2px;transform:translateX(-50%);box-shadow:0 0 0 3px rgba(200,255,62,.16)}
 .hero-proof .proof-knob{
   position:absolute;top:50%;left:var(--hero-split);z-index:4;
@@ -103,11 +112,12 @@ a{color:var(--link);text-decoration:none}
   font-size:var(--text-sm);color:#C9CCEC;
 }
 @keyframes hero-split-reveal{
-  0%{--hero-split: 86%}
-  100%{--hero-split: 32%}
+  0%{--hero-split: 86%;--hero-chrome: 1}
+  80%{--hero-chrome: 1}
+  100%{--hero-split: 0%;--hero-chrome: 0}
 }
 @media (prefers-reduced-motion: reduce){
-  .hero-proof .proof-split{animation: none;--hero-split: 32%}
+  .hero-proof .proof-split{animation: none;--hero-split: 0%;--hero-chrome: 0}
 }
 
 /* ---- TRUST STRIP ---- */
