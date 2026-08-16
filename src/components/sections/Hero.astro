@@ -13,13 +13,15 @@ import { proofWidths, proofSizes } from '../../lib/heroProof';
   <ShaderBg id="hero-shader" class="hero-canvas" colors={['#181A6E', '#2A2EA0', '#3D40C2', '#5A5DD6']} />
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-grid">
-    <div class="hero-copy">
-      <span class="eyebrow">Vrbovec · Dugo Selo · Križevci · Bjelovar · Koprivnica</span>
-      <h1 class="hero-h1">Fleke<br /><span class="accent">nemaju šanse.</span></h1>
-      <p class="hero-sub">
-        Dubinsko čišćenje kauča, tepiha, madraca i automobila, kod vas doma, brzo i temeljito.
-        Lokalni tim iz Vrbovca. <strong>Cijenu znate unaprijed.</strong>
-      </p>
+    <div class="hero-intro">
+      <div class="hero-copy">
+        <span class="eyebrow">Vrbovec · Dugo Selo · Križevci · Bjelovar · Koprivnica</span>
+        <h1 class="hero-h1">Fleke<br /><span class="accent">nemaju šanse.</span></h1>
+        <p class="hero-sub">
+          Dubinsko čišćenje kauča, tepiha, madraca i automobila, kod vas doma, brzo i temeljito.
+          Lokalni tim iz Vrbovca. <strong>Cijenu znate unaprijed.</strong>
+        </p>
+      </div>
       <div class="hero-cta-row">
         <Button href="#cjenik" variant="cta" size="lg">Pogledajte cjenik →</Button>
         <Button href={waLink(WA_MSG.hero)} variant="ghost" size="lg" external data-wa-source="hero"><Icon name="whatsapp" size={18} /> Pišite nam</Button>

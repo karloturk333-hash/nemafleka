@@ -43,7 +43,7 @@ a{color:var(--link);text-decoration:none}
 .nav-cta{padding:.6em 1.1em;font-size:var(--text-sm)}
 
 /* ---- HERO ---- */
-.hero{position:relative;background:var(--ink-900);color:#fff;overflow:hidden;padding:clamp(3rem,8vw,6rem) 0}
+.hero{position:relative;background:var(--ink-900);color:#fff;overflow:hidden;padding:clamp(1.5rem,6vw,6rem) 0}
 /* Static fallback (shown under reduced-motion or before the canvas paints). */
 .hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,var(--ink-900),var(--ink-700) 70%,var(--ink-600))}
 /* WebGL shader-mesh canvas (whatamesh) — fills edge to edge, no flat corners.
@@ -52,9 +52,10 @@ a{color:var(--link);text-decoration:none}
 /* Left scrim keeps the white hero copy readable over the lighter blends. */
 .hero-scrim{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(8,9,46,.7),rgba(8,9,46,.18) 58%,transparent)}
 .hero-grid{position:relative;z-index:1;max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.hero-intro{display:flex;flex-direction:column;justify-content:center;gap:var(--space-6);min-width:0}
 .hero-h1{font-size:var(--text-hero);font-weight:700;color:#fff;letter-spacing:-.03em;margin-bottom:var(--space-5)}
-.hero-sub{font-size:var(--text-lg);color:#D7D9F0;max-width:42ch;margin-bottom:var(--space-6)}
-.hero-cta-row{display:flex;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6)}
+.hero-sub{font-size:var(--text-lg);color:#D7D9F0;max-width:42ch}
+.hero-cta-row{display:flex;gap:var(--space-4);flex-wrap:wrap}
 
 /* before/after proof frame */
 .hero-proof{position:relative}
@@ -187,9 +188,21 @@ a{color:var(--link);text-decoration:none}
 /* Tablet (<= 1024px): stack the 2-col hero/zona earlier so neither column
    gets squeezed, and keep the heaviest grids to an intentional 2 columns. */
 @media(max-width:1024px){
-  .hero-grid,.zona-grid{grid-template-columns:1fr;gap:clamp(2rem,5vw,3rem)}
-  .hero-proof{margin-top:var(--space-5)}
+  .hero-grid,.zona-grid{grid-template-columns:1fr}
+  .zona-grid{gap:clamp(2rem,5vw,3rem)}
   .footer-grid{grid-template-columns:1.4fr 1fr 1fr}
+  /* Phone/tablet hero: claim → photo proof → CTAs. Unwrap .hero-intro so the
+     proof card can sit between the copy and the buttons instead of after a
+     stacked CTA pair with a dead navy gap. */
+  .hero-grid{gap:1.25rem}
+  .hero-intro{display:contents}
+  .hero-copy{order:1}
+  .hero-proof{order:2;margin-top:0}
+  .hero-cta-row{order:3;flex-direction:column;align-items:stretch;gap:.75rem}
+  .hero-cta-row .btn{width:100%;justify-content:center}
+  .hero-h1{margin-bottom:var(--space-3)}
+  .hero .eyebrow{margin-bottom:var(--space-3);line-height:1.45;max-width:100%}
+  .proof-frame{transform:none}
 }
 
 @media(max-width:900px){
