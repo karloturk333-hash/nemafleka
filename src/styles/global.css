@@ -58,7 +58,7 @@ a{color:var(--link);text-decoration:none}
 .hero-cta-row{display:flex;gap:var(--space-4);flex-wrap:wrap}
 
 /* before/after proof — shared geometry (hero + #dokaz slider) */
-.hero-proof{position:relative;min-width:0}
+.hero-proof{position:relative;min-width:0;width:100%;max-width:26rem;justify-self:center}
 .proof-split{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/3}
 .proof-split.big{aspect-ratio:3/4}
 .proof-split img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none;pointer-events:none}
@@ -207,7 +207,7 @@ a{color:var(--link);text-decoration:none}
   .hero-intro{display:contents}
   .hero-copy{order:1;min-width:0}
   .hero-proof{order:2;margin-inline:auto;width:100%;max-width:22rem}
-  .hero-proof .proof-split{max-height:48vh}
+  .hero-proof .proof-split{aspect-ratio:1/1;max-height:none}
   .hero-sub{order:3}
   .hero-cta-row{order:4}
   .hero-cta-row .btn{width:100%;justify-content:center}
