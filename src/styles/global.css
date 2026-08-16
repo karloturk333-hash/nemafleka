@@ -84,9 +84,9 @@ a{color:var(--link);text-decoration:none}
   aspect-ratio:4/5;
   border-radius:var(--r-xl);
   box-shadow:0 28px 70px rgba(8,9,46,.45),0 0 0 1px rgba(255,255,255,.14);
-  /* First paint is the stains (backwards fill). After a beat, one ease-out
-     wipe onto the clean rest. Delay is the hold — @property ignores 0%/n% holds. */
-  animation: hero-split-reveal 2.4s 1s cubic-bezier(.45,0,.15,1) both;
+  /* Wipe itself is ~3.4s (attention span for this beat). Short delay only
+     so the stills can paint — no long static hold. */
+  animation: hero-split-reveal 3.4s .4s cubic-bezier(.45,0,.15,1) both;
 }
 .hero-proof .proof-split img{object-position:50% 40%}
 .hero-proof .proof-before{clip-path:inset(0 calc(100% - var(--hero-split)) 0 0)}
