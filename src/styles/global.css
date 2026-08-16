@@ -84,8 +84,7 @@ a{color:var(--link);text-decoration:none}
   aspect-ratio:4/5;
   border-radius:var(--r-xl);
   box-shadow:0 28px 70px rgba(8,9,46,.45),0 0 0 1px rgba(255,255,255,.14);
-  /* left → right → rest at 50%. One % so clip + lime rule stay locked.
-     Curves: easings.net easeOutQuint / the site's ease-out-expo (--t-slow). */
+  /* left → right → rest left of centre so the clean couch reads larger. */
   animation: hero-split-sweep 2.7s 0.4s both;
 }
 .hero-proof .proof-split img{object-position:50% 40%}
